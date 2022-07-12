@@ -1,0 +1,432 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"icon-in",
+				"icon-info-sign"
+			],
+			[
+				"icon-e",
+				"icon-bell"
+			],
+			[
+				"icon-c",
+				"icon-comment"
+			],
+			[
+				"villa",
+				"village_err"
+			],
+			[
+				"vill",
+				"village"
+			],
+			[
+				"kebe",
+				"kebele"
+			],
+			[
+				"els",
+				"else"
+			],
+			[
+				"nty",
+				"ntype_err"
+			],
+			[
+				"k",
+				"kebele_err"
+			],
+			[
+				"de",
+				"description_err"
+			],
+			[
+				"nd",
+				"ndatetime_err"
+			],
+			[
+				"nt",
+				"ntype_err"
+			],
+			[
+				"vi",
+				"village"
+			],
+			[
+				"ke",
+				"kebele"
+			],
+			[
+				"des",
+				"description"
+			],
+			[
+				"nda",
+				"ndatetime"
+			],
+			[
+				"li",
+				"link"
+			],
+			[
+				"mysq",
+				"mysql_query"
+			],
+			[
+				"ag",
+				"age"
+			],
+			[
+				"mo",
+				"mobile_err"
+			],
+			[
+				"tr",
+				"trim"
+			],
+			[
+				"gend",
+				"gender_err"
+			],
+			[
+				"st",
+				"style\tTag"
+			],
+			[
+				"cla",
+				"className"
+			],
+			[
+				"form",
+				"formGroup"
+			],
+			[
+				"fna",
+				"fname"
+			],
+			[
+				"su",
+				"submit"
+			],
+			[
+				"na",
+				"nationality"
+			],
+			[
+				"rel",
+				"religion"
+			],
+			[
+				"re",
+				"region"
+			],
+			[
+				"ge",
+				"gender"
+			],
+			[
+				"bord",
+				"border-color\tproperty"
+			],
+			[
+				"h",
+				"hidden\tvisibility"
+			],
+			[
+				"fa",
+				"favicon"
+			],
+			[
+				"fony",
+				"font-family\tproperty"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/E/Template/matrix-admin-package-full/matriz-admin-old/HTML/gallery.html",
+		"/E/Template/matrix-admin-package-full/matriz-admin-old/HTML/form-wizard.html",
+		"/E/Template/matrix-admin-package-full/matriz-admin-old/HTML/form-validation.html",
+		"/E/Template/matrix-admin-package-full/matriz-admin-old/HTML/form-common.html",
+		"/E/Template/matrix-admin-package-full/matriz-admin-old/HTML/error500.html",
+		"/E/Template/matrix-admin-package-full/matriz-admin-old/HTML/error405.html",
+		"/E/Template/matrix-admin-package-full/matriz-admin-old/HTML/error404.html",
+		"/E/Template/matrix-admin-package-full/matriz-admin-old/HTML/error403.html",
+		"/E/Template/matrix-admin-package-full/matriz-admin-old/HTML/chat.html",
+		"/E/Template/matrix-admin-package-full/matriz-admin-old/HTML/charts.html",
+		"/E/Template/matrix-admin-package-full/matriz-admin-old/HTML/calendar.html",
+		"/E/Template/matrix-admin-package-full/matriz-admin-old/HTML/buttons.html",
+		"/E/Template/matrix-admin-package-full/matriz-admin-old/HTML/widgets.html",
+		"/E/Template/matrix-admin-package-full/matriz-admin-old/HTML/tables.html",
+		"/E/Template/matrix-admin-package-full/matriz-admin-old/HTML/problem.html",
+		"/E/Template/matrix-admin-package-full/matriz-admin-old/HTML/index.html",
+		"/E/Template/matrix-admin-package-full/matriz-admin-old/HTML/invoice.html",
+		"/E/Template/matrix-admin-package-full/matriz-admin-old/HTML/grid.html",
+		"/E/Template/matrix-admin-package-full/matriz-admin-old/HTML/index2.html",
+		"/E/Template/matrix-admin-package-full/matriz-admin-old/HTML/interface.html",
+		"/E/Template/matrix-admin-package-full/matriz-admin-old/HTML/css/bootstrap.min.css",
+		"/E/Template/matrix-admin-package-full/matriz-admin-old/HTML/css/matrix-media.css",
+		"/C/xampp/htdocs/Pro/DP_a_preventivePolice.php",
+		"/C/xampp/htdocs/Pro/Connection.php",
+		"/C/xampp/htdocs/Pro/login.php",
+		"/C/xampp/htdocs/Pro/C_register.php",
+		"/C/Users/User/Downloads/Doc/register (1).php",
+		"/C/xampp/htdocs/Pro/DP_v_crime.php",
+		"/C/xampp/htdocs/Pro/DP_v_comment.php",
+		"/C/xampp/htdocs/Pro/DP_r_accuser.php",
+		"/C/xampp/htdocs/Pro/DP_r_accused.php",
+		"/C/xampp/htdocs/Pro/DP_progress_case.php",
+		"/C/xampp/htdocs/Pro/DP_profile.php",
+		"/C/xampp/htdocs/Pro/DP_p_number.php",
+		"/C/xampp/htdocs/Pro/DP_About.php",
+		"/C/xampp/htdocs/Pro/DP_dashboard.php",
+		"/C/xampp/htdocs/Pro/DP_v_witness.php",
+		"/C/xampp/htdocs/Pro/DP_v_progress.php",
+		"/C/xampp/htdocs/Pro/DP_v_accuser.php",
+		"/C/xampp/htdocs/Pro/DP_v_accused.php",
+		"/C/Users/User/Downloads/Doc/reset-password.php",
+		"/C/xampp/htdocs/Pro/DP_v_accusation.php",
+		"/C/xampp/htdocs/Pro/DP_setting.php",
+		"/C/xampp/htdocs/Pro/DP_r_witness.php",
+		"/C/xampp/htdocs/Pro/DP_r_nomination.php",
+		"/C/Users/User/Downloads/Doc/config (1).php",
+		"/C/xampp/htdocs/Pro/DP_v_placement.php",
+		"/C/xampp/htdocs/Pro/C_dashboard.php",
+		"/C/xampp/htdocs/Pro/C_notification.php",
+		"/C/xampp/htdocs/Pro/C_v_appointment.php",
+		"/C/xampp/htdocs/Pro/C_setting.php",
+		"/C/xampp/htdocs/Pro/C_about.php",
+		"/C/xampp/htdocs/Pro/C_g_comment.php",
+		"/C/xampp/htdocs/Pro/C_g_nomination.php",
+		"/C/xampp/htdocs/Pro/C_p_number.php",
+		"/C/xampp/htdocs/Pro/C_posted.php",
+		"/C/xampp/htdocs/Pro/C_profile.php",
+		"/C/xampp/htdocs/Pro/C_r_accusation.php",
+		"/C/xampp/htdocs/Pro/C_search.php",
+		"/C/xampp/htdocs/Pro/C_r_witness.php",
+		"/C/xampp/htdocs/Pro/assets/css/bootstrap.min.css",
+		"/C/xampp/htdocs/Pro/DP_search.php",
+		"/C/xampp/htdocs/Pro/assets/css/app-style.css",
+		"/C/xampp/htdocs/Pro/DP_accusation.php",
+		"/C/xampp/htdocs/Pro/C_g_Complain.php",
+		"/C/xampp/htdocs/Pro/C_login.php",
+		"/C/xampp/htdocs/Pro/TPO_about.php",
+		"/C/xampp/htdocs/Pro/TPO_assign.php",
+		"/C/xampp/htdocs/Pro/TPO_dashboard.php",
+		"/C/xampp/htdocs/Pro/TPO_g_report.php",
+		"/C/xampp/htdocs/Pro/TPO_p_number.php",
+		"/C/xampp/htdocs/Pro/TPO_posted.php",
+		"/C/xampp/htdocs/Pro/TPO_profile.php",
+		"/C/xampp/htdocs/Pro/TPO_search.php",
+		"/C/xampp/htdocs/Pro/TPO_setting.php",
+		"/C/xampp/htdocs/Pro/TPO_v_accident.php",
+		"/C/xampp/htdocs/Pro/TPO_v_comment.php",
+		"/C/xampp/htdocs/Pro/TPO_v_compalin.php",
+		"/C/xampp/htdocs/Pro/TPO_v_nomination.php",
+		"/C/xampp/htdocs/Pro/TPO_v_traffic.php",
+		"/C/xampp/htdocs/Crime Management system/database.php",
+		"/C/xampp/htdocs/Pro/TP_dashboard.php",
+		"/C/xampp/htdocs/Pro/TP_about.php",
+		"/C/xampp/htdocs/Pro/TP_g_report.php",
+		"/C/xampp/htdocs/Pro/TP_p_number.php",
+		"/C/xampp/htdocs/Pro/TP_posted.php",
+		"/C/xampp/htdocs/Pro/TP_profile.php",
+		"/C/xampp/htdocs/Pro/TP_r_accident.php",
+		"/C/xampp/htdocs/Pro/TP_search.php",
+		"/C/xampp/htdocs/Pro/TP_setting.php",
+		"/C/xampp/htdocs/Pro/TP_t_accident.php",
+		"/C/xampp/htdocs/Pro/TP_v_accident.php",
+		"/C/xampp/htdocs/Pro/TP_v_comment.php",
+		"/C/xampp/htdocs/Pro/TP_v_complain.php",
+		"/C/xampp/htdocs/Pro/TP_v_nomination.php",
+		"/C/xampp/htdocs/Pro/TP_v_placement.php",
+		"/C/xampp/htdocs/Pro/SA_v_account.php",
+		"/C/xampp/htdocs/Pro/SA_u_account.php",
+		"/C/xampp/htdocs/Pro/SA_setting.php",
+		"/C/xampp/htdocs/Pro/SA_search.php",
+		"/C/xampp/htdocs/Pro/SA_profile.php",
+		"/C/xampp/htdocs/Pro/SA_posted.php",
+		"/C/xampp/htdocs/Pro/SA_p_number.php",
+		"/C/xampp/htdocs/Pro/HRM_dashboard.php",
+		"/C/xampp/htdocs/Pro/HRM_about.php",
+		"/C/xampp/htdocs/Pro/HRM_p_notice.php",
+		"/C/xampp/htdocs/Pro/HRM_p_number.php",
+		"/C/xampp/htdocs/Pro/HRM_posted.php",
+		"/C/xampp/htdocs/Pro/HRM_profile.php",
+		"/C/xampp/htdocs/Pro/HRM_r_employee.php",
+		"/C/xampp/htdocs/Pro/HRM_search.php",
+		"/C/xampp/htdocs/Pro/HRM_setting.php",
+		"/C/xampp/htdocs/Pro/HRM_v_employee.php",
+		"/C/xampp/htdocs/Pro/reset-password.php",
+		"/C/xampp/htdocs/Pro/SA_c_account.php",
+		"/C/xampp/htdocs/Pro/SA_dashboard.php",
+		"/C/xampp/htdocs/Pro/SA_about.php",
+		"/C/xampp/htdocs/Pro/CPP_dashboard.php",
+		"/C/xampp/htdocs/Pro/CPP_about.php",
+		"/C/xampp/htdocs/Pro/CPP_g_report.php",
+		"/C/xampp/htdocs/Pro/CPP_p_number.php",
+		"/C/xampp/htdocs/Pro/CPP_p_station.php",
+		"/C/xampp/htdocs/Pro/CPP_posted.php",
+		"/C/xampp/htdocs/Pro/CPP_profile.php",
+		"/C/xampp/htdocs/Pro/CPP_r_criminal.php",
+		"/C/xampp/htdocs/Pro/CPP_s_nomination.php",
+		"/C/xampp/htdocs/Pro/CPP_search.php",
+		"/C/xampp/htdocs/Pro/CPP_setting.php"
+	],
+	"find":
+	{
+		"height": 40.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 28.0
+	},
+	"input":
+	{
+		"height": 40.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "DP_assign.sublime-project",
+	"replace":
+	{
+		"height": 52.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 186.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
