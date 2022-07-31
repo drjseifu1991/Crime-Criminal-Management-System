@@ -64,17 +64,11 @@ include 'Connection.php';
 <div id="sidebar"><a href="C_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
     <li><a href="C_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    <li><a href="C_new.php"><i class="icon icon-eye-open"></i> <span>Notice</span></a></li>
-
-    <li class="active" class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-exclamation-sign"></i> <span>Nomination<b class="caret"></b></span></a> 
-      <ul>
-        <li class="active"><a href="C_r_nomination.php"><i class="icon-plus"></i>Register Nomination</a></li>
-        <li><a href="C_v_nomination.php"><i class="icon-eye-open"></i>View Nomination</a></li>
-      </ul>
-    </li>
-
-    <li><a href="C_appointment.php"><i class="icon icon-refresh"></i> <span>View Appointment</span></a></li>
-    <li><a href="C_phone.php"><i class="icon icon-phone-sign"></i> <span>Placement</span></a></li>
+    <li><a href="C_v_MCriminal.php"><i class="icon icon-eye-open"></i> <span>View Missing Criminal</span></a></li>
+    <li class="active"><a href="C_r_nomination.php"><i class="icon icon-plus"></i><span>Give Nomination</span></a></li>
+    <li><a href="C_r_comment"><i class="icon icon-refresh"></i> <span>Give Comment</span></a></li>
+    <li><a href="C_r_complain.php"><i class="icon icon-phone-sign"></i> <span>Send Complain</span></a></li>
+    <li><a href="C_r_accusation.php"><i class="icon icon-phone-sign"></i> <span>Send Accusation</span></a></li>
   </ul>
 </div>
 <!--sidebar-menu-->

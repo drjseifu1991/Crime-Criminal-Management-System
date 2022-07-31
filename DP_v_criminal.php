@@ -15,7 +15,6 @@
 
 include 'Connection.php';
   ?>
- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,18 +29,6 @@ include 'Connection.php';
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
 <link rel="stylesheet" href="css/jquery.gritter.css" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
- <style>
-      .widget-content  {
-        overflow-y: auto;
-        height: 540px;
-      }
-      
-      table {
-        border-collapse: collapse;
-        width: 10%;
-      }
-    
-    </style>
 
 </head>
 <body>
@@ -89,10 +76,10 @@ include 'Connection.php';
       </ul>
 
     </li>
-    <li class="active" class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-user-md"></i> <span> Accuser<b class="caret"></b></span></a>
+    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-user-md"></i> <span> Accuser<b class="caret"></b></span></a>
       <ul>
         <li><a href="DP_r_accuser.php"><i class="icon-plus"></i>Register Accuser</a></li>
-        <li class="active"><a href="DP_v_accuser.php"><i class="icon-eye-open"></i>View Accuser</a></li>
+        <li><a href="DP_v_accuser.php"><i class="icon-eye-open"></i>View Accuser</a></li>
       </ul>
     </li>
     <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-user-md"></i> <span>Accused<b class="caret"></b></span> </a>
@@ -107,8 +94,7 @@ include 'Connection.php';
         <li><a href="DP_v_witness.php"><i class="icon-eye-open"></i>View Witness</a></li>
       </ul>
     </li>
-
-    <li><a href="DP_v_criminal.php"><i class="icon icon-home"></i> <span>View Criminal</span></a> </li>
+    <li class="active"><a href="DP_v_criminal.php"><i class="icon icon-home"></i> <span>View Criminal</span></a> </li>
     <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>Generate Report</span></a> </li>
     
       <?php 
@@ -148,7 +134,7 @@ include 'Connection.php';
 <div id="content">
 <!--breadcrumbs-->
   <div id="content-header">
-    <div id="breadcrumb"> <a href="DP_index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="DP_v_accuser.php" class="current" >View Accuser</a></div>
+    <div id="breadcrumb"> <a href="DP_index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="DP_v_crime.php" class="current" >View Crime</a></div>
   </div>
 <!--End-breadcrumbs-->
 
@@ -157,30 +143,19 @@ include 'Connection.php';
       <div class="span12" >
         <div class="widget-box">
           <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-            <h5>View Accuser</h5>
+            <h5>View Criminal</h5>
           </div>
           <div class="widget-content nopadding">
             <table class="table table-bordered data-table">
               <thead>
                 <tr>
-                  <th>First Name</th>
-                  <th>Middle Name</th>
-                  <th>Last Name</th>
-                  <th>Gender</th>
-                  <th>Age</th>
-                  <th>Mobile</th>
-                  <th>Nationality</th>
-                  <th>Region</th>
-                  <th>Zone</th>
-                  <th>Woreda</th>
+                  <th>Name</th>
+                  <th>City</th>
                   <th>Kebele</th>
-                  <th>ELevel</th>
-                  <th>MStatus</th>
-                  <th>Religion</th>
-                  <th>Job</th>
-                  <th>Crime</th>
+                  <th>Crime Type</th>
+                  <th>Crime Level</th>
                   <th>Description</th>
-        
+                  <th>File</th>
                 </tr>
               </thead>
               <tbody>
@@ -188,30 +163,19 @@ include 'Connection.php';
 
               <?php 
 
-              $query = "SELECT * FROM accuser ORDER BY id ASC";
+              $query = "SELECT * FROM criminal ORDER BY id ASC";
               $result = mysqli_query($db, $query);
 
               while($row = mysqli_fetch_array($result))
               {
               ?>
-                  <td><?php echo $row['fname'] ?></td>
-                  <td><?php echo $row['mname'] ?></td>
-                  <td><?php echo $row['lname'] ?></td>
-                  <td><?php echo $row['gender'] ?></td>
-                  <td><?php echo $row['age'] ?></td>
-                  <td><?php echo $row['mobile'] ?></td>
-                  <td><?php echo $row['nationality'] ?></td>
-                  <td><?php echo $row['region'] ?></td>
-                  <td><?php echo $row['zone'] ?></td>
-                  <td><?php echo $row['woreda'] ?></td>
-                  <td><?php echo $row['kebele'] ?></td>
-                  <td><?php echo $row['elevel'] ?></td>
-                  <td><?php echo $row['mstatus'] ?></td>
-                  <td><?php echo $row['religion'] ?></td>
-                  <td><?php echo $row['job'] ?></td>
-                  <td><?php echo $row['crime'] ?></td>
-                  <td><?php echo $row['description'] ?></td>
-                  
+                  <td><?php echo $row['fname'];?></td>
+                  <td><?php echo $row['city'];?></td>
+                  <td><?php echo $row['kebele'];?></td>
+                  <td><?php echo $row['crime_type'];?></td>
+                  <td><?php echo $row['crime_level'];?></td>
+                  <td><?php echo $row['description'];?></td>
+                  <td><a href="uploads/<?php echo $row['file'] ?>" target = "_blank" ><?php echo $row['file'] ?></a> </td>
                 </tr>
               <?php } ?>
               </tbody>
@@ -221,7 +185,6 @@ include 'Connection.php';
       </div>
     </div>
   </div>
-
 
 </div>
 

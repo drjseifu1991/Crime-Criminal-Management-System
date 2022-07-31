@@ -60,7 +60,7 @@ include 'Connection.php';
 <!--sidebar-menu-->
 <div id="sidebar"><a href="CPP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
-    <li ><a href="CPP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+  <li ><a href="CPP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
     <li class="active"><a href="CPP_placement.php"><i class="icon icon-map-marker"></i> <span>View Placement</span></a></li>
      <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-comments"></i> <span>Nomination<b class="caret"></b></span></a> 
       <ul>
@@ -70,12 +70,9 @@ include 'Connection.php';
 
     </li>
     
-    <li><a href="CPP_v_crime.php"><i class="icon icon-file"></i> <span>View Crime</span></a></li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-eye-open"></i> <span> News<b class="caret"></b></span></a>
-      <ul>
-        <li><a href="CPP_v_notice.php"><i class="icon-eye-open"></i>View Notice</a></li>
-      </ul>
-    </li>
+    <li><a href="CPP_r_criminal.php"><i class="icon icon-file"></i> <span>Register Criminal</span></a></li>
+    <li><a href="CPP_r_criminal.php"><i class="icon icon-file"></i> <span>View Order</span></a></li>
+    <li><a href="CPP_r_criminal.php"><i class="icon icon-file"></i> <span>Generate Crime Report</span></a></li>
       <?php 
       $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
       $result = mysqli_query($db, $query);

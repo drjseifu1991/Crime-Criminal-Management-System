@@ -67,27 +67,18 @@ include 'Connection.php';
 <!--close-top-serch-->
 <!--sidebar-menu-->
 <div id="sidebar"><a href="TP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
-  <ul>
+<ul>
     <li><a href="TP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
     <li><a href="TP_placement.php"><i class="icon icon-map-marker"></i> <span>View Placement</span></a></li>
-    <li  class="active"  class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-exclamation-sign"></i> <span>Accident<b class="caret"></b></span></a> 
+    <li class="dropdown active"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-exclamation-sign"></i> <span>Accident<b class="caret"></b></span></a> 
       <ul>
-        <li  class="active" ><a href="TP_r_accident.php"><i class="icon-plus"></i>Register Accident</a></li>
+        <li class="active"><a href="TP_r_accident.php"><i class="icon-plus"></i>Register Accident</a></li>
         <li><a href="TP_v_accident.php"><i class="icon-eye-open"></i>View Accident</a></li>
       </ul>
     </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-refresh"></i> <span>Punishment<b class="caret"></b></span></a> 
-      <ul>
-        <li><a href="TP_r_punishment.php"><i class="icon-plus"></i>Register Punishment</a></li>
-        <li><a href="TP_v_punishment.php"><i class="icon-eye-open"></i>View Punishment</a></li>
-      </ul>
-    </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-comments"></i> <span>Nomination<b class="caret"></b></span></a> 
-      <ul>
-        <li class="active"><a href="TP_r_nomination.php"><i class="icon-plus"></i>Register Nomination</a></li>
-        <li><a href="TP_v_nomination.php"><i class="icon-eye-open"></i>View Nomination</a></li>
-      </ul>
-    </li>
+  
+    <li><a href="TP_v_nomination.php"><i class="icon icon-eye-open"></i>View Nomination</a></li>
+    <li><a href="TP_v_nomination.php"><i class="icon icon-eye-open"></i>Generate Accident Report</a></li>
       <?php 
       $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
       $result = mysqli_query($db, $query);
@@ -132,47 +123,61 @@ include 'Connection.php';
 <div class="container-fluid">
   <hr>
   <?php 
-    $accident_type = $car_id = $car_type = $accident_date = $place = $description ="";
-    $accident_err = $car_id_err = $car_type_err = $adate_err = $place_err = $description_err = "";
+    $vehicle_owner = $vehicle_owner_err = $driver_licence = $driver_licence_err = $date_time = $date_time_err ="";
+    $vehicle_board = $vehicle_board_err = $crime_type = $crime_type_err = $crime_level = $crime_level_err = $punishment_type = $punishment_type_err = $description = $description_err = "";
 
     if(isset($_POST['save'])){
-      $accident_type = mysqli_real_escape_string($db, $_POST['accident_type']);
-      $car_id = mysqli_real_escape_string($db, $_POST['car_id']);
-      $car_type = mysqli_real_escape_string($db, $_POST['car_type']);
-      $accident_date = mysqli_real_escape_string($db, $_POST['accident_date']);
-      $place = mysqli_real_escape_string($db, $_POST['place']);
+      $vehicle_owner = mysqli_real_escape_string($db, $_POST['vehicle_owner']);
+      $driver_licence = mysqli_real_escape_string($db, $_POST['driver_licence']);
+      $date_time = mysqli_real_escape_string($db, $_POST['date_time']);
+      $vehicle_board = mysqli_real_escape_string($db, $_POST['vehicle_board']);
+      $crime_type = mysqli_real_escape_string($db, $_POST['crime_type']);
+      $crime_level = mysqli_real_escape_string($db, $_POST['crime_level']);
+      $punishment_type = mysqli_real_escape_string($db, $_POST['punishment_type']);
       $description = mysqli_real_escape_string($db, $_POST['description']);
 
-      if(empty($_POST['accident_type'])){
-          $accident_err = "Enter accident type.";
-
+      if(empty($_POST['vehicle_owner'])){
+          $vehicle_owner_err = "Enter Vehicle Owner.";
       }
 
-      if(empty($_POST['car_id'])){
-          $car_id_err = "Enter car id.";
+      else if(empty($_POST['driver_licence'])){
+          $driver_licence_err = "Enter Driver Licence Number.";
+      }
+      else if(empty($_POST['date_time'])){
+          $date_time_err = "Enter Accident date.";
 
       }
-      if(empty($_POST['car_type'])){
-          $car_type_err = "Enter car type.";
+      else if(empty($_POST['vehicle_board'])){
+          $vehicle_board_err = "Enter Vehicle Board Number.";
 
       }
-      if(empty($_POST['accident_date'])){
-          $adate_err = "Enter occured  date.";
+      else if(empty($_POST['crime_type'])){
+        $crime_type_err = "Enter Crime Type.";
 
-        }
-      if(empty($_POST['place'])){
-          $place_err = "Enter occured place.";
+      }
+      else if(empty($_POST['crime_level'])){
+        $crime_level_err = "Enter Crime Level.";
 
-        }
-      if(empty($_POST['description'])){
+      } 
+      else if(empty($_POST['punishment_type'])){
+        $punishment_type_err = "Enter Punishment Type";
+
+      } 
+      else if(empty($_POST['description'])){
           $description_err = "Enter description.";
 
       }
 
       else{
-        $query = "INSERT INTO accident (accident_type, car_id, car_type, place, accident_date, description,session) VALUES ('$accident_type', '$car_id', '$car_type', '$place', '$accident_date', '$description', '$user_id')";
-        mysqli_query($db, $query);
-        echo "<h3>Registration Success!</h3>";
+        $user_id=$_SESSION['user_id'];
+        $query = "INSERT INTO accident (funame_vihecle_owner, driver_licence, vehicle_board_no, crime_level, accident_date, crime_type, session, punishment_type, description) VALUES ('$vehicle_owner', '$driver_licence', '$vehicle_board', '$crime_level', '$date_time', '$crime_type', '$user_id', '$punishment_type', '$description')";
+        if(mysqli_query($db, $query)) {
+          echo "<h3>Accident Registaration Sucessful</h3>";
+        }
+        else {
+          echo "<h3>Accident Registration Not Successful!</h3>";
+        }
+        
       }
     }
   ?>
@@ -185,45 +190,61 @@ include 'Connection.php';
         <div class="widget-content nopadding">
           <form action="TP_r_accident.php" method="POST" class="form-horizontal">
             <div class="control-group">
-              <label class="control-label">Accident Type :</label>
+              <label class="control-label">Full name of Vehicle owner :</label>
               <div class="controls">
-                <input type="text" class="span11" name="accident_type" placeholder="Accident Type" />
+                <input type="text" class="span11" name="vehicle_owner" placeholder="Vehicle Owner" />
                 <br>
-                 <span class="error"><?php echo $accident_err; ?></span>
+                 <span class="error"><?php echo $vehicle_owner_err; ?></span>
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label">Car ID :</label>
+              <label class="control-label">Driver Licence Number :</label>
               <div class="controls">
-                <input type="text" class="span11" name="car_id" placeholder="Car ID" />
+                <input type="text" class="span11" name="driver_licence" placeholder="Driver Licence Number" />
                 <br>
-                 <span class="error"><?php echo $car_id_err; ?></span>
+                 <span class="error"><?php echo $driver_licence_err; ?></span>
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label">Car Type :</label>
+              <label class="control-label">Accident committed date and time :</label>
               <div class="controls">
-                <input type="text" class="span11" name="car_type" placeholder="Car Type" />
+                <input type="date" class="span11" name="date_time" placeholder="Date and Time" />
                 <br>
-                 <span class="error"><?php echo $car_type_err; ?></span>
+                 <span class="error"><?php echo $date_time_err; ?></span>
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label">Date :</label>
+              <label class="control-label">Vehicle Board Number :</label>
               <div class="controls">
-                <input type="date" class="span11" name="accident_date" placeholder="Date" />
+                <input type="text" class="span11" name="vehicle_board" placeholder="Vehicle Board Number" />
                 <br>
-                 <span class="error"><?php echo $adate_err; ?></span>
+                 <span class="error"><?php echo $vehicle_board_err; ?></span>
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label">Place :</label>
+              <label class="control-label">Crime Type :</label>
               <div class="controls">
-                <input type="text" class="span11" name="place" placeholder="Place" />
+                <input type="text" class="span11" name="crime_type" placeholder="Crime Type" />
                 <br>
-                 <span class="error"><?php echo $place_err; ?></span>
+                 <span class="error"><?php echo $crime_type_err; ?></span>
               </div>
             </div>    
+            <div class="control-group">
+              <label class="control-label">Crime Level :</label>
+              <div class="controls">
+                <input type="text" class="span11" name="crime_level" placeholder="Crime Level" />
+                <br>
+                 <span class="error"><?php echo $crime_level_err; ?></span>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Punishment Type :</label>
+              <div class="controls">
+                <input type="text" class="span11" name="punishment_type" placeholder="Punishment Type" />
+                <br>
+                 <span class="error"><?php echo $punishment_type_err; ?></span>
+              </div>
+            </div>      
             <div class="control-group">
               <label class="control-label">Description</label>
               <div class="controls">

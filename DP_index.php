@@ -99,25 +99,9 @@ include 'Connection.php';
         <li><a href="DP_v_witness.php"><i class="icon-eye-open"></i>View Witness</a></li>
       </ul>
     </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon-comments"></i> <span>Nomination<b class="caret"></b></span></a>
-      <ul>
-        <li><a href="DP_r_nomination.php"><i class="icon-plus"></i>Register Nomination</a></li>
-        <li><a href="DP_v_nomination.php"><i class="icon-eye-open"></i>View Nomination</a></li>
-      </ul>
-    </li>
 
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-file"></i> <span>Crime</span><b class="caret"></b></span></a>
-    <ul>
-        <li><a href="DP_r_crime.php"><i class="icon-plus"></i>Register Crime</a></li>
-        <li><a href="DP_v_crime.php"><i class="icon-eye-open"></i>View Crime</a></li>
-      </ul>
-    </li>
-  <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-pencil"></i> <span>Post</span><b class="caret"></b></span></a>
-    <ul>
-        <li><a href="DP_notice.php"><i class="icon-plus"></i>Post Notice</a></li>
-        <li><a href="DP_v_notice.php"><i class="icon-eye-open"></i>View Notice</a></li>
-      </ul>
-    </li>
+    <li><a href="DP_v_criminal.php"><i class="icon icon-home"></i> <span>View Criminal</span></a> </li>
+    <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>Generate Report</span></a> </li>
       <?php 
       $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
       $result = mysqli_query($db, $query);

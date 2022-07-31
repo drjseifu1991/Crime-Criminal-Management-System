@@ -60,26 +60,17 @@ include 'Connection.php';
 <!--sidebar-menu-->
 <div id="sidebar"><a href="TP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
-    <li><a href="TP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+  <li><a href="TP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
     <li><a href="TP_placement.php"><i class="icon icon-map-marker"></i> <span>View Placement</span></a></li>
-    <li  class="active"  class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-exclamation-sign"></i> <span>Accident<b class="caret"></b></span></a> 
+    <li class="dropdown active"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-exclamation-sign"></i> <span>Accident<b class="caret"></b></span></a> 
       <ul>
         <li><a href="TP_r_accident.php"><i class="icon-plus"></i>Register Accident</a></li>
         <li class="active"><a href="TP_v_accident.php"><i class="icon-eye-open"></i>View Accident</a></li>
       </ul>
     </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-refresh"></i> <span>Punishment<b class="caret"></b></span></a> 
-      <ul>
-        <li><a href="TP_r_punishment.php"><i class="icon-plus"></i>Register Punishment</a></li>
-        <li><a href="TP_v_punishment.php"><i class="icon-eye-open"></i>View Punishment</a></li>
-      </ul>
-    </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-comments"></i> <span>Nomination<b class="caret"></b></span></a> 
-      <ul>
-        <li><a href="TP_r_nomination.php"><i class="icon-plus"></i>Register Nomination</a></li>
-        <li><a href="TP_v_nomination.php"><i class="icon-eye-open"></i>View Nomination</a></li>
-      </ul>
-    </li>
+  
+    <li><a href="TP_v_nomination.php"><i class="icon icon-eye-open"></i>View Nomination</a></li>
+    <li><a href="TP_v_nomination.php"><i class="icon icon-eye-open"></i>Generate Accident Report</a></li>
       <?php 
       $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
       $result = mysqli_query($db, $query);
@@ -130,13 +121,14 @@ include 'Connection.php';
             <table class="table table-bordered data-table">
               <thead>
                 <tr>
-                  <th>Accident Type</th>
-                  <th>Car ID</th>
-                  <th>Car Type</th>
-                  <th>Occurred Date</th>
-                  <th>Occurred Place</th>
+                  <th>Vihecle Owner</th>
+                  <th>Driver Licence Number</th>
+                  <th>Vihecle Board Number</th>
+                  <th>Accident Date</th>
+                  <th>Crime Type</th>
+                  <th>Crime Level</th>
+                  <th>Punishment Type</th>
                   <th>Description</th>
-                  <th>Registerd By</th>
                 </tr>
               </thead>
               <tbody>
@@ -149,17 +141,14 @@ include 'Connection.php';
               while($row = mysqli_fetch_array($result))
               {
               ?>
-                  <td><?php echo $row['accident_type'] ?></td>
-                  <td><?php echo $row['car_id'] ?></td>
-                  <td><?php echo $row['car_type'] ?></td>
+                  <td><?php echo $row['funame_vihecle_owner'] ?></td>
+                  <td><?php echo $row['driver_licence'] ?></td>
+                  <td><?php echo $row['vehicle_board_no'] ?></td>
                   <td><?php echo $row['accident_date'] ?></td>
-                  <td><?php echo $row['place'] ?></td>
-                  <td><?php echo $row['description'] ?></td>
-                  <td><?php $accu=$row['session'];
-              $query = "SELECT fname,  mname FROM accident inner join users on session=users.id where users.id='$accu'";
-              $result1 = mysqli_query($db, $query);              
-              if($row1 = mysqli_fetch_array($result1))
-              {echo $row1['fname'] ." ". $row1['mname']; }?></td>
+                  <td><?php echo $row['crime_type'] ?></td>
+                  <td><?php echo $row['crime_level'] ?></td>
+                  <td><?php echo $row['punishment_type']?></td>
+                  <td><?php echo $row['description']?></td>
                 </tr>
               <?php } ?>
               </tbody>

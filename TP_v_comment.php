@@ -76,11 +76,7 @@ include 'Connection.php';
       </ul>
     </li>
     
-    <li><a href="TP_phone.php"><i class="icon icon-phone-sign"></i> <span>Phone Number</span></a></li>
     <li><a href="TP_profile.php"><i class="icon icon-user"></i> <span>Profile</span></a></li>
-    <li><a href="TP_about.php"><i class="icon icon-info-sign"></i> <span>About</span></a></li>
-
-  
   </ul>
 </div>
 <!--sidebar-menu-->

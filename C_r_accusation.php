@@ -61,9 +61,9 @@ include 'Connection.php';
     <li><a href="C_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
     <li><a href="C_v_MCriminal.php"><i class="icon icon-eye-open"></i> <span>View Missing Criminal</span></a></li>
     <li><a href="C_r_nomination.php"><i class="icon icon-plus"></i><span>Give Nomination</span></a></li>
-    <li class="active"><a href="C_r_comment"><i class="icon icon-refresh"></i> <span>Give Comment</span></a></li>
+    <li><a href="C_r_comment"><i class="icon icon-refresh"></i> <span>Give Comment</span></a></li>
     <li><a href="C_r_complain.php"><i class="icon icon-phone-sign"></i> <span>Send Complain</span></a></li>
-    <li><a href="C_r_accusation.php"><i class="icon icon-phone-sign"></i> <span>Send Accusation</span></a></li>
+    <li class="active"><a href="C_r_accusation.php"><i class="icon icon-phone-sign"></i> <span>Send Accusation</span></a></li>
   
   </ul>
 </div>
@@ -73,24 +73,32 @@ include 'Connection.php';
 <div id="content">
 <!--breadcrumbs-->
   <div id="content-header">
-    <div id="breadcrumb"> <a href="C_index.php"><i class="icon-home"></i> Home</a><a href="C_r_comment" class="current"> Give Comment</a> </div>
+    <div id="breadcrumb"> <a href="C_index.php"><i class="icon-home"></i> Home</a><a href="C_r_accusation" class="current"> Send Accusation</a> </div>
   </div>
 <!--End-breadcrumbs-->
 <?php
-    $user_id = $comment = $comment_err="";
+    $user_id = $crime_type = $crime_type_err = $crime_level = $crime_level_err = $description = $description_err="";
     if (isset($_POST['save'])){
-      $comment = mysqli_real_escape_string($db, $_POST['comment']);
-      if(empty($_POST['comment'])){
-        $comment_err = "Enter Comment";
+      $crime_type = mysqli_real_escape_string($db, $_POST['crime_type']);
+      $crime_level = mysqli_real_escape_string($db, $_POST['crime_level']);
+      $description = mysqli_real_escape_string($db, $_POST['description']);
+      if(empty($_POST['crime_type'])){
+        $crime_type_err = "Enter Crime Type";
+      }
+      else if(empty($_POST['crime_level'])){
+        $crime_level_err = "Enter Crime Level";
+      }
+      else if(empty($_POST['description'])){
+        $description_err = "Enter Description";
       }
       else{
         $user_id=$_SESSION['user_id'];
-        $query = "INSERT INTO comment (user_id, comment) VALUES ('$user_id', '$comment')";
+        $query = "INSERT INTO accusation (crime_type, crime_level, description, user_id) VALUES ('$crime_type', '$crime_level', '$description', '$user_id')";
         if(mysqli_query($db, $query)) {
-          echo "      Comment added successfully";
+          echo "      Accusation Sent successfully";
         }
         else {
-          echo "      Comment doesn't added added successfully";
+          echo "      Accusation doesn't Sent successfully";
         }
       }
     }
@@ -102,19 +110,32 @@ include 'Connection.php';
     <div class="span6">
       <div class="widget-box">
         <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
-          <h5>Comment</h5>
+          <h5>Accusation</h5>
         </div>
         <div class="widget-content nopadding">
-          <form action="C_r_comment.php" method="post" class="form-horizontal">
+          <form action="C_r_accusation.php" method="post" class="form-horizontal">
             <div class="control-group">
-              <label class="control-label">Comment</label>
+              <label class="control-label">Crime Type</label>
               <div class="controls">
-                <textarea class="span11" name="comment" placeholder="Comment"></textarea>
-                <br>
-                 <span class="error"><?php echo $comment_err; ?></span>
+                <input type="text" class="span11" name="crime_type" placeholder="Crime Type"/>
+                 <span class="error"><?php echo $crime_type_err; ?></span>
               </div>
             </div>
-
+            <div class="control-group">
+              <label class="control-label">Crime Level</label>
+              <div class="controls">
+                <input type="text" class="span11" name="crime_level" placeholder="Crime Level"/>
+                 <span class="error"><?php echo $crime_level_err; ?></span>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Description</label>
+              <div class="controls">
+                <textarea class="span11" name="description" placeholder="Description"></textarea>
+                <br>
+                 <span class="error"><?php echo $description_err; ?></span>
+              </div>
+            </div>
 
             <div class="form-actions">
               <button type="submit" name="save" id="save" class="btn btn-success">Save</button>

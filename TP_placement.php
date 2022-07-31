@@ -59,26 +59,17 @@ include 'Connection.php';
 <!--sidebar-menu-->
 <div id="sidebar"><a href="TP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
-    <li><a href="TP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+  <li><a href="TP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
     <li class="active"><a href="TP_placement.php"><i class="icon icon-map-marker"></i> <span>View Placement</span></a></li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-exclamation-sign"></i> <span>Accident<b class="caret"></b></span></a> 
+    <li> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-exclamation-sign"></i> <span>Accident<b class="caret"></b></span></a> 
       <ul>
         <li><a href="TP_r_accident.php"><i class="icon-plus"></i>Register Accident</a></li>
         <li><a href="TP_v_accident.php"><i class="icon-eye-open"></i>View Accident</a></li>
       </ul>
     </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-refresh"></i> <span>Punishment<b class="caret"></b></span></a> 
-      <ul>
-        <li><a href="TP_r_punishment.php"><i class="icon-plus"></i>Register Punishment</a></li>
-        <li><a href="TP_v_punishment.php"><i class="icon-eye-open"></i>View Punishment</a></li>
-      </ul>
-    </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-comments"></i> <span>Nomination<b class="caret"></b></span></a> 
-      <ul>
-        <li><a href="TP_r_nomination.php"><i class="icon-plus"></i>Register Nomination</a></li>
-        <li><a href="TP_v_nomination.php"><i class="icon-eye-open"></i>View Nomination</a></li>
-      </ul>
-    </li>
+  
+    <li><a href="TP_v_nomination.php"><i class="icon icon-eye-open"></i>View Nomination</a></li>
+    <li><a href="TP_v_nomination.php"><i class="icon icon-eye-open"></i>Generate Accident Report</a></li>
       <?php 
       $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
       $result = mysqli_query($db, $query);

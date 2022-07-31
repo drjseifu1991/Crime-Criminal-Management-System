@@ -123,7 +123,7 @@ include 'Connection.php';
       </div>
     </div>
   </div>
-s
+
 </div>
 
 <!--end-main-container-part-->

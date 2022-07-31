@@ -67,7 +67,7 @@ include 'Connection.php';
 <!--sidebar-menu-->
 <div id="sidebar"><a href="DP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
-    <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+  <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
     <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Assign<b class="caret"></b></span></a> 
       <ul>
         <li><a href="DP_assign.php"><i class="icon-plus"></i>Assign Police</a></li>
@@ -91,7 +91,7 @@ include 'Connection.php';
     <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-user-md"></i> <span>Accused<b class="caret"></b></span> </a>
       <ul>
         <li><a href="DP_r_accused.php"><i class="icon-plus"></i>Register Accused</a></li>
-        <li><a href="DP_v_accussed.php"><i class="icon-eye-open"></i>View Accused</a></li>
+        <li><a href="DP_v_accused.php"><i class="icon-eye-open"></i>View Accused</a></li>
       </ul>
     </li>
     <li class="active" class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-user-md"></i> <span>Witness<b class="caret"></b></span></a>
@@ -100,25 +100,9 @@ include 'Connection.php';
         <li><a href="DP_v_witness.php"><i class="icon-eye-open"></i>View Witness</a></li>
       </ul>
     </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon-comments"></i> <span>Nomination<b class="caret"></b></span></a>
-      <ul>
-        <li><a href="DP_r_nomination.php"><i class="icon-plus"></i>Register Nomination</a></li>
-        <li><a href="DP_v_nomination.php"><i class="icon-eye-open"></i>View Nomination</a></li>
-      </ul>
-    </li>
 
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-file"></i> <span>Crime</span><b class="caret"></b></span></a>
-    <ul>
-        <li><a href="DP_r_crime.php"><i class="icon-plus"></i>Register Crime</a></li>
-        <li><a href="DP_v_crime.php"><i class="icon-eye-open"></i>View Crime</a></li>
-      </ul>
-    </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-pencil"></i> <span>Post</span><b class="caret"></b></span></a>
-    <ul>
-        <li><a href="DP_notice.php"><i class="icon-plus"></i>Post Notice</a></li>
-        <li><a href="DP_v_notice.php"><i class="icon-eye-open"></i>View Notice</a></li>
-      </ul>
-    </li>
+    <li><a href="DP_v_criminal.php"><i class="icon icon-home"></i> <span>View Criminal</span></a> </li>
+    <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>Generate Report</span></a> </li>
    
       <?php 
       $query = "SELECT role_id FROM auth_role where user_id='$user_id'";

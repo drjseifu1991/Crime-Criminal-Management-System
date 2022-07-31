@@ -9,7 +9,7 @@
     }
   }
   else{  
-   // header("location: login.php");  
+   header("location: login.php");  
   }
 
 include 'Connection.php';
@@ -62,17 +62,11 @@ include 'Connection.php';
 <div id="sidebar"><a href="C_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
     <li class="active"><a href="C_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    <li><a href="C_new.php"><i class="icon icon-eye-open"></i> <span>Notice</span></a></li>
-
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-exclamation-sign"></i> <span>Nomination<b class="caret"></b></span></a> 
-      <ul>
-        <li><a href="C_r_nomination.php"><i class="icon-plus"></i>Register Nomination</a></li>
-        <li><a href="C_v_nomination.php"><i class="icon-eye-open"></i>View Nomination</a></li>
-      </ul>
-    </li>
-
-    <li><a href="C_appointment.php"><i class="icon icon-refresh"></i> <span>View Appointment</span></a></li>
-    <li><a href="C_phone.php"><i class="icon icon-phone-sign"></i> <span>Placement</span></a></li>
+    <li><a href="C_v_MCriminal.php"><i class="icon icon-eye-open"></i> <span>View Missing Criminal</span></a></li>
+    <li><a href="C_r_nomination.php"><i class="icon icon-plus"></i><span>Give Nomination</span></a></li>
+    <li><a href="C_r_comment.php"><i class="icon icon-refresh"></i> <span>Give Comment</span></a></li>
+    <li><a href="C_r_complain.php"><i class="icon icon-phone-sign"></i> <span>Send Complain</span></a></li>
+    <li><a href="C_r_accusation.php"><i class="icon icon-phone-sign"></i> <span>Send Accusation</span></a></li>
   
   </ul>
 </div>
@@ -165,14 +159,17 @@ include 'Connection.php';
       <div class="span12" >
         <div class="widget-box">
           <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-            <h5>View Appointment</h5>
+            <h5>View Missing Criminal</h5>
           </div>
           <div class="widget-content nopadding">
             <table class="table table-bordered data-table">
               <thead>
                 <tr>
-                  <th>Crimme Type</th>
-                  <th>Appointment Date</th>
+                  <th>Name</th>
+                  <th>Photo</th>
+                  <th>City</th>
+                  <th>Kebele</th>
+                  <th>Date</th>
                   <th>Description</th>
                 </tr>
               </thead>
@@ -181,21 +178,17 @@ include 'Connection.php';
 
               <?php 
 
-              $query = "SELECT * FROM progress_case ORDER BY id ASC";
+              $query = "SELECT * FROM missing_criminal ORDER BY id ASC";
               $result = mysqli_query($db, $query);
 
               while($row = mysqli_fetch_array($result))
               {
               ?>
-              <td><?php $accu=$row['crime_id'];
-              $query = "SELECT ctype FROM progress_case inner join crime on crime_id=crime.id where crime.id='$accu'";
-              $result1 = mysqli_query($db, $query);              
-              if($row1 = mysqli_fetch_array($result1))
-              {
-                echo $row1['ctype'] ; 
-              }
-              ?></td>
-              <td><?php echo $row['appo_date'] ?></td>
+              <td><?php echo $row['fname']?></td>
+              <td><a href="uploads/<?php echo $row['photo'] ?>" target = "_blank" ><?php echo $row['photo'] ?></a> </td>
+              <td><?php echo $row['city'] ?></td>
+              <td><?php echo $row['kebele'] ?></td>
+              <td><?php echo $row['date'] ?></td>
               <td><?php echo $row['description'] ?></td>
               </tr>
               <?php } ?>

@@ -70,18 +70,9 @@ include 'Connection.php';
         <li><a href="TP_v_accident.php"><i class="icon-eye-open"></i>View Accident</a></li>
       </ul>
     </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-refresh"></i> <span>Punishment<b class="caret"></b></span></a> 
-      <ul>
-        <li><a href="TP_r_punishment.php"><i class="icon-plus"></i>Register Punishment</a></li>
-        <li><a href="TP_v_punishment.php"><i class="icon-eye-open"></i>View Punishment</a></li>
-      </ul>
-    </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-comments"></i> <span>Nomination<b class="caret"></b></span></a> 
-      <ul>
-        <li><a href="TP_r_nomination.php"><i class="icon-plus"></i>Register Nomination</a></li>
-        <li><a href="TP_v_nomination.php"><i class="icon-eye-open"></i>View Nomination</a></li>
-      </ul>
-    </li>
+  
+    <li><a href="TP_v_nomination.php"><i class="icon icon-eye-open"></i>View Nomination</a></li>
+    <li><a href="TP_v_nomination.php"><i class="icon icon-eye-open"></i>Generate Accident Report</a></li>
       <?php 
       $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
       $result = mysqli_query($db, $query);
@@ -204,45 +195,40 @@ include 'Connection.php';
       <div class="span12" >
         <div class="widget-box">
           <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-            <h5>Recent Accident</h5>
+            <h5>View Accident</h5>
           </div>
           <div class="widget-content nopadding">
             <table class="table table-bordered data-table">
               <thead>
                 <tr>
-                  <th>Accident Type</th>
-                  <th>Car ID</th>
-                  <th>Car Type</th>
-                  <th>Occurred Date</th>
-                  <th>Occurred Place</th>
+                  <th>Vihecle Owner</th>
+                  <th>Driver Licence Number</th>
+                  <th>Vihecle Board Number</th>
+                  <th>Accident Date</th>
+                  <th>Crime Type</th>
+                  <th>Crime Level</th>
+                  <th>Punishment Type</th>
                   <th>Description</th>
-                  <th>Registerd By</th>
-                  <!-- <th>Edit</th>
-                  <th>Delete</th> -->
                 </tr>
               </thead>
               <tbody>
                 <tr class="gradeX">
 
               <?php 
-              $query = "SELECT * FROM accident ORDER BY id ";
+              $query = "SELECT * FROM accident where session=$user_id ORDER BY id ";
               $result = mysqli_query($db, $query);
 
               while($row = mysqli_fetch_array($result))
               {
               ?>
-                  <td><?php echo $row['accident_type'] ?></td>
-                  <td><?php echo $row['car_id'] ?></td>
-                  <td><?php echo $row['car_type'] ?></td>
+                  <td><?php echo $row['funame_vihecle_owner'] ?></td>
+                  <td><?php echo $row['driver_licence'] ?></td>
+                  <td><?php echo $row['vehicle_board_no'] ?></td>
                   <td><?php echo $row['accident_date'] ?></td>
-                  <td><?php echo $row['place'] ?></td>
-                  <td><?php echo $row['description'] ?></td>
-                  <td><?php $accu=$row['session'];
-              $query = "SELECT fname,  mname FROM accident inner join users on session=users.id where users.id='$accu'";
-              $result1 = mysqli_query($db, $query);              if($row1 = mysqli_fetch_array($result1))
-              {echo $row1['fname'] ." ". $row1['mname']; }?></td>
-                  <!-- <td><button style="color: blue;"><i class="icon icon-pencil"></i> </button></td>
-                  <td><button style="color: red; "><i class="icon icon-trash"></i> </button></td> -->
+                  <td><?php echo $row['crime_type'] ?></td>
+                  <td><?php echo $row['crime_level'] ?></td>
+                  <td><?php echo $row['punishment_type']?></td>
+                  <td><?php echo $row['description']?></td>
                 </tr>
               <?php } ?>
               </tbody>

@@ -66,36 +66,9 @@ include 'Connection.php';
 <div id="sidebar"><a href="TPO_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
     <li><a href="TPO_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    <li   class="active" class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Assign<b class="caret"></b></span></a> 
-      <ul>
-        <li class="active"><a href="TPO_assign.php"><i class="icon-plus"></i>Assign Trafic Police</a></li>
-        <li><a href="TPO_v_placement.php"><i class="icon-eye-open"></i>View Placement</a></li>
-      </ul>
-    </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-exclamation-sign"></i> <span>Accident<b class="caret"></b></span> </a>
-      <ul>
-        <li><a href="TPO_r_accident.php"><i class="icon-plus"></i>Register Accident</a></li>
-        <li><a href="TPO_v_accident.php"><i class="icon-eye-open"></i>View Accident</a></li>
-      </ul>
-    </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-refresh"></i> <span>Punishment<b class="caret"></b></span></a> 
-      <ul>
-        <li><a href="TPO_r_punishment.php"><i class="icon-plus"></i>Register Punishment</a></li>
-        <li><a href="TPO_v_punishment.php"><i class="icon-eye-open"></i>View Punishment</a></li>
-      </ul>
-    </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-comments"></i> <span>Nomination<b class="caret"></b></span> </a>
-      <ul>
-        <li><a href="TPO_r_nomination.php"><i class="icon-plus"></i>Register Nomination</a></li>
-        <li><a href="TPO_v_nomination.php"><i class="icon-eye-open"></i>View Nomination</a></li>
-      </ul>
-    </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-pencil"></i> <span>Post<b class="caret"></b></span></a>
-      <ul>
-        <li><a href="TPO_notice.php"><i class="icon-plus"></i>Post Notice</a></li>
-        <li><a href="TPO_v_notice.php"><i class="icon-eye-open"></i>View Notice</a></li>
-      </ul>
-    </li>
+    <li class="active"><a href="TPO_assign.php"><i class="icon icon-home"></i> <span>Assign police</span></a> </li>
+    <li><a href="TPO_index.php"><i class="icon icon-home"></i> <span>View Report</span></a> </li>
+    <li><a href="TPO_index.php"><i class="icon icon-home"></i> <span>Generate Report</span></a> </li>
     
      
       <?php 

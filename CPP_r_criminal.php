@@ -67,20 +67,20 @@ include 'Connection.php';
 <!--sidebar-menu-->
 <div id="sidebar"><a href="CPP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
-  <li ><a href="CPP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+    <li ><a href="CPP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
     <li><a href="CPP_placement.php"><i class="icon icon-map-marker"></i> <span>View Placement</span></a></li>
-     <li class="active" class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-comments"></i> <span>Nomination<b class="caret"></b></span></a> 
+     <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-comments"></i> <span>Nomination<b class="caret"></b></span></a> 
       <ul>
-        <li class="active"><a href="CPP_r_nomination.php"><i class="icon-plus"></i>Register Nomination</a></li>
+        <li><a href="CPP_r_nomination.php"><i class="icon-plus"></i>Register Nomination</a></li>
         <li><a href="CPP_v_nomination.php"><i class="icon-eye-open"></i>View Nomination</a></li>
       </ul>
 
     </li>
     
-    <li><a href="CPP_r_criminal.php"><i class="icon icon-file"></i> <span>Register Criminal</span></a></li>
+    <li class="active"><a href="CPP_r_criminal.php"><i class="icon icon-file"></i> <span>Register Criminal</span></a></li>
     <li><a href="CPP_r_criminal.php"><i class="icon icon-file"></i> <span>View Order</span></a></li>
     <li><a href="CPP_r_criminal.php"><i class="icon icon-file"></i> <span>Generate Crime Report</span></a></li>
-   
+
       <?php 
       $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
       $result = mysqli_query($db, $query);
@@ -127,15 +127,16 @@ include 'Connection.php';
   <hr>
         
   <?php 
-$ntype = $kebele= $village =$ndatetime = $files = $description = $session1="";
-$user_id_err = $ntype_err =$kebele_err = $village_err = $ndatetime_err = $description_err = "";
+$fname = $lname= $city = $kebele = $crime_type = $crime_level = $files = $description = $session1 = "";
+$fname_err = $lname_err = $city_err = $kebele_err = $crime_type_err = $crime_level_err = $description_err = "";
 
 if (isset($_POST['save'])){
-        $user_id1 = mysqli_real_escape_string($db, $_POST['user_id1']);
-        $ntype = mysqli_real_escape_string($db, $_POST['ntype']);
+        $fname = mysqli_real_escape_string($db, $_POST['fname']);
+        $lname = mysqli_real_escape_string($db, $_POST['lname']);
+        $city = mysqli_real_escape_string($db, $_POST['city']);
         $kebele = mysqli_real_escape_string($db, $_POST['kebele']);
-        $village = mysqli_real_escape_string($db, $_POST['village']);
-        $ndatetime = mysqli_real_escape_string($db, $_POST['ndatetime']);
+        $crime_type = mysqli_real_escape_string($db, $_POST['crime_type']);
+        $crime_level = mysqli_real_escape_string($db, $_POST['crime_level']);
         $description = mysqli_real_escape_string($db, $_POST['description']);
         $directory = "uploads/";
         $file = $directory.basename($_FILES['files']['name']);
@@ -146,26 +147,30 @@ if (isset($_POST['save'])){
           $file = "";
         }
         //validation
-        if(empty($_POST['user_id1'])){
-          $user_id_err = "Select user first.";
+        if(empty($_POST['fname'])){
+          $fname_err = "Enter Criminal First Name";
         }
 
-        if(empty($_POST['ntype'])){
-          $ntype_err = "Enter nomination type.";
+        else if(empty($_POST['lname'])){
+          $lname_err = "Enter Criminal Last Name";
 
+        }
+
+        else if(empty($_POST['city'])){
+          $city_err = "Enter City name";
         }
 
         else if(empty($_POST['kebele'])){
-          $kebele_err = "Enter kebele name or number.";
+            $kebele_err = "Occurance place must be fill.";
         }
 
-        else if(empty($_POST['village'])){
-            $village_err = "Occurance place must be fill.";
+        else if(empty($_POST['crime_type'])){
+          $crime_type_err = "Enter Crime Type";
         }
 
-        else if(empty($_POST['ndatetime'])){
-          $ndatetime_err = "Occurance date and time must be fill.";
-        }
+        else if(empty($_POST['crime_level'])){
+            $crime_level_err = "Enter Crime Level";
+          }
 
         else if(empty($_POST['description'])){
           $description_err = "Enter detail about nomination.";
@@ -173,12 +178,12 @@ if (isset($_POST['save'])){
 
         else{
           $user_id=$_SESSION['user_id'];
-          $query = "INSERT INTO nomination (user_id, ntype, kebele, village, ndatetime, file, description) VALUES ('$user_id1', '$ntype', '$kebele', '$village', '$ndatetime','$files', '$description')";
+          $query = "INSERT INTO criminal (fname, lname, city, kebele, crime_type, crime_level, description, file, user_id) VALUES ('$fname', '$lname', '$city', '$kebele', '$crime_type', '$crime_level', '$description', '$files', '$user_id')";
           if(mysqli_query($db, $query)) {
-            echo "      Nomination added successfully";
+            echo "      Criminal added successfully";
           }
           else {
-            echo "      Nomination doesn't added added successfully";
+            echo "      Criminal doesn't added successfully";
           }
         }
 
@@ -192,61 +197,57 @@ if (isset($_POST['save'])){
     <div class="span6">
       <div class="widget-box">
         <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
-          <h5>Register Nomination</h5>
+          <h5>Register Criminal</h5>
         </div>
         <div class="widget-content nopadding">
-          <form action="CPP_r_nomination.php" enctype="multipart/form-data" method="POST" class="form-horizontal">
-          <div class="control-group">
-              <label class="control-label">User :</label>
-              <div class="controls">
-                <select name="user_id1" id="user_id " class="span11">
-                  <?php 
-                    $query = "SELECT users.id,fname,mname,lname FROM users inner join auth_role on users.id=user_id where role_id=5 order by fname";
-                    $result = mysqli_query($db, $query);
-                    while($row = mysqli_fetch_array($result)){
-                      ?>
-                        <option value="<?php echo $row['id'];  ?>"><?php echo $row['fname'] . " ". $row['mname']. " ". $row['lname']. "(".$row['id'].")"; ?></option>
-                      <?php
-                    }
-                  ?>
-                  
-                  
-                </select>
-                <br>
-                 <span class="error"><?php echo $user_id_err; ?></span>
-              </div>
+          <form action="CPP_r_criminal.php" enctype="multipart/form-data" method="POST" class="form-horizontal">
+            <div class="control-group">
+                <label class="control-label">First Name :</label>
+                <div class="controls">
+                    <input type="text" class="span11" name="fname" placeholder="First Name" />
+                    <br>
+                    <span class="error"><?php echo $fname_err; ?></span>
+                </div>
             </div>
             <div class="control-group">
-              <label class="control-label">Nomination Type :</label>
-              <div class="controls">
-                <input type="text" class="span11" name="ntype" placeholder="Nomination type" />
-                <br>
-                 <span class="error"><?php echo $ntype_err; ?></span>
-              </div>
+                <label class="control-label">Last Name :</label>
+                <div class="controls">
+                    <input type="text" class="span11" name="lname" placeholder="Last Name" />
+                    <br>
+                    <span class="error"><?php echo $lname_err; ?></span>
+                </div>
             </div>
             <div class="control-group">
-              <label class="control-label">Occurance Kebele :</label>
-              <div class="controls">
-                <input type="text"  class="span11" name="kebele" placeholder="Kebele"  />
-                <br>
-                 <span class="error"><?php echo $kebele_err; ?></span>
-              </div>
+                <label class="control-label">City :</label>
+                <div class="controls">
+                    <input type="text" class="span11" name="city" placeholder="City" />
+                    <br>
+                    <span class="error"><?php echo $city_err; ?></span>
+                </div>
             </div>
             <div class="control-group">
-              <label class="control-label">Occurance place :</label>
-              <div class="controls">
-                <input type="text" class="span11" name="village" placeholder="Specific place" />
-                <br>
-                 <span class="error"><?php echo $village_err; ?></span>
-              </div>
+                <label class="control-label">Kebele :</label>
+                <div class="controls">
+                    <input type="text" class="span11" name="kebele" placeholder="Kebele" />
+                    <br>
+                    <span class="error"><?php echo $kebele_err; ?></span>
+                </div>
             </div>
             <div class="control-group">
-              <label class="control-label">Occurance Date :</label>
-              <div class="controls">
-                <input type="date" class="span11" name="ndatetime" placeholder="Date and time" />
-                <br>
-                 <span class="error"><?php echo $ndatetime_err; ?></span>
-              </div>
+                <label class="control-label">Crime Type :</label>
+                <div class="controls">
+                    <input type="text" class="span11" name="crime_type" placeholder="Crime Type" />
+                    <br>
+                    <span class="error"><?php echo $crime_type_err; ?></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Crime Level :</label>
+                <div class="controls">
+                    <input type="text" class="span11" name="crime_level" placeholder="Crime Level" />
+                    <br>
+                    <span class="error"><?php echo $crime_level_err; ?></span>
+                </div>
             </div>
             <div class="control-group">
               <label class="control-label">Attach File</label>
