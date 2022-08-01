@@ -2,7 +2,7 @@
   session_start();
   if($_SESSION['uname']){
   $user_id=$_SESSION['user_id'] ; 
-    if($_SESSION['role_id']!=7){
+    if($_SESSION['role_id']!=8){
       unset($_SESSION['role_id']);
       header("location: login.php");  
 
@@ -59,16 +59,15 @@ include 'Connection.php';
 </div>
 <!--close-top-serch-->
 <!--sidebar-menu-->
-<div id="sidebar"><a href="Admin.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
+<div id="sidebar"><a href="HR_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
-  <li class="active"><a href="Admin.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Account<b class="caret"></b></span></a> 
+  <li class="active"><a href="HR_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Employee<b class="caret"></b></span></a> 
       <ul>
-        <li><a href="A_r_account.php"><i class="icon-plus"></i>Create Account</a></li>
-        <li><a href="A_v_account.php"><i class="icon-eye-open"></i>View Account</a></li>
+        <li><a href="HR_r_employee.php"><i class="icon-plus"></i>Register Employee</a></li>
+        <li><a href="HR_v_employee.php"><i class="icon-eye-open"></i>View Employee</a></li>
       </ul>
     </li>
-    <li><a href="A_v_employee.php"><i class="icon icon-home"></i> <span>View Employee</span></a> </li>
   </ul>
 </div>
 <!--sidebar-menu-->

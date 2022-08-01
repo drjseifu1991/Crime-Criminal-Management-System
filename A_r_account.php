@@ -20,7 +20,7 @@ include 'Connection.php';
 <title>Bahirdar police staton</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="css/4/bootstrap.min.css" />
+<!-- <link rel="stylesheet" href="css/4/bootstrap.min.css" /> -->
 <link rel="stylesheet" href="css/bootstrap.min.css" />
 
 <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
@@ -61,10 +61,10 @@ include 'Connection.php';
 <!--sidebar-menu-->
 <div id="sidebar"><a href="Admin.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
-  <li class="active"><a href="Admin.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Account<b class="caret"></b></span></a> 
+  <li><a href="Admin.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+    <li class="active" class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Account<b class="caret"></b></span></a> 
       <ul>
-        <li><a href="A_r_account.php"><i class="icon-plus"></i>Create Account</a></li>
+        <li class="active"><a href="A_r_account.php"><i class="icon-plus"></i>Create Account</a></li>
         <li><a href="A_v_account.php"><i class="icon-eye-open"></i>View Account</a></li>
       </ul>
     </li>
@@ -81,130 +81,86 @@ include 'Connection.php';
   </div>
   <!--End-breadcrumbs-->
  
-  <div class="container-fluid" style="margin-top: 1.5rem;">
-    <div class="dashb">
-      <div class="card text-white bg-primary mb-3" style="width: 14rem;">
-      <div class="card-body">
-        <h5 class="card-title">Total Detective Police</h5>
-        <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
-        <?php
-          $queryc = "SELECT * FROM auth_role WHERE role_id=1";
-          if($resultc = mysqli_query($db, $queryc)) {
-            $rowc = mysqli_num_rows($resultc);
-            echo $rowc;
-          }
-          else {
-            echo 0;
-          }
-          
-        ?>
-        </p>
-      </div>
-    </div>
-    <div class="card text-white bg-secondary mb-3" style="width: 14rem;">
-      <div class="card-body">
-        <h5 class="card-title">Preventive Police</h5>
-        <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
-        <?php
-          $queryc = "SELECT * FROM auth_role WHERE role_id=3";
-          if($resultc = mysqli_query($db, $queryc)) {
-            $rowc = mysqli_num_rows($resultc);
-            echo $rowc;
-          }
-          else {
-            echo 0;
-          }
-          
-        ?>
-        </p>
-      </div>
-    </div>
-    <div class="card text-white bg-success mb-3" style="width: 14rem;">
-      <div class="card-body">
-        <h5 class="card-title">Traffic Police Officer</h5>
-        <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
-        <?php
-          $queryc = "SELECT * FROM auth_role WHERE role_id=2";
-          if($resultc = mysqli_query($db, $queryc)) {
-            $rowc = mysqli_num_rows($resultc);
-            echo $rowc;
-          }
-          else {
-            echo 0;
-          }
-          
-        ?>
-        </p>
-      </div>
-    </div>
-    <div class="card text-white bg-danger mb-3" style="width: 14rem;">
-      <div class="card-body">
-        <h5 class="card-title">Traffic Police</h5>
-        <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
-        <?php
-          $queryc = "SELECT * FROM auth_role WHERE role_id=4";
-          if($resultc = mysqli_query($db, $queryc)) {
-            $rowc = mysqli_num_rows($resultc);
-            echo $rowc;
-          }
-          else {
-            echo 0;
-          }
-          
-        ?>
-        </p>
-      </div>
-    </div>
-    </div>
-    <div class="row-fluid">
-      <div class="span12" >
-        <div class="widget-box">
-          <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-            <h5>View Employee</h5>
-          </div>
-          <div class="widget-content nopadding">
-            <table class="table table-bordered data-table">
-              <thead>
-                <tr>
-                  <th>First Name</th>
-                  <th>Middle Name</th>
-                  <th>Last Name</th>
-                  <th>Gender</th>
-                  <th>Email</th>
-                  <th>Mobile</th>
-                  <th>Role</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="gradeX">
+  <div class="container-fluid">
+  <?php 
+            if (isset($_POST['assign'])){
 
-              <?php 
+                $user_id = mysqli_real_escape_string($db, $_POST['user_id']);
+                $role_id = mysqli_real_escape_string($db, $_POST['role_id']);
 
-              $sess=$_SESSION['user_id'];
-            //   $query = "SELECT * FROM auth_role WHERE role_id != 5;
-              $query = "SELECT fname, mname, lname, gender, email, mobile, name FROM auth_role inner join users on auth_role.user_id=users.id inner join role on auth_role.role_id=role.id WHERE auth_role.role_id != 5 AND auth_role.role_id != 7";
-              $result = mysqli_query($db, $query) or die( mysqli_error($db));
+                        // $query = "INSERT INTO auth_role (user_id, role_id) VALUES ('$user_id', '$role_id')";
+                        $query = "UPDATE auth_role SET role_id = $role_id WHERE user_id = $user_id";
+                        mysqli_query($db, $query);
 
-              while($row = mysqli_fetch_array($result))
-              {
-                ?>
-                  <td><?php echo $row['fname']; ?></td>
-                  <td><?php echo $row['mname']; ?></td>
-                  <td><?php echo $row['lname']; ?></td>
-                  <td><?php echo $row['gender']; ?></td>
-                  <td><?php echo $row['email']; ?></td>
-                  <td><?php echo $row['mobile']; ?></td>
-                  <td><?php echo $row['name']; ?></td>
-                </tr>
-              <?php } ?>
-              </tbody>
-            </table>
-          </div>
+                        $_SESSION['message'] = "User Assigned Successfully!";
+            }
+                
+        ?>
+        
+
+    
+
+
+    <div class="container-fluid">
+        <hr>
+        <div class="row-fluid">
+            <div class="span6">
+                <div class="widget-box">
+                <div class="widget-box">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>Assign Role</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form action="A_r_account.php" method="POST" class="form-horizontal">
+            <div class="control-group">
+              <label class="control-label">User :</label>
+              <div class="controls">
+                <!--<input type="text" class="span11" name="user_id" placeholder="User ID" /> -->
+                <select name="user_id" id="user_id " class="span11">
+                  <option>Select user</option>
+                  <?php 
+                    $query = "SELECT * FROM users order by fname";
+                    $result = mysqli_query($db, $query);
+                    while($row = mysqli_fetch_array($result)){
+                      ?>
+                        <option value="<?php echo $row['id'];  ?>"><?php echo $row['fname']. ' '. $row['mname']. ' '. $row['lname']; ?></option>
+                      <?php
+                    }
+                  ?>
+                  
+                </select>
+              </div>
+            </div>
+            
+            <div class="control-group">
+              <label class="control-label">Role :</label>
+              <div class="controls">
+                <!--<input type="text" class="span11" name="role_id" placeholder="Role ID" /> -->
+                <select name="role_id" id="role_id" class="span11">
+                  <option>Select role</option>
+                  <?php 
+                    $query = "SELECT * FROM role";
+                    $result = mysqli_query($db, $query);
+                    while($row = mysqli_fetch_array($result)){
+                      ?>
+                        <option value="<?php echo $row['id'];  ?>"><?php echo $row['name']; ?></option>
+                      <?php
+                    }
+                  ?>
+                </select>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" name="assign" id="assign" class="btn btn-success">Assign</button>
+            </div>
+          </form>
         </div>
       </div>
+                </div>
+            </div>
+        </div>
     </div>
   </div>
-
 </div>
 
 <!--end-main-container-part-->

@@ -2,14 +2,15 @@
   session_start();
   if($_SESSION['uname']){
   $user_id=$_SESSION['user_id'] ; 
-    if($_SESSION['role_id']!=7){
+    if($_SESSION['role_id']!=6){
+      unset($_SESSION['uname']);
       unset($_SESSION['role_id']);
       header("location: login.php");  
 
     }
   }
   else{  
-   header("location: login.php");  
+    header("location: login.php");  
   }
 
 include 'Connection.php';
@@ -20,17 +21,17 @@ include 'Connection.php';
 <title>Bahirdar police staton</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="css/4/bootstrap.min.css" />
 <link rel="stylesheet" href="css/bootstrap.min.css" />
-
 <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
 <link rel="stylesheet" href="css/fullcalendar.css" />
 <link rel="stylesheet" href="css/matrix-style.css" />
 <link rel="stylesheet" href="css/matrix-media.css" />
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
 <link rel="stylesheet" href="css/jquery.gritter.css" />
-<link rel="stylesheet" href="css/select2.css" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+
+
+
 </head>
 <body>
 
@@ -44,10 +45,11 @@ include 'Connection.php';
 <!--top-Header-menu-->
 <div id="user-nav" class="navbar navbar-inverse">
   <ul class="nav">
-    <li  class="" ><a title="" href="C_profile.php"><span class="profile"><?php  echo $_SESSION['uname']; ?></span></a>
+    <li  class="" ><a title="" href="DP_profile.php"> <span class="profile"><?php  echo $_SESSION['uname']; ?></span></a>
     </li>
-    <li><a href="C_notification.php"><i class="icon icon-bell"></i> <span class="text">Notification</span></a>
+    <li class=""><a href="DP_notification.php"><i class="icon icon-bell"></i> <span class="text">Notification</span></a>
     </li>
+    <li class=""><a title="" href="DP_setting.php"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
     <li class=""><a title="" href="logout.php"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
   </ul>
 </div>
@@ -59,16 +61,51 @@ include 'Connection.php';
 </div>
 <!--close-top-serch-->
 <!--sidebar-menu-->
-<div id="sidebar"><a href="Admin.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
+<div id="sidebar"><a href="DP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
-  <li class="active"><a href="Admin.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Account<b class="caret"></b></span></a> 
+  <li class="active"><a href="DP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Assign<b class="caret"></b></span></a> 
       <ul>
-        <li><a href="A_r_account.php"><i class="icon-plus"></i>Create Account</a></li>
-        <li><a href="A_v_account.php"><i class="icon-eye-open"></i>View Account</a></li>
+        <li><a href="PH_assign.php"><i class="icon-plus"></i>Assign Police</a></li>
+        <li><a href="PH_placement.php"><i class="icon-eye-open"></i>View Placement</a></li>
       </ul>
     </li>
-    <li><a href="A_v_employee.php"><i class="icon icon-home"></i> <span>View Employee</span></a> </li>
+    <li><a href="PH_v_employee.php"><i class="icon icon-home"></i> <span>View Employee</span></a> </li>
+    <li><a href="PH_v_comment.php"><i class="icon icon-home"></i> <span>View Comment</span></a> </li>
+    <li><a href="PH_v_nomination.php><i class="icon icon-home"></i> <span>View Nomination</span></a> </li>
+    <li><a href="PH_r_MCriminal.php"><i class="icon icon-home"></i> <span>Post Missing Criminal</span></a> </li>
+    <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>Take Recovery</span></a> </li>
+    <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>View Traffic Accident Report</span></a> </li>
+    <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>View Criminal Report</span></a> </li>
+     <?php 
+      $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
+      $result = mysqli_query($db, $query);
+
+      echo '<ul>';
+        while($row = mysqli_fetch_array($result)){
+        $r_id=$row['role_id'];
+        if ($r_id==2) 
+        {
+      echo '<li><a href="TPO_index.php"><i class="icon-signin"></i>Traffic Officer</a></li>';
+        }
+        else if ($r_id==3) 
+        {
+      echo '<li><a href="CPP_index.php"><i class="icon-signin"></i>Preventive Police</a></li>';
+        }
+        else if ($r_id==4)
+        {
+      echo '<li><a href="TP_index.php"><i class="icon-signin"></i>Traffic Police</a></li>';
+        }
+        else if ($r_id==5) 
+        {
+      echo '<li><a href="C_index.php"><i class="icon-signin"></i>Customer</a></li>';
+        }
+        }
+      echo '</ul>';
+     ?>
+    </li>
+
+  
   </ul>
 </div>
 <!--sidebar-menu-->
@@ -77,85 +114,11 @@ include 'Connection.php';
 <div id="content">
 <!--breadcrumbs-->
   <div id="content-header">
-    <div id="breadcrumb"> <a href="DP_index.php" class="current"><i class="icon-home"></i> Home</a></div>
+    <div id="breadcrumb"> <a href="DP_index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="DP_v_history.php" class="current" >View Placement History</a></div>
   </div>
-  <!--End-breadcrumbs-->
- 
-  <div class="container-fluid" style="margin-top: 1.5rem;">
-    <div class="dashb">
-      <div class="card text-white bg-primary mb-3" style="width: 14rem;">
-      <div class="card-body">
-        <h5 class="card-title">Total Detective Police</h5>
-        <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
-        <?php
-          $queryc = "SELECT * FROM auth_role WHERE role_id=1";
-          if($resultc = mysqli_query($db, $queryc)) {
-            $rowc = mysqli_num_rows($resultc);
-            echo $rowc;
-          }
-          else {
-            echo 0;
-          }
-          
-        ?>
-        </p>
-      </div>
-    </div>
-    <div class="card text-white bg-secondary mb-3" style="width: 14rem;">
-      <div class="card-body">
-        <h5 class="card-title">Preventive Police</h5>
-        <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
-        <?php
-          $queryc = "SELECT * FROM auth_role WHERE role_id=3";
-          if($resultc = mysqli_query($db, $queryc)) {
-            $rowc = mysqli_num_rows($resultc);
-            echo $rowc;
-          }
-          else {
-            echo 0;
-          }
-          
-        ?>
-        </p>
-      </div>
-    </div>
-    <div class="card text-white bg-success mb-3" style="width: 14rem;">
-      <div class="card-body">
-        <h5 class="card-title">Traffic Police Officer</h5>
-        <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
-        <?php
-          $queryc = "SELECT * FROM auth_role WHERE role_id=2";
-          if($resultc = mysqli_query($db, $queryc)) {
-            $rowc = mysqli_num_rows($resultc);
-            echo $rowc;
-          }
-          else {
-            echo 0;
-          }
-          
-        ?>
-        </p>
-      </div>
-    </div>
-    <div class="card text-white bg-danger mb-3" style="width: 14rem;">
-      <div class="card-body">
-        <h5 class="card-title">Traffic Police</h5>
-        <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
-        <?php
-          $queryc = "SELECT * FROM auth_role WHERE role_id=4";
-          if($resultc = mysqli_query($db, $queryc)) {
-            $rowc = mysqli_num_rows($resultc);
-            echo $rowc;
-          }
-          else {
-            echo 0;
-          }
-          
-        ?>
-        </p>
-      </div>
-    </div>
-    </div>
+<!--End-breadcrumbs-->
+
+<div class="container-fluid">
     <div class="row-fluid">
       <div class="span12" >
         <div class="widget-box">
@@ -182,7 +145,7 @@ include 'Connection.php';
 
               $sess=$_SESSION['user_id'];
             //   $query = "SELECT * FROM auth_role WHERE role_id != 5;
-              $query = "SELECT fname, mname, lname, gender, email, mobile, name FROM auth_role inner join users on auth_role.user_id=users.id inner join role on auth_role.role_id=role.id WHERE auth_role.role_id != 5 AND auth_role.role_id != 7";
+              $query = "SELECT fname, mname, lname, gender, email, mobile, name FROM auth_role inner join users on auth_role.user_id=users.id inner join role on auth_role.role_id=role.id WHERE auth_role.role_id != 5";
               $result = mysqli_query($db, $query) or die( mysqli_error($db));
 
               while($row = mysqli_fetch_array($result))

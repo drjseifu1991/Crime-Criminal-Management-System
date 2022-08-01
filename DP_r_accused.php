@@ -82,7 +82,7 @@ include 'Connection.php';
       </ul>
 
     </li>
-    <li  class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-user-md"></i> <span> Accuser<b class="caret"></b></span></a>
+    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-user-md"></i> <span> Accuser<b class="caret"></b></span></a>
       <ul>
         <li><a href="DP_r_accuser.php"><i class="icon-plus"></i>Register Accuser</a></li>
         <li><a href="DP_v_accuser.php"><i class="icon-eye-open"></i>View Accuser</a></li>
