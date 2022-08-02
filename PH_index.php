@@ -65,7 +65,7 @@ include 'Connection.php';
   <ul>
     
 
-    <li class="active"><a href="DP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+    <li class="active"><a href="PH_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
     <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Assign<b class="caret"></b></span></a> 
       <ul>
         <li><a href="PH_assign.php"><i class="icon-plus"></i>Assign Police</a></li>
@@ -76,9 +76,9 @@ include 'Connection.php';
     <li><a href="PH_v_comment.php"><i class="icon icon-home"></i> <span>View Comment</span></a> </li>
     <li><a href="PH_v_nomination.php"><i class="icon icon-home"></i> <span>View Nomination</span></a> </li>
     <li><a href="PH_r_MCriminal.php"><i class="icon icon-home"></i> <span>Post Missing Criminal</span></a> </li>
-    <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>Take Recovery</span></a> </li>
-    <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>View Traffic Accident Report</span></a> </li>
-    <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>View Criminal Report</span></a> </li>
+    <li><a href="PH_t_recovery.php"><i class="icon icon-home"></i> <span>Take Recovery</span></a> </li>
+    <li><a href="PH_v_r_accident.php"><i class="icon icon-home"></i> <span>View Traffic Accident Report</span></a> </li>
+    <li><a href="PH_v_r_crime.php"><i class="icon icon-home"></i> <span>View Criminal Report</span></a> </li>
 
     
    
@@ -197,28 +197,18 @@ include 'Connection.php';
     </div>
     </div>
     <div class="row-fluid">
-      <div class="span12" >
+    <div class="span12" >
         <div class="widget-box">
           <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-            <h5>Recent Crime/Criminal</h5>
+            <h5>View Comment</h5>
           </div>
           <div class="widget-content nopadding">
             <table class="table table-bordered data-table">
               <thead>
                 <tr>
-                  <th>Accuser Name</th>
-                  <th>Accused Name</th>
-                  <th>Witness1</th>
-                  <th>Witness2</th>
-                  <th>Witness3</th>
-                  <th>Controler</th>
-                  <th>Crime Type</th>
-                  <th>Crime Level</th>
-                  <th>File</th>
-                  <th>RDatetime</th>
-                  <th>Description</th>
-                  <!-- <th>Edit</th>
-                  <th>Delete</th> -->
+                  <th>Commment</th>
+                  <th>Date</th>
+                  <th>Commented by</th>
                 </tr>
               </thead>
               <tbody>
@@ -226,50 +216,17 @@ include 'Connection.php';
 
               <?php 
 
-              $query = "SELECT * FROM crime ORDER BY id ASC";
-              $result = mysqli_query($db, $query);
+              $sess=$_SESSION['user_id'];
+            //   $query = "SELECT * FROM auth_role WHERE role_id != 5;
+              $query = "SELECT comment, fname, mname, datetime FROM comment inner join users on comment.user_id=users.id";
+              $result = mysqli_query($db, $query) or die( mysqli_error($db));
 
               while($row = mysqli_fetch_array($result))
               {
-              ?>
-                  <td><?php $accu=$row['accuser_id'];
-              $query = "SELECT fname, mname FROM accuser where accuser.id = $accu";
-              $result1 = mysqli_query($db, $query);              
-              if($row1 = mysqli_fetch_array($result1))
-              {echo $row1['fname'] ." ". $row1['mname']; }?>
-              </td>
-                  <td><?php $accu=$row['accused_id'];
-              $query = "SELECT fname, mname FROM accused where accused.id = $accu";
-              $result1 = mysqli_query($db, $query);              
-              if($row1 = mysqli_fetch_array($result1))
-              {echo $row1['fname'] ." ". $row1['mname']; }?></td>
-                  <td><?php $witne=$row['witness_1'];
-              $query = "SELECT fname, mname FROM witness where witness.id = $witne";
-              $result1 = mysqli_query($db, $query);              
-              if($row1 = mysqli_fetch_array($result1))
-              {echo $row1['fname'] ." ". $row1['mname']; }?></td>
-                  <td><?php $witne=$row['witness_2'];
-              $query = "SELECT fname, mname FROM witness where witness.id = $witne";
-              $result1 = mysqli_query($db, $query);              
-              if($row1 = mysqli_fetch_array($result1))
-              {echo $row1['fname'] ." ". $row1['mname']; }?></td>
-                  <td><?php $witne=$row['witness_3'];
-              $query = "SELECT fname, mname FROM witness where witness.id = $witne";
-              $result1 = mysqli_query($db, $query);              
-              if($row1 = mysqli_fetch_array($result1))
-              {echo $row1['fname'] ." ". $row1['mname']; }?></td>
-                  <td><?php $contr=$row['controller'];
-              $query = "SELECT fname, mname FROM users where users.id = $contr";
-              $result1 = mysqli_query($db, $query);              
-              if($row1 = mysqli_fetch_array($result1))
-              {echo $row1['fname'] ." ". $row1['mname']; }?></td>
-                  <td><?php echo $row['ctype'] ?></td>
-                  <td><?php echo $row['clevel'] ?></td>
-                  <td><a href="uploads/<?php echo $row['file'] ?>" target = "_blank" ><?php echo $row['file'] ?></a> </td>
-                  <td><?php echo $row['rdatetime'] ?></td>
-                  <td><?php echo $row['description'] ?></td>
-                  <!-- <td><button style="color: blue;"><i class="icon icon-pencil"></i> </button> </td>
-                  <td><button style="color: red; "><i class="icon icon-trash"></i> </button></td> -->
+                ?>
+                  <td><?php echo $row['comment']; ?></td>
+                  <td><?php echo $row['datetime']; ?></td>
+                  <td><?php echo $row['fname']; ?></td>
                 </tr>
               <?php } ?>
               </tbody>

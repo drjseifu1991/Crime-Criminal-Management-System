@@ -63,9 +63,13 @@ include 'Connection.php';
 <div id="sidebar"><a href="TPO_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
     <li class="active"><a href="TPO_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    <li><a href="TPO_assign.php"><i class="icon icon-home"></i> <span>Assign police</span></a> </li>
-    <li><a href="TPO_index.php"><i class="icon icon-home"></i> <span>View Report</span></a> </li>
-    <li><a href="TPO_index.php"><i class="icon icon-home"></i> <span>Generate Report</span></a> </li>
+    <li><a href="TPO_assign.php"><i class="icon icon-home"></i> <span>Assign Traffic police</span></a> </li>
+    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-user-md"></i> <span>Report<b class="caret"></b></span></a>
+      <ul>
+      <li><a href="TPO_g_report.php"><i class="icon-plus"></i>Generate Report</a></li>
+        <li><a href="TPO_v_report.php"><i class="icon-eye-open"></i>View Report</a></li>
+      </ul>
+    </li>
     
      
       <?php 
@@ -186,43 +190,38 @@ include 'Connection.php';
     </div>
     </div>
     <div class="row-fluid">
-      <div class="span12" >
+    <div class="span12" >
         <div class="widget-box">
           <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-            <h5>View Accident</h5>
+            <h5>View Report</h5>
           </div>
           <div class="widget-content nopadding">
             <table class="table table-bordered data-table">
               <thead>
                 <tr>
-                  <th>Vihecle Owner</th>
-                  <th>Driver Licence Number</th>
-                  <th>Vihecle Board Number</th>
-                  <th>Accident Date</th>
-                  <th>Crime Type</th>
-                  <th>Crime Level</th>
-                  <th>Punishment Type</th>
+                  <th>Case</th>
+                  <th>Date</th>
                   <th>Description</th>
+                  <th>File</th>
+                  <th>Reported by</th>
                 </tr>
               </thead>
               <tbody>
                 <tr class="gradeX">
 
               <?php 
-              $query = "SELECT * FROM accident where session=$user_id ORDER BY id ";
+
+              $query = "SELECT r_case, r_date_time, r_desc, file_r , fname, mname FROM report inner join users on report.user_id = users.id WHERE r_type = 'accident' AND r_level = 'low'";
               $result = mysqli_query($db, $query);
 
               while($row = mysqli_fetch_array($result))
               {
               ?>
-                  <td><?php echo $row['funame_vihecle_owner'] ?></td>
-                  <td><?php echo $row['driver_licence'] ?></td>
-                  <td><?php echo $row['vehicle_board_no'] ?></td>
-                  <td><?php echo $row['accident_date'] ?></td>
-                  <td><?php echo $row['crime_type'] ?></td>
-                  <td><?php echo $row['crime_level'] ?></td>
-                  <td><?php echo $row['punishment_type']?></td>
-                  <td><?php echo $row['description']?></td>
+                  <td><?php echo $row['r_case'];?></td>
+                  <td><?php echo $row['r_date_time'];?></td>
+                  <td><?php echo $row['r_desc'];?></td>
+                  <td><a href="uploads/<?php echo $row['file_r'] ?>" target = "_blank" ><?php echo $row['file_r'] ?></a> </td>
+                  <td><?php echo $row['fname']." ".$row['mname'];?></td>
                 </tr>
               <?php } ?>
               </tbody>

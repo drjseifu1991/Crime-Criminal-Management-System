@@ -124,7 +124,6 @@ include 'Connection.php';
 
 
 <div class="container-fluid">
-  <hr>
         
   <?php 
 $fname = $lname= $city = $kebele = $crime_type = $crime_level = $files = $description = $session1 = "";
@@ -192,7 +191,6 @@ if (isset($_POST['save'])){
 
 ?>
   <div class="container-fluid">
-  <hr>
   <div class="row-fluid">
     <div class="span6">
       <div class="widget-box">

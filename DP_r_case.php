@@ -71,7 +71,7 @@ include 'Connection.php';
 <!--sidebar-menu-->
 <div id="sidebar"><a href="DP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
-    <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+  <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
     <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Assign<b class="caret"></b></span></a> 
       <ul>
         <li><a href="DP_assign.php"><i class="icon-plus"></i>Assign Police</a></li>
@@ -104,26 +104,13 @@ include 'Connection.php';
         <li><a href="DP_v_witness.php"><i class="icon-eye-open"></i>View Witness</a></li>
       </ul>
     </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon-comments"></i> <span>Nomination<b class="caret"></b></span></a>
+    <li><a href="DP_v_criminal.php"><i class="icon icon-home"></i> <span>View Criminal</span></a> </li>
+    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-user-md"></i> <span>Report<b class="caret"></b></span></a>
       <ul>
-        <li><a href="DP_r_nomination.php"><i class="icon-plus"></i>Register Nomination</a></li>
-        <li><a href="DP_v_nomination.php"><i class="icon-eye-open"></i>View Nomination</a></li>
+      <li><a href="DP_g_report.php"><i class="icon-plus"></i>Generate Report</a></li>
+        <li><a href="DP_v_report.php"><i class="icon-eye-open"></i>View Report</a></li>
       </ul>
     </li>
-
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-file"></i> <span>Crime</span><b class="caret"></b></span></a>
-    <ul>
-        <li><a href="DP_r_crime.php"><i class="icon-plus"></i>Register Crime</a></li>
-        <li><a href="DP_v_crime.php"><i class="icon-eye-open"></i>View Crime</a></li>
-      </ul>
-    </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-pencil"></i> <span>Post</span><b class="caret"></b></span></a>
-    <ul>
-        <li><a href="DP_notice.php"><i class="icon-plus"></i>Post Notice</a></li>
-        <li><a href="DP_v_notice.php"><i class="icon-eye-open"></i>View Notice</a></li>
-      </ul>
-    </li>
-    <li><a href="DP_phone.php"><i class="icon icon-phone-sign"></i> <span>Phone Number</span></a></li>
       <?php 
       $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
       $result = mysqli_query($db, $query);
@@ -169,22 +156,25 @@ include 'Connection.php';
 <div class="container-fluid">
   <hr>
   <?php
-   $crime_id = $appo_date = $description ="";
-   $crime_id_err = $app_date_err = $description_err = "";
+   $accused_id = $appo_date = $description = $crime_type="";
+   $accused_id_err = $app_date_err = $description_err = $crime_type_err= "";
 
    if (isset($_POST['save'])){
 
-        $crime_id = mysqli_real_escape_string($db, $_POST['crime_id']);
+        $accused_id = mysqli_real_escape_string($db, $_POST['accused_id']);
         $appo_date = mysqli_real_escape_string($db, $_POST['appo_date']);
         $description = mysqli_real_escape_string($db, $_POST['description']);
+        $crime_type = mysqli_real_escape_string($db, $_POST['crime_type']);
         $session=$_SESSION['user_id'];
 
         //validation
 
         if(empty($_POST['crime_id'])){
-          $crime_id_err = "Select crime!";
+          $accused_id_err = "Select Accused!";
         }
-
+        if(empty($_POST['crime_type'])){
+          $crime_type_err = "Insert Crime Type!";
+        }
         if(empty($_POST['appo_date'])){
           $app_date_err = "Select appointment date and time!";
         }
@@ -194,9 +184,14 @@ include 'Connection.php';
         }
 
         else{
-          $query = "INSERT INTO progress_case (crime_id, appo_date, description) VALUES ('$crime_id', '$appo_date', '$description')";
-          mysqli_query($db, $query);
-          echo "<h3>Registration Success!</h3> ";
+          $query = "INSERT INTO progress_case (accused_id, appo_date, description, crime_type) VALUES ('$accused_id', '$appo_date', '$description', '$crime_type')";
+          if(mysqli_query($db, $query)) {
+            echo "<h3>Registration Success!</h3> ";
+          }
+          else {
+            echo "<h3>Registration Not Success!</h3> ";
+          }
+          
         }
    }
  ?>
@@ -209,22 +204,30 @@ include 'Connection.php';
         <div class="widget-content nopadding">
           <form action="DP_r_case.php" method="POST" class="form-horizontal">
             <div class="control-group">
-              <label class="control-label">Crime :</label>
+              <label class="control-label">Accused :</label>
               <div class="controls">
-                <select name="crime_id" id="crime_id " class="span11">
+                <select name="accused_id" id="accused_id " class="span11">
                    <?php 
-                    $query = "SELECT * FROM crime";
+                    $query = "SELECT * FROM accused";
                    $result = mysqli_query($db, $query);
                     while($row = mysqli_fetch_array($result)){
                       ?>
-                        <option value="<?php echo $row['id'];  ?>"><?php echo $row['ctype'] ."-". "(". $row['id'].")"; ?></option>
+                        <option value="<?php echo $row['id'];  ?>"><?php echo $row['fname'] ." ".$row['mname']."-". "(". $row['id'].")"; ?></option>
                       <?php
                     }
                   ?>
                   
                 </select>
                 <br>
-                 <span class="error"><?php echo $crime_id_err; ?></span>
+                 <span class="error"><?php echo $accused_id_err; ?></span>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Crime Type :</label>
+              <div class="controls">
+                <input type="text" class="span11" name="crime_type" placeholder="Crime Type" />
+                <br>
+                 <span class="error"><?php echo $crime_type_err; ?></span>
               </div>
             </div>
             <div class="control-group">

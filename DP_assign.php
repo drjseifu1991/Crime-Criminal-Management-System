@@ -68,13 +68,14 @@ include 'Connection.php';
 <!--sidebar-menu-->
 <div id="sidebar"><a href="DP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
-    <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+  <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
     <li class="active" class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Assign<b class="caret"></b></span></a> 
       <ul>
         <li class="active"><a href="DP_assign.php"><i class="icon-plus"></i>Assign Police</a></li>
         <li><a href="DP_v_placement.php"><i class="icon-eye-open"></i>View Placement</a></li>
       </ul>
     </li>
+
     <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-refresh"></i> <span>Progress Case<b class="caret"></b></span></a> 
       <ul>
         <li><a href="DP_r_case.php"><i class="icon-plus"></i>Register Case</a></li>
@@ -100,26 +101,13 @@ include 'Connection.php';
         <li><a href="DP_v_witness.php"><i class="icon-eye-open"></i>View Witness</a></li>
       </ul>
     </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon-comments"></i> <span>Nomination<b class="caret"></b></span></a>
+    <li><a href="DP_v_criminal.php"><i class="icon icon-home"></i> <span>View Criminal</span></a> </li>
+    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-user-md"></i> <span>Report<b class="caret"></b></span></a>
       <ul>
-        <li><a href="DP_r_nomination.php"><i class="icon-plus"></i>Register Nomination</a></li>
-        <li><a href="DP_v_nomination.php"><i class="icon-eye-open"></i>View Nomination</a></li>
+      <li><a href="DP_g_report.php"><i class="icon-plus"></i>Generate Report</a></li>
+        <li><a href="DP_v_report.php"><i class="icon-eye-open"></i>View Report</a></li>
       </ul>
     </li>
-
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-file"></i> <span>Crime</span><b class="caret"></b></span></a>
-    <ul>
-        <li><a href="DP_r_crime.php"><i class="icon-plus"></i>Register Crime</a></li>
-        <li><a href="DP_v_crime.php"><i class="icon-eye-open"></i>View Crime</a></li>
-      </ul>
-    </li>
-   <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-pencil"></i> <span>Post</span><b class="caret"></b></span></a>
-    <ul>
-        <li><a href="DP_notice.php"><i class="icon-plus"></i>Post Notice</a></li>
-        <li><a href="DP_v_notice.php"><i class="icon-eye-open"></i>View Notice</a></li>
-      </ul>
-    </li>
-    <li><a href="DP_profile.php"><i class="icon icon-user"></i> <span>Profile</span></a></li>
       <?php 
       $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
       $result = mysqli_query($db, $query);
@@ -225,7 +213,7 @@ include 'Connection.php';
                 <select name="user_id" id="user_id " class="span11">
                   <option value="" disabled selected>--Select Police--</option>
                   <?php 
-                    $query = "SELECT users.id,fname,mname,lname FROM users inner join auth_role on users.id=user_id where role_id=1 or role_id=3 order by fname";
+                    $query = "SELECT users.id,fname,mname,lname FROM users inner join auth_role on users.id=user_id where role_id=3 order by fname";
                    $result = mysqli_query($db, $query);
                     while($row = mysqli_fetch_array($result)){
                       ?>

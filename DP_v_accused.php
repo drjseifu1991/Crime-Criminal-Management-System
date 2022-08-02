@@ -106,9 +106,13 @@ include 'Connection.php';
         <li><a href="DP_v_witness.php"><i class="icon-eye-open"></i>View Witness</a></li>
       </ul>
     </li>
-
     <li><a href="DP_v_criminal.php"><i class="icon icon-home"></i> <span>View Criminal</span></a> </li>
-    <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>Generate Report</span></a> </li>
+    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-user-md"></i> <span>Report<b class="caret"></b></span></a>
+      <ul>
+      <li><a href="DP_g_report.php"><i class="icon-plus"></i>Generate Report</a></li>
+        <li><a href="DP_v_report.php"><i class="icon-eye-open"></i>View Report</a></li>
+      </ul>
+    </li>
       <?php 
       $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
       $result = mysqli_query($db, $query);

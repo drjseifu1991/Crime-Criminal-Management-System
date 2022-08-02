@@ -90,9 +90,13 @@ include 'Connection.php';
 
                         // $query = "INSERT INTO auth_role (user_id, role_id) VALUES ('$user_id', '$role_id')";
                         $query = "UPDATE auth_role SET role_id = $role_id WHERE user_id = $user_id";
-                        mysqli_query($db, $query);
-
-                        $_SESSION['message'] = "User Assigned Successfully!";
+                        if(mysqli_query($db, $query)) {
+                          echo "User Assigned Successfully!";
+                        } 
+                        else {
+                          echo "User Not Assigned Successfully!";
+                        }
+                        
             }
                 
         ?>

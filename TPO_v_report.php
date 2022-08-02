@@ -2,7 +2,8 @@
   session_start();
   if($_SESSION['uname']){
   $user_id=$_SESSION['user_id'] ; 
-    if($_SESSION['role_id']!=2 && $_SESSION['role_id']!=4){
+    if($_SESSION['role_id']!=2){
+      unset($_SESSION['uname']);
       unset($_SESSION['role_id']);
       header("location: login.php");  
 
@@ -42,11 +43,11 @@ include 'Connection.php';
 <!--top-Header-menu-->
 <div id="user-nav" class="navbar navbar-inverse">
   <ul class="nav">
-    <li  class="" ><a title="" href="TP_profile.php"><span class="profile"><?php  echo $_SESSION['uname']; ?></span></a>
+    <li  class="" ><a title="" href="DP_profile.php">  <span class="profile"><?php  echo $_SESSION['uname']; ?></span></a>
     </li>
-    <li class=""><a href="TP_notification.php"><i class="icon icon-bell"></i> <span class="text">Notification</span></a>
+    <li class=""><a href="DP_notification.php"><i class="icon icon-bell"></i> <span class="text">Notification</span></a>
     </li>
-    <li class=""><a title="" href="TP_setting.php"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
+    <li class=""><a title="" href="DP_setting.php"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
     <li class=""><a title="" href="logout.php"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
   </ul>
 </div>
@@ -58,49 +59,16 @@ include 'Connection.php';
 </div>
 <!--close-top-serch-->
 <!--sidebar-menu-->
-<div id="sidebar"><a href="TP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
+<div id="sidebar"><a href="DP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
-  <li><a href="TP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    <li><a href="TP_placement.php"><i class="icon icon-map-marker"></i> <span>View Placement</span></a></li>
-    <li> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-exclamation-sign"></i> <span>Accident<b class="caret"></b></span></a> 
+  <li><a href="TPO_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+    <li><a href="TPO_assign.php"><i class="icon icon-home"></i> <span>Assign Traffic police</span></a> </li>
+    <li class= "active" class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-user-md"></i> <span>Report<b class="caret"></b></span></a>
       <ul>
-        <li><a href="TP_r_accident.php"><i class="icon-plus"></i>Register Accident</a></li>
-        <li><a href="TP_v_accident.php"><i class="icon-eye-open"></i>View Accident</a></li>
+      <li><a href="TPO_g_report.php"><i class="icon-plus"></i>Generate Report</a></li>
+      <li class="active"><a href="TPO_v_report.php"><i class="icon-eye-open"></i>View Report</a></li>
       </ul>
     </li>
-  
-    <li class="active"><a href="TP_v_nomination.php"><i class="icon icon-eye-open"></i>View Nomination</a></li>
-    <li><a href="TP_g_report.php"><i class="icon icon-eye-open"></i>Generate Accident Report</a></li>
-      <?php 
-      $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
-      $result = mysqli_query($db, $query);
-
-      echo '<ul>';
-        while($row = mysqli_fetch_array($result)){
-        $r_id=$row['role_id'];
-        if ($r_id==1) 
-        {
-      echo '<li><a href="DP_index.php"><i class="icon-signin"></i>Detective Police</a></li>';
-        }
-
-        else if ($r_id==2)
-        {
-      echo '<li><a href="TPO_index.php"><i class="icon-signin"></i>Traffic Officer</a></li>';
-        }
-        else if ($r_id==3) 
-        {
-      echo '<li><a href="CPP_index.php"><i class="icon-signin"></i>Preventive Police</a></li>';
-        }
-        
-        else if ($r_id==5) 
-        {
-      echo '<li><a href="C_index.php"><i class="icon-signin"></i>Customer</a></li>';
-        }
-        }
-      echo '</ul>';
-     ?>
-    </li>
-
   
   </ul>
 </div>
@@ -110,29 +78,26 @@ include 'Connection.php';
 <div id="content">
 <!--breadcrumbs-->
   <div id="content-header">
-    <div id="breadcrumb"> <a href="TPO_index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="TPO_v_nomination.php" class="current" >View Nomination</a></div>
+    <div id="breadcrumb"> <a href="DP_index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="DP_v_crime.php" class="current" >View Crime</a></div>
   </div>
+<!--End-breadcrumbs-->
 
-  <div class="container-fluid">
+<div class="container-fluid">
     <div class="row-fluid">
       <div class="span12" >
         <div class="widget-box">
           <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-            <h5>View Nomination</h5>
+            <h5>View Report</h5>
           </div>
           <div class="widget-content nopadding">
             <table class="table table-bordered data-table">
               <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>User ID</th>
-                  <th>Nomination Type</th>
-                  <th>Kebele</th>
-                  <th>Place</th>
+                  <th>Case</th>
                   <th>Date</th>
-                  <th>File</th>
                   <th>Description</th>
-                  <th>RDatetime</th>
+                  <th>File</th>
+                  <th>Reported by</th>
                 </tr>
               </thead>
               <tbody>
@@ -140,21 +105,17 @@ include 'Connection.php';
 
               <?php 
 
-              $query = "SELECT * FROM nomination ORDER BY id ASC";
+              $query = "SELECT r_case, r_date_time, r_desc, file_r , fname, mname FROM report inner join users on report.user_id = users.id WHERE r_type = 'accident' AND r_level = 'low'";
               $result = mysqli_query($db, $query);
 
               while($row = mysqli_fetch_array($result))
               {
               ?>
-                  <td><?php echo $row['id'] ?></td>
-                  <td><?php echo $row['user_id'] ?></td>
-                  <td><?php echo $row['ntype'] ?></td>
-                  <td><?php echo $row['kebele'] ?></td>
-                  <td><?php echo $row['village'] ?></td>
-                  <td><?php echo $row['ndatetime'] ?></td>
-                  <td><?php echo $row['file'] ?></td>
-                  <td><?php echo $row['description'] ?></td>
-                  <td><?php echo $row['datetime'] ?></td>
+                  <td><?php echo $row['r_case'];?></td>
+                  <td><?php echo $row['r_date_time'];?></td>
+                  <td><?php echo $row['r_desc'];?></td>
+                  <td><a href="uploads/<?php echo $row['file_r'] ?>" target = "_blank" ><?php echo $row['file_r'] ?></a> </td>
+                  <td><?php echo $row['fname']." ".$row['mname'];?></td>
                 </tr>
               <?php } ?>
               </tbody>
@@ -164,9 +125,6 @@ include 'Connection.php';
       </div>
     </div>
   </div>
-
-<!--End-breadcrumbs-->
-
 
 </div>
 

@@ -70,7 +70,7 @@ include 'Connection.php';
     </li>
   
     <li><a href="TP_v_nomination.php"><i class="icon icon-eye-open"></i>View Nomination</a></li>
-    <li><a href="TP_v_nomination.php"><i class="icon icon-eye-open"></i>Generate Accident Report</a></li>
+    <li><a href="TP_g_report.php"><i class="icon icon-eye-open"></i>Generate Accident Report</a></li>
       <?php 
       $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
       $result = mysqli_query($db, $query);

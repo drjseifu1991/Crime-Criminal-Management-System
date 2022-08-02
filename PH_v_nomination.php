@@ -59,9 +59,8 @@ include 'Connection.php';
 </div>
 <!--close-top-serch-->
 <!--sidebar-menu-->
-<div id="sidebar"><a href="DP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
-  <ul>
-  <li class="active"><a href="DP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+<div id="sidebar"><a href="PH_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+<ul>
     <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Assign<b class="caret"></b></span></a> 
       <ul>
         <li><a href="PH_assign.php"><i class="icon-plus"></i>Assign Police</a></li>
@@ -70,39 +69,12 @@ include 'Connection.php';
     </li>
     <li><a href="PH_v_employee.php"><i class="icon icon-home"></i> <span>View Employee</span></a> </li>
     <li><a href="PH_v_comment.php"><i class="icon icon-home"></i> <span>View Comment</span></a> </li>
-    <li><a href="PH_v_nomination.php"><i class="icon icon-home"></i> <span>View Nomination</span></a> </li>
+    <li class="active"><a href="PH_v_nomination.php"><i class="icon icon-home"></i> <span>View Nomination</span></a> </li>
     <li><a href="PH_r_MCriminal.php"><i class="icon icon-home"></i> <span>Post Missing Criminal</span></a> </li>
-    <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>Take Recovery</span></a> </li>
-    <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>View Traffic Accident Report</span></a> </li>
-    <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>View Criminal Report</span></a> </li>
+    <li><a href="PH_t_recovery.php"><i class="icon icon-home"></i> <span>Take Recovery</span></a> </li>
+    <li><a href="PH_v_r_accident.php"><i class="icon icon-home"></i> <span>View Traffic Accident Report</span></a> </li>
+    <li><a href="PH_v_r_crime.php"><i class="icon icon-home"></i> <span>View Criminal Report</span></a> </li>
     
-      <?php 
-      $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
-      $result = mysqli_query($db, $query);
-
-      echo '<ul>';
-        while($row = mysqli_fetch_array($result)){
-        $r_id=$row['role_id'];
-        if ($r_id==2) 
-        {
-      echo '<li><a href="TPO_index.php"><i class="icon-signin"></i>Traffic Officer</a></li>';
-        }
-        else if ($r_id==3) 
-        {
-      echo '<li><a href="CPP_index.php"><i class="icon-signin"></i>Preventive Police</a></li>';
-        }
-        else if ($r_id==4)
-        {
-      echo '<li><a href="TP_index.php"><i class="icon-signin"></i>Traffic Police</a></li>';
-        }
-        else if ($r_id==5) 
-        {
-      echo '<li><a href="C_index.php"><i class="icon-signin"></i>Customer</a></li>';
-        }
-        }
-      echo '</ul>';
-     ?>
-    </li>
 
   
   </ul>

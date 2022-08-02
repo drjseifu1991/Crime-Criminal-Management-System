@@ -2,8 +2,7 @@
   session_start();
   if($_SESSION['uname']){
   $user_id=$_SESSION['user_id'] ; 
-    if($_SESSION['role_id']!=1 && $_SESSION['role_id']!=3){
-      unset($_SESSION['uname']);
+    if($_SESSION['role_id']!=1){
       unset($_SESSION['role_id']);
       header("location: login.php");  
 
@@ -29,9 +28,15 @@ include 'Connection.php';
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
 <link rel="stylesheet" href="css/jquery.gritter.css" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
-
-
-
+<style type="text/css">
+  .error{
+    color: red;
+  }
+  h3{
+    color: green;
+    font-style: bold;
+  }
+</style>
 </head>
 <body>
 
@@ -45,11 +50,11 @@ include 'Connection.php';
 <!--top-Header-menu-->
 <div id="user-nav" class="navbar navbar-inverse">
   <ul class="nav">
-    <li  class="" ><a title="" href="DP_profile.php"> <span class="profile"><?php  echo $_SESSION['uname']; ?></span></a>
+    <li  class="" ><a title="" href="TP_profile.php"><span class="profile"><?php  echo $_SESSION['uname']; ?></span></a>
     </li>
-    <li class=""><a href="DP_notification.php"><i class="icon icon-bell"></i> <span class="text">Notification</span></a>
+    <li class=""><a href="TP_notification.php"><i class="icon icon-bell"></i> <span class="text">Notification</span></a>
     </li>
-    <li class=""><a title="" href="DP_setting.php"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
+    <li class=""><a title="" href="TP_setting.php"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
     <li class=""><a title="" href="logout.php"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
   </ul>
 </div>
@@ -61,13 +66,13 @@ include 'Connection.php';
 </div>
 <!--close-top-serch-->
 <!--sidebar-menu-->
-<div id="sidebar"><a href="DP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
-  <ul>
-  <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    <li class="active" class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Assign<b class="caret"></b></span></a> 
+<div id="sidebar"><a href="TP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
+<ul>
+<li><a href="DP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Assign<b class="caret"></b></span></a> 
       <ul>
         <li><a href="DP_assign.php"><i class="icon-plus"></i>Assign Police</a></li>
-        <li class="active"><a href="DP_v_placement.php"><i class="icon-eye-open"></i>View Placement</a></li>
+        <li><a href="DP_v_placement.php"><i class="icon-eye-open"></i>View Placement</a></li>
       </ul>
     </li>
 
@@ -97,20 +102,25 @@ include 'Connection.php';
       </ul>
     </li>
     <li><a href="DP_v_criminal.php"><i class="icon icon-home"></i> <span>View Criminal</span></a> </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-user-md"></i> <span>Report<b class="caret"></b></span></a>
+    <li class="active" class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-user-md"></i> <span>Report<b class="caret"></b></span></a>
       <ul>
-      <li><a href="DP_g_report.php"><i class="icon-plus"></i>Generate Report</a></li>
+      <li class="active"><a href="DP_g_report.php"><i class="icon-plus"></i>Generate Report</a></li>
         <li><a href="DP_v_report.php"><i class="icon-eye-open"></i>View Report</a></li>
       </ul>
     </li>
-     <?php 
+      <!-- <?php 
       $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
       $result = mysqli_query($db, $query);
 
       echo '<ul>';
         while($row = mysqli_fetch_array($result)){
         $r_id=$row['role_id'];
-        if ($r_id==2) 
+        if ($r_id==1) 
+        {
+      echo '<li><a href="DP_index.php"><i class="icon-signin"></i>Detective Police</a></li>';
+        }
+
+        else if ($r_id==2)
         {
       echo '<li><a href="TPO_index.php"><i class="icon-signin"></i>Traffic Officer</a></li>';
         }
@@ -118,10 +128,7 @@ include 'Connection.php';
         {
       echo '<li><a href="CPP_index.php"><i class="icon-signin"></i>Preventive Police</a></li>';
         }
-        else if ($r_id==4)
-        {
-      echo '<li><a href="TP_index.php"><i class="icon-signin"></i>Traffic Police</a></li>';
-        }
+        
         else if ($r_id==5) 
         {
       echo '<li><a href="C_index.php"><i class="icon-signin"></i>Customer</a></li>';
@@ -129,7 +136,7 @@ include 'Connection.php';
         }
       echo '</ul>';
      ?>
-    </li>
+    </li> -->
 
   
   </ul>
@@ -140,67 +147,104 @@ include 'Connection.php';
 <div id="content">
 <!--breadcrumbs-->
   <div id="content-header">
-    <div id="breadcrumb"> <a href="DP_index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="DP_v_history.php" class="current" >View Placement History</a></div>
+    <div id="breadcrumb"> <a href="TPO_index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="TPO_r_accident.php" class="current" >Register Accident</a></div>
   </div>
-<!--End-breadcrumbs-->
-
 <div class="container-fluid">
-    <div class="row-fluid">
-      <div class="span12" >
-        <div class="widget-box">
-          <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-            <h5>View Placement History</h5>
-          </div>
-          <div class="widget-content nopadding">
-            <table class="table table-bordered data-table">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>First Name</th>
-                  <th>Middle Name</th>
-                  <th>Last Name</th>
-                  <th>Mobile</th>
-                  <th>Kebele</th>
-                  <th>Place</th>
-                  <th>Starting time</th>
-                  <th>Finishing time</th>
-                  <th>Registration time</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="gradeX">
+  <hr>
+  <?php 
+    $case = $case_err = $date_time = $date_time_err = $description = $description_err="";
 
-              <?php 
+    if(isset($_POST['save'])){
+      $case = mysqli_real_escape_string($db, $_POST['case']);
+      $date_time = mysqli_real_escape_string($db, $_POST['date_time']);
+      $description = mysqli_real_escape_string($db, $_POST['description']);
+      $directory = "uploads/";
+        $file = $directory.basename($_FILES['files']['name']);
+        if(move_uploaded_file($_FILES['files']['tmp_name'], $file)){
+          $file = basename($_FILES['files']['name']);
+        }
+        else{
+          $file = "";
+        }
 
-              $sess=$_SESSION['user_id'];
-              $query = "SELECT user_place.id, fname, mname, lname, mobile, kebele, place, stime, ftime, rtime FROM users inner join user_place on users.id=user_place.user_id inner join placement on user_place.place_id=placement.id";
-              $result = mysqli_query($db, $query) or die( mysqli_error($db));
+      if(empty($_POST['case'])){
+          $case_err = "Enter Case";
+      }
 
-              while($row = mysqli_fetch_array($result))
-              {
-              ?>
-                  <td><?php echo $row['id']; ?></td>
-                  <td><?php echo $row['fname']; ?></td>
-                  <td><?php echo $row['mname']; ?></td>
-                  <td><?php echo $row['lname']; ?></td>
-                  <td><?php echo $row['mobile']; ?></td>
-                  <td><?php echo $row['kebele']; ?></td>
-                  <td><?php echo $row['place']; ?></td>
-                  <td><?php echo $row['stime']; ?></td>
-                  <td><?php echo $row['ftime']; ?></td>
-                  <td><?php echo $row['rtime']; ?></td>
-                </tr>
-              <?php } ?>
-              </tbody>
-            </table>
-          </div>
+      else if(empty($_POST['date_time'])){
+          $date_time_err = "Enter Accident date.";
+
+      }
+      else if(empty($_POST['description'])){
+          $description_err = "Enter description.";
+
+      }
+
+      else{
+        $user_id=$_SESSION['user_id'];
+        $query = "INSERT INTO report (r_case, r_desc, r_date_time, r_type, r_level, file_r, user_id) VALUES ('$case', '$description', '$date_time', 'crime', 'high', '$file', '$user_id')";
+        // $query = "INSERT INTO criminal (fname, lname, city, kebele, crime_type, crime_level, description, file, user_id) VALUES ('$fname', '$lname', '$city', '$kebele', '$crime_type', '$crime_level', '$description', '$files', '$user_id')";
+        if(mysqli_query($db, $query)) {
+          echo "<h3>Report Generrated Sucessful</h3>";
+        }
+        else {
+          echo "<h3>Report Doesn't Generated Successful!</h3>";
+        }
+        
+        
+      }
+    }
+  ?>
+  <div class="row-fluid">
+    <div class="span6">
+      <div class="widget-box">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>Generate Report</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form action="DP_g_report.php" method="POST" enctype="multipart/form-data" class="form-horizontal">
+            <div class="control-group">
+              <label class="control-label">Case of Report :</label>
+              <div class="controls">
+                <input type="text" class="span11" name="case" placeholder="Case of Report" />
+                <br>
+                 <span class="error"><?php echo $case_err; ?></span>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label"> Date and time :</label>
+              <div class="controls">
+                <input type="date" class="span11" name="date_time" placeholder="Date and Time" />
+                <br>
+                 <span class="error"><?php echo $date_time_err; ?></span>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Description</label>
+              <div class="controls">
+                <textarea class="span11" name="description" placeholder="Description"></textarea>
+                <br>
+                 <span class="error"><?php echo $description_err; ?></span>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Attach File</label>
+              <div class="controls">
+                <input type="file" name="files" />
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" name="save" class="btn btn-success">Save</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-  </div>
-
+</div>
 </div>
 
+
+</div>
 <!--end-main-container-part-->
 
 <!--Footer-part-->

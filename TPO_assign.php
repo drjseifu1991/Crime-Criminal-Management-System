@@ -65,10 +65,14 @@ include 'Connection.php';
 <!--sidebar-menu-->
 <div id="sidebar"><a href="TPO_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
-    <li><a href="TPO_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    <li class="active"><a href="TPO_assign.php"><i class="icon icon-home"></i> <span>Assign police</span></a> </li>
-    <li><a href="TPO_index.php"><i class="icon icon-home"></i> <span>View Report</span></a> </li>
-    <li><a href="TPO_index.php"><i class="icon icon-home"></i> <span>Generate Report</span></a> </li>
+  <li><a href="TPO_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+    <li class="active"><a href="TPO_assign.php"><i class="icon icon-home"></i> <span>Assign Traffic police</span></a> </li>
+    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-user-md"></i> <span>Report<b class="caret"></b></span></a>
+      <ul>
+      <li><a href="TPO_g_report.php"><i class="icon-plus"></i>Generate Report</a></li>
+        <li><a href="TPO_v_report.php"><i class="icon-eye-open"></i>View Report</a></li>
+      </ul>
+    </li>
     
      
       <?php 
@@ -173,7 +177,7 @@ include 'Connection.php';
                 <select name="user_id" id="user_id " class="span11">
                   <option value="" disabled selected>--Select Police--</option>
                   <?php 
-                    $query = "SELECT users.id,fname,mname,lname FROM users inner join auth_role on users.id=user_id where role_id=2 or role_id=4 order by fname";
+                    $query = "SELECT users.id,fname,mname,lname FROM users inner join auth_role on users.id=user_id where role_id=4 order by fname";
                    $result = mysqli_query($db, $query);
                     while($row = mysqli_fetch_array($result)){
                       ?>

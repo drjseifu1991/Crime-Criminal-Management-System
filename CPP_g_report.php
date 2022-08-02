@@ -2,7 +2,7 @@
   session_start();
   if($_SESSION['uname']){
   $user_id=$_SESSION['user_id'] ; 
-    if($_SESSION['role_id']!=2 && $_SESSION['role_id']!=4){
+    if($_SESSION['role_id']!=3){
       unset($_SESSION['role_id']);
       header("location: login.php");  
 
@@ -28,7 +28,15 @@ include 'Connection.php';
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
 <link rel="stylesheet" href="css/jquery.gritter.css" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
-
+<style type="text/css">
+  .error{
+    color: red;
+  }
+  h3{
+    color: green;
+    font-style: bold;
+  }
+</style>
 </head>
 <body>
 
@@ -59,17 +67,17 @@ include 'Connection.php';
 <!--close-top-serch-->
 <!--sidebar-menu-->
 <div id="sidebar"><a href="TP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
-  <ul>
-  <li><a href="TP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+<ul>
+    <li><a href="TP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
     <li><a href="TP_placement.php"><i class="icon icon-map-marker"></i> <span>View Placement</span></a></li>
-    <li> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-exclamation-sign"></i> <span>Accident<b class="caret"></b></span></a> 
+    <li class="dropdown active"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-exclamation-sign"></i> <span>Accident<b class="caret"></b></span></a> 
       <ul>
-        <li><a href="TP_r_accident.php"><i class="icon-plus"></i>Register Accident</a></li>
+        <li class="active"><a href="TP_r_accident.php"><i class="icon-plus"></i>Register Accident</a></li>
         <li><a href="TP_v_accident.php"><i class="icon-eye-open"></i>View Accident</a></li>
       </ul>
     </li>
   
-    <li class="active"><a href="TP_v_nomination.php"><i class="icon icon-eye-open"></i>View Nomination</a></li>
+    <li><a href="TP_v_nomination.php"><i class="icon icon-eye-open"></i>View Nomination</a></li>
     <li><a href="TP_g_report.php"><i class="icon icon-eye-open"></i>Generate Accident Report</a></li>
       <?php 
       $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
@@ -110,66 +118,104 @@ include 'Connection.php';
 <div id="content">
 <!--breadcrumbs-->
   <div id="content-header">
-    <div id="breadcrumb"> <a href="TPO_index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="TPO_v_nomination.php" class="current" >View Nomination</a></div>
+    <div id="breadcrumb"> <a href="TPO_index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="TPO_r_accident.php" class="current" >Register Accident</a></div>
   </div>
+<div class="container-fluid">
+  <hr>
+  <?php 
+    $case = $case_err = $date_time = $date_time_err = $description = $description_err="";
 
-  <div class="container-fluid">
-    <div class="row-fluid">
-      <div class="span12" >
-        <div class="widget-box">
-          <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-            <h5>View Nomination</h5>
-          </div>
-          <div class="widget-content nopadding">
-            <table class="table table-bordered data-table">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>User ID</th>
-                  <th>Nomination Type</th>
-                  <th>Kebele</th>
-                  <th>Place</th>
-                  <th>Date</th>
-                  <th>File</th>
-                  <th>Description</th>
-                  <th>RDatetime</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="gradeX">
+    if(isset($_POST['save'])){
+      $case = mysqli_real_escape_string($db, $_POST['case']);
+      $date_time = mysqli_real_escape_string($db, $_POST['date_time']);
+      $description = mysqli_real_escape_string($db, $_POST['description']);
+      $directory = "uploads/";
+        $file = $directory.basename($_FILES['files']['name']);
+        if(move_uploaded_file($_FILES['files']['tmp_name'], $file)){
+          $file = basename($_FILES['files']['name']);
+        }
+        else{
+          $file = "";
+        }
 
-              <?php 
+      if(empty($_POST['case'])){
+          $case_err = "Enter Case";
+      }
 
-              $query = "SELECT * FROM nomination ORDER BY id ASC";
-              $result = mysqli_query($db, $query);
+      else if(empty($_POST['date_time'])){
+          $date_time_err = "Enter Accident date.";
 
-              while($row = mysqli_fetch_array($result))
-              {
-              ?>
-                  <td><?php echo $row['id'] ?></td>
-                  <td><?php echo $row['user_id'] ?></td>
-                  <td><?php echo $row['ntype'] ?></td>
-                  <td><?php echo $row['kebele'] ?></td>
-                  <td><?php echo $row['village'] ?></td>
-                  <td><?php echo $row['ndatetime'] ?></td>
-                  <td><?php echo $row['file'] ?></td>
-                  <td><?php echo $row['description'] ?></td>
-                  <td><?php echo $row['datetime'] ?></td>
-                </tr>
-              <?php } ?>
-              </tbody>
-            </table>
-          </div>
+      }
+      else if(empty($_POST['description'])){
+          $description_err = "Enter description.";
+
+      }
+
+      else{
+        $user_id=$_SESSION['user_id'];
+        $query = "INSERT INTO report (r_case, r_desc, r_date_time, r_type, r_level, file_r, user_id) VALUES ('$case', '$description', '$date_time', 'crime', 'low', '$file', '$user_id')";
+        // $query = "INSERT INTO criminal (fname, lname, city, kebele, crime_type, crime_level, description, file, user_id) VALUES ('$fname', '$lname', '$city', '$kebele', '$crime_type', '$crime_level', '$description', '$files', '$user_id')";
+        if(mysqli_query($db, $query)) {
+          echo "<h3>Report Generrated Sucessful</h3>";
+        }
+        else {
+          echo "<h3>Report Doesn't Generated Successful!</h3>";
+        }
+        
+        
+      }
+    }
+  ?>
+  <div class="row-fluid">
+    <div class="span6">
+      <div class="widget-box">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>Generate Report</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form action="CPP_g_report.php" method="POST" enctype="multipart/form-data" class="form-horizontal">
+            <div class="control-group">
+              <label class="control-label">Case of Report :</label>
+              <div class="controls">
+                <input type="text" class="span11" name="case" placeholder="Case of Report" />
+                <br>
+                 <span class="error"><?php echo $case_err; ?></span>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label"> Date and time :</label>
+              <div class="controls">
+                <input type="date" class="span11" name="date_time" placeholder="Date and Time" />
+                <br>
+                 <span class="error"><?php echo $date_time_err; ?></span>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Description</label>
+              <div class="controls">
+                <textarea class="span11" name="description" placeholder="Description"></textarea>
+                <br>
+                 <span class="error"><?php echo $description_err; ?></span>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Attach File</label>
+              <div class="controls">
+                <input type="file" name="files" />
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" name="save" class="btn btn-success">Save</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-  </div>
-
-<!--End-breadcrumbs-->
+</div>
+</div>
 
 
 </div>
-
 <!--end-main-container-part-->
 
 <!--Footer-part-->

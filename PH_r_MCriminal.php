@@ -65,9 +65,9 @@ include 'Connection.php';
 </div>
 <!--close-top-serch-->
 <!--sidebar-menu-->
-<div id="sidebar"><a href="CPP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
+<div id="sidebar"><a href="PH_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
-    <<li class="active"><a href="DP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+    <<li><a href="PH_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
     <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Assign<b class="caret"></b></span></a> 
       <ul>
         <li><a href="PH_assign.php"><i class="icon-plus"></i>Assign Police</a></li>
@@ -77,10 +77,10 @@ include 'Connection.php';
     <li><a href="PH_v_employee.php"><i class="icon icon-home"></i> <span>View Employee</span></a> </li>
     <li><a href="PH_v_comment.php"><i class="icon icon-home"></i> <span>View Comment</span></a> </li>
     <li><a href="PH_v_nomination.php"><i class="icon icon-home"></i> <span>View Nomination</span></a> </li>
-    <li><a href="PH_r_MCriminal.php"><i class="icon icon-home"></i> <span>Post Missing Criminal</span></a> </li>
-    <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>Take Recovery</span></a> </li>
-    <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>View Traffic Accident Report</span></a> </li>
-    <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>View Criminal Report</span></a> </li>
+    <li class="active"><a href="PH_r_MCriminal.php"><i class="icon icon-home"></i> <span>Post Missing Criminal</span></a> </li>
+    <li><a href="PH_t_recovery.php"><i class="icon icon-home"></i> <span>Take Recovery</span></a> </li>
+    <li><a href="PH_v_r_accident.php"><i class="icon icon-home"></i> <span>View Traffic Accident Report</span></a> </li>
+    <li><a href="PH_v_r_crime.php"><i class="icon icon-home"></i> <span>View Criminal Report</span></a> </li>
 
       <?php 
       $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
@@ -174,7 +174,7 @@ if (isset($_POST['save'])){
 
         else{
           $user_id=$_SESSION['user_id'];
-          $query = "INSERT INTO missing_criminal (fname, lname, photo, city, kebele, date, description, user_id) VALUES ('$fname', '$lname', '$files', '$city', '$kebele', '$datetime', '$description', '$user_id')";
+          $query = "INSERT INTO missing_criminal (fname, lname, photo, city, kebele, date, description, user_id) VALUES ('$fname', '$lname', '$file', '$city', '$kebele', '$datetime', '$description', '$user_id')";
           if(mysqli_query($db, $query)) {
             echo "      Missing Criminal posted successfully";
           }

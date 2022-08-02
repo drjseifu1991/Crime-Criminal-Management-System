@@ -62,7 +62,7 @@ include 'Connection.php';
 <!--sidebar-menu-->
 <div id="sidebar"><a href="DP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
-    <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+  <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
     <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Assign<b class="caret"></b></span></a> 
       <ul>
         <li><a href="DP_assign.php"><i class="icon-plus"></i>Assign Police</a></li>
@@ -70,7 +70,7 @@ include 'Connection.php';
       </ul>
     </li>
 
-    <li class="active"class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-refresh"></i> <span>Progress Case<b class="caret"></b></span></a> 
+    <li class="active" class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-refresh"></i> <span>Progress Case<b class="caret"></b></span></a> 
       <ul>
         <li><a href="DP_r_case.php"><i class="icon-plus"></i>Register Case</a></li>
         <li class="active"><a href="DP_v_case.php"><i class="icon-eye-open"></i>View Case</a></li>
@@ -95,23 +95,11 @@ include 'Connection.php';
         <li><a href="DP_v_witness.php"><i class="icon-eye-open"></i>View Witness</a></li>
       </ul>
     </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon-comments"></i> <span>Nomination<b class="caret"></b></span></a>
+    <li><a href="DP_v_criminal.php"><i class="icon icon-home"></i> <span>View Criminal</span></a> </li>
+    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-user-md"></i> <span>Report<b class="caret"></b></span></a>
       <ul>
-        <li><a href="DP_r_nomination.php"><i class="icon-plus"></i>Register Nomination</a></li>
-        <li><a href="DP_v_nomination.php"><i class="icon-eye-open"></i>View Nomination</a></li>
-      </ul>
-    </li>
-
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-file"></i> <span>Crime</span><b class="caret"></b></span></a>
-    <ul>
-        <li><a href="DP_r_crime.php"><i class="icon-plus"></i>Register Crime</a></li>
-        <li><a href="DP_v_crime.php"><i class="icon-eye-open"></i>View Crime</a></li>
-      </ul>
-    </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-pencil"></i> <span>Post</span><b class="caret"></b></span></a>
-    <ul>
-        <li><a href="DP_notice.php"><i class="icon-plus"></i>Post Notice</a></li>
-        <li><a href="DP_v_notice.php"><i class="icon-eye-open"></i>View Notice</a></li>
+      <li><a href="DP_g_report.php"><i class="icon-plus"></i>Generate Report</a></li>
+        <li><a href="DP_v_report.php"><i class="icon-eye-open"></i>View Report</a></li>
       </ul>
     </li>
       <?php 
@@ -166,10 +154,10 @@ include 'Connection.php';
             <table class="table table-bordered data-table">
               <thead>
                 <tr>
+                  <th>Accused</th>
                   <th>Crime Type</th>
                   <th>Appo Date</th>
                   <th>Description</th>
-                  <th>Register Date</th>
                 </tr>
               </thead>
               <tbody>
@@ -177,16 +165,16 @@ include 'Connection.php';
 
               <?php 
 
-              $query = "SELECT ctype, appo_date, status, crime.description, datetime FROM progress_case inner join crime on progress_case.crime_id = crime.id ORDER BY progress_case.id ASC";
+              $query = "SELECT fname, mname, crime_type, appo_date, status, progress_case.description, progress_case.datetime FROM progress_case inner join accused on progress_case.accused_id = accused.id ORDER BY progress_case.id ASC";
               $result = mysqli_query($db, $query) or die(mysqli_error($db));
 
               while($row = mysqli_fetch_array($result))
               {
               ?>
-                  <td><?php echo $row['ctype'] ?></td>
+                  <td><?php echo $row['fname']." ".$row['mname']?></td>
+                  <td><?php echo $row['crime_type'] ?></td>
                   <td><?php echo $row['appo_date'] ?></td>
                   <td><?php echo $row['description'] ?></td>
-                  <td><?php echo $row['datetime'] ?></td>
                 </tr>
               <?php } ?>
               </tbody>
