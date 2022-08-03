@@ -68,17 +68,19 @@ include 'Connection.php';
 <!--sidebar-menu-->
 <div id="sidebar"><a href="TP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
 <ul>
-    <li><a href="TP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    <li><a href="TP_placement.php"><i class="icon icon-map-marker"></i> <span>View Placement</span></a></li>
-    <li class="dropdown active"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-exclamation-sign"></i> <span>Accident<b class="caret"></b></span></a> 
+<li><a href="CPP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+    <li><a href="CPP_placement.php"><i class="icon icon-map-marker"></i> <span>View Placement</span></a></li>
+     <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-comments"></i> <span>Nomination<b class="caret"></b></span></a> 
       <ul>
-        <li class="active"><a href="TP_r_accident.php"><i class="icon-plus"></i>Register Accident</a></li>
-        <li><a href="TP_v_accident.php"><i class="icon-eye-open"></i>View Accident</a></li>
+        <li><a href="CPP_r_nomination.php"><i class="icon-plus"></i>Register Nomination</a></li>
+        <li><a href="CPP_v_nomination.php"><i class="icon-eye-open"></i>View Nomination</a></li>
       </ul>
+
     </li>
-  
-    <li><a href="TP_v_nomination.php"><i class="icon icon-eye-open"></i>View Nomination</a></li>
-    <li><a href="TP_g_report.php"><i class="icon icon-eye-open"></i>Generate Accident Report</a></li>
+    
+    <li><a href="CPP_r_criminal.php"><i class="icon icon-file"></i> <span>Register Criminal</span></a></li>
+    <li><a href="CPP_v_order.php"><i class="icon icon-file"></i> <span>View Order</span></a></li>
+    <li class="active"><a href="CPP_g_report.php"><i class="icon icon-file"></i> <span>Generate Crime Report</span></a></li>
       <?php 
       $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
       $result = mysqli_query($db, $query);

@@ -31,6 +31,7 @@ if(isset($_POST['login'])){
             $_SESSION['role_id'] = 1;
             $_SESSION['user_id'] = $id;
             $_SESSION['message'] = "LOGIN SUCCESSFUL!";
+            // $_SESSION['eid'] = 10;
             header("location: DP_index.php");
         }
         
@@ -41,6 +42,7 @@ if(isset($_POST['login'])){
             $_SESSION['uname'] = $uname;
             $_SESSION['role_id'] = 2;
             $_SESSION['user_id'] = $id;
+            // $_SESSION['eid'] = 10;
             $_SESSION['message'] = "LOGIN SUCCESSFUL!";
             header("location: TPO_index.php");
         }
@@ -51,6 +53,7 @@ if(isset($_POST['login'])){
             $_SESSION['uname'] = $uname;
             $_SESSION['role_id'] = 3;
             $_SESSION['user_id'] = $id;
+            // $_SESSION['eid'] = 10;
             $_SESSION['message'] = "LOGIN SUCCESSFUL!";
             header("location: CPP_index.php");
         }
@@ -63,6 +66,7 @@ if(isset($_POST['login'])){
             $_SESSION['uname'] = $uname;
             $_SESSION['role_id'] = 4;
             $_SESSION['user_id'] = $id;
+            // $_SESSION['eid'] = 10;
             $_SESSION['message'] = "LOGIN SUCCESSFUL!";
             header("location: TP_index.php");
         }
@@ -74,6 +78,7 @@ if(isset($_POST['login'])){
             $_SESSION['uname'] = $uname;
             $_SESSION['role_id'] = 5;
             $_SESSION['user_id'] = $id;
+            // $_SESSION['eid'] = 10;
             $_SESSION['message'] = "LOGIN SUCCESSFUL!";
             header("location: C_index.php");
         }
@@ -84,6 +89,7 @@ if(isset($_POST['login'])){
             $_SESSION['uname'] = $uname;
             $_SESSION['role_id'] = 6;
             $_SESSION['user_id'] = $id;
+            // $_SESSION['eid'] = 10;
             $_SESSION['message'] = "LOGIN SUCCESSFUL!";
             header("location: PH_index.php");
         }
@@ -94,6 +100,7 @@ if(isset($_POST['login'])){
             $_SESSION['uname'] = $uname;
             $_SESSION['role_id'] = 7;
             $_SESSION['user_id'] = $id;
+            // $_SESSION['eid'] = 10;
             $_SESSION['message'] = "LOGIN SUCCESSFUL!";
             header("location: Admin.php");
         }
@@ -105,6 +112,7 @@ if(isset($_POST['login'])){
             $_SESSION['uname'] = $uname;
             $_SESSION['role_id'] = 8;
             $_SESSION['user_id'] = $id;
+            // $_SESSION['eid'] = 10;
             $_SESSION['message'] = "LOGIN SUCCESSFUL!";
             header("location: HR_index.php");
         }

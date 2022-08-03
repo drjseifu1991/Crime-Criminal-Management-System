@@ -115,7 +115,7 @@ include 'Connection.php';
 <!--End-breadcrumbs-->
 <div class="container-fluid">
     <div class="row-fluid">
-      <div class="span12" >
+    <div class="span12" >
         <div class="widget-box">
           <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
             <h5>View Placement History</h5>
@@ -124,16 +124,11 @@ include 'Connection.php';
             <table class="table table-bordered data-table">
               <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>First Name</th>
-                  <th>Middle Name</th>
-                  <th>Last Name</th>
-                  <th>Mobile</th>
-                  <th>Kebele</th>
                   <th>Place</th>
+                  <th>Kebele</th>
                   <th>Starting time</th>
                   <th>Finishing time</th>
-                  <th>Registration time</th>
+                  <th>Description</th>
                 </tr>
               </thead>
               <tbody>
@@ -142,22 +137,17 @@ include 'Connection.php';
               <?php 
 
               $sess=$_SESSION['user_id'];
-              $query = "SELECT user_place.id, fname, mname, lname, mobile, kebele, place, stime, ftime, rtime FROM users inner join user_place on users.id=user_place.user_id inner join placement on user_place.place_id=placement.id where user_place.user_id=$user_id";
+              $query = "SELECT user_place.id, fname, mname, lname, mobile, kebele, place, stime, ftime, rtime, user_place.description FROM users inner join user_place on users.id=user_place.user_id inner join placement on user_place.place_id=placement.id WHERE user_place.user_id=$user_id";
               $result = mysqli_query($db, $query) or die( mysqli_error($db));
 
               while($row = mysqli_fetch_array($result))
               {
               ?>
-                  <td><?php echo $row['id']; ?></td>
-                  <td><?php echo $row['fname']; ?></td>
-                  <td><?php echo $row['mname']; ?></td>
-                  <td><?php echo $row['lname']; ?></td>
-                  <td><?php echo $row['mobile']; ?></td>
-                  <td><?php echo $row['kebele']; ?></td>
                   <td><?php echo $row['place']; ?></td>
+                  <td><?php echo $row['kebele']; ?></td>
                   <td><?php echo $row['stime']; ?></td>
                   <td><?php echo $row['ftime']; ?></td>
-                  <td><?php echo $row['rtime']; ?></td>
+                  <td><?php echo $row['description']; ?></td>
                 </tr>
               <?php } ?>
               </tbody>

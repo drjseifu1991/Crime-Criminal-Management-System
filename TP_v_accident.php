@@ -111,7 +111,15 @@ include 'Connection.php';
   </div>
 <!--End-breadcrumbs-->
 <div class="container-fluid">
-    <div class="row-fluid">
+<?php
+  if (isset($_POST['update'])){
+    $a_id = mysqli_real_escape_string($db, $_POST['aid']);
+    $_SESSION['aid'] = $a_id;
+    header("location: TP_u_accident.php");
+  }
+  ?>
+  <div class="container-fluid">
+  <div class="row-fluid">
       <div class="span12" >
         <div class="widget-box">
           <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
@@ -149,6 +157,10 @@ include 'Connection.php';
                   <td><?php echo $row['crime_level'] ?></td>
                   <td><?php echo $row['punishment_type']?></td>
                   <td><?php echo $row['description']?></td>
+                  <td><form action="TP_v_accident.php" method="POST" class="form-horizontal">
+                  <input type='hidden' name='aid' value='<?php echo $row['id']; ?>' />
+                  <button type="submit" name="update" id="update" class="btn btn-success">Update</button>
+                  </form></td>
                 </tr>
               <?php } ?>
               </tbody>
@@ -157,6 +169,8 @@ include 'Connection.php';
         </div>
       </div>
     </div>
+  </div>
+    
   </div>
 </div>
 

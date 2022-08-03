@@ -73,8 +73,8 @@ include 'Connection.php';
     </li>
     
     <li><a href="CPP_r_criminal.php"><i class="icon icon-file"></i> <span>Register Criminal</span></a></li>
-    <li><a href="CPP_r_criminal.php"><i class="icon icon-file"></i> <span>View Order</span></a></li>
-    <li><a href="CPP_r_criminal.php"><i class="icon icon-file"></i> <span>Generate Crime Report</span></a></li>
+    <li><a href="CPP_v_order.php"><i class="icon icon-file"></i> <span>View Order</span></a></li>
+    <li><a href="CPP_g_report.php"><i class="icon icon-file"></i> <span>Generate Crime Report</span></a></li>
    
       <?php 
       $query = "SELECT role_id FROM auth_role where user_id='$user_id'";

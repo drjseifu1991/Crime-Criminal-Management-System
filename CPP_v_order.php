@@ -2,7 +2,8 @@
   session_start();
   if($_SESSION['uname']){
   $user_id=$_SESSION['user_id'] ; 
-    if($_SESSION['role_id']!=2 && $_SESSION['role_id']!=4){
+    if($_SESSION['role_id']!=3){
+      unset($_SESSION['uname']);
       unset($_SESSION['role_id']);
       header("location: login.php");  
 
@@ -28,6 +29,19 @@ include 'Connection.php';
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
 <link rel="stylesheet" href="css/jquery.gritter.css" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+
+<style>
+      .widget-content  {
+        overflow-y: auto;
+        height: 540px;
+      }
+      
+      table {
+        border-collapse: collapse;
+        width: 10%;
+      }
+    
+    </style>
 </head>
 <body>
 
@@ -41,11 +55,11 @@ include 'Connection.php';
 <!--top-Header-menu-->
 <div id="user-nav" class="navbar navbar-inverse">
   <ul class="nav">
-    <li  class="" ><a title="" href="TP_profile.php"><span class="profile"><?php  echo $_SESSION['uname']; ?></span></a>
+    <li  class="" ><a title="" href="DP_profile.php">  <span class="profile"><?php  echo $_SESSION['uname']; ?></span></a>
     </li>
-    <li class=""><a href="TP_notification.php"><i class="icon icon-bell"></i> <span class="text">Notification</span></a>
+    <li class=""><a href="DP_notification.php"><i class="icon icon-bell"></i> <span class="text">Notification</span></a>
     </li>
-    <li class=""><a title="" href="TP_setting.php"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
+    <li class=""><a title="" href="DP_setting.php"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
     <li class=""><a title="" href="logout.php"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
   </ul>
 </div>
@@ -57,47 +71,22 @@ include 'Connection.php';
 </div>
 <!--close-top-serch-->
 <!--sidebar-menu-->
-<div id="sidebar"><a href="TP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
+<div id="sidebar"><a href="DP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
-  <li><a href="TP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    <li class="active"><a href="TP_placement.php"><i class="icon icon-map-marker"></i> <span>View Placement</span></a></li>
-    <li> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-exclamation-sign"></i> <span>Accident<b class="caret"></b></span></a> 
-      <ul>
-        <li><a href="TP_r_accident.php"><i class="icon-plus"></i>Register Accident</a></li>
-        <li><a href="TP_v_accident.php"><i class="icon-eye-open"></i>View Accident</a></li>
-      </ul>
-    </li>
   
-    <li><a href="TP_v_nomination.php"><i class="icon icon-eye-open"></i>View Nomination</a></li>
-    <li><a href="TP_g_report.php"><i class="icon icon-eye-open"></i>Generate Accident Report</a></li>
-      <?php 
-      $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
-      $result = mysqli_query($db, $query);
+  <li><a href="CPP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+    <li><a href="CPP_placement.php"><i class="icon icon-map-marker"></i> <span>View Placement</span></a></li>
+     <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-comments"></i> <span>Nomination<b class="caret"></b></span></a> 
+      <ul>
+        <li><a href="CPP_r_nomination.php"><i class="icon-plus"></i>Register Nomination</a></li>
+        <li><a href="CPP_v_nomination.php"><i class="icon-eye-open"></i>View Nomination</a></li>
+      </ul>
 
-      echo '<ul>';
-        while($row = mysqli_fetch_array($result)){
-        $r_id=$row['role_id'];
-        if ($r_id==1) 
-        {
-      echo '<li><a href="DP_index.php"><i class="icon-signin"></i>Detective Police</a></li>';
-        }
-
-        else if ($r_id==2)
-        {
-      echo '<li><a href="TPO_index.php"><i class="icon-signin"></i>Traffic Officer</a></li>';
-        }
-        else if ($r_id==3) 
-        {
-      echo '<li><a href="CPP_index.php"><i class="icon-signin"></i>Preventive Police</a></li>';
-        }
-        
-        else if ($r_id==5) 
-        {
-      echo '<li><a href="C_index.php"><i class="icon-signin"></i>Customer</a></li>';
-        }
-        }
-      echo '</ul>';
-     ?>
+    </li>
+    
+    <li><a href="CPP_r_criminal.php"><i class="icon icon-file"></i> <span>Register Criminal</span></a></li>
+    <li class="active"><a href="CPP_v_order.php"><i class="icon icon-file"></i><span>View Order</span></a></li>
+    <li><a href="CPP_g_report.php"><i class="icon icon-file"></i> <span>Generate Crime Report</span></a></li>
     </li>
 
   
@@ -109,25 +98,25 @@ include 'Connection.php';
 <div id="content">
 <!--breadcrumbs-->
   <div id="content-header">
-    <div id="breadcrumb"> <a href="TPO_index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="TPO_v_placement.php" class="current" >View Placement</a></div>
+    <div id="breadcrumb"> <a href="DP_index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="DP_v_accused.php" class="current" >View Accused</a></div>
   </div>
 <!--End-breadcrumbs-->
+
 <div class="container-fluid">
     <div class="row-fluid">
-    <div class="span12" >
+      <div class="span12" >
         <div class="widget-box">
           <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-            <h5>View Placement History</h5>
+            <h5>View Order</h5>
           </div>
           <div class="widget-content nopadding">
             <table class="table table-bordered data-table">
               <thead>
                 <tr>
-                  <th>Place</th>
-                  <th>kebele</th>
-                  <th>Starting time</th>
-                  <th>Finishing time</th>
+                  <th>Date</th>
+                  <th>place</th>
                   <th>Description</th>
+                
                 </tr>
               </thead>
               <tbody>
@@ -135,18 +124,15 @@ include 'Connection.php';
 
               <?php 
 
-              $sess=$_SESSION['user_id'];
-              $query = "SELECT user_place.id, fname, mname, lname, mobile, kebele, place, stime, ftime, rtime, user_place.description FROM users inner join user_place on users.id=user_place.user_id inner join placement on user_place.place_id=placement.id WHERE user_place.user_id=$user_id";
-              $result = mysqli_query($db, $query) or die( mysqli_error($db));
+              $query = "SELECT fname, mname, date_time, place, police_order.description FROM police_order inner join users on police_order.police_id = users.id WHERE police_order.police_id= $user_id ORDER BY police_order.date_time ASC";
+              $result = mysqli_query($db, $query);
 
               while($row = mysqli_fetch_array($result))
               {
               ?>
-                  <td><?php echo $row['place']; ?></td>
-                  <td><?php echo $row['kebele']; ?></td>
-                  <td><?php echo $row['stime']; ?></td>
-                  <td><?php echo $row['ftime']; ?></td>
-                  <td><?php echo $row['description']; ?></td>
+                  <td><?php echo $row['date_time'] ?></td>
+                  <td><?php echo $row['place'] ?></td>
+                  <td><?php echo $row['description'] ?></td>
                 </tr>
               <?php } ?>
               </tbody>
@@ -155,11 +141,10 @@ include 'Connection.php';
         </div>
       </div>
     </div>
-    </div>
   </div>
 
-</div>
 
+</div>
 
 <!--end-main-container-part-->
 

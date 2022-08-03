@@ -73,11 +73,12 @@ include 'Connection.php';
 <!--sidebar-menu-->
 <div id="sidebar"><a href="DP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
+  
   <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Assign<b class="caret"></b></span></a> 
+    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Order<b class="caret"></b></span></a> 
       <ul>
-        <li><a href="DP_assign.php"><i class="icon-plus"></i>Assign Police</a></li>
-        <li><a href="DP_v_placement.php"><i class="icon-eye-open"></i>View Placement</a></li>
+        <li><a href="DP_o_police.php"><i class="icon-plus"></i>Order Police</a></li>
+        <li><a href="DP_v_order.php"><i class="icon-eye-open"></i>View Order</a></li>
       </ul>
     </li>
 
@@ -113,7 +114,6 @@ include 'Connection.php';
         <li><a href="DP_v_report.php"><i class="icon-eye-open"></i>View Report</a></li>
       </ul>
     </li>
-    
       <?php 
       $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
       $result = mysqli_query($db, $query);

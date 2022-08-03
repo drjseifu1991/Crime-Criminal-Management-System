@@ -2,6 +2,7 @@
   session_start();
   if($_SESSION['uname']){
   $user_id=$_SESSION['user_id'] ; 
+  $c_id = $_SESSION['cid']; 
     if($_SESSION['role_id']!=1 && $_SESSION['role_id']!=3){
       unset($_SESSION['uname']);
       unset($_SESSION['role_id']);
@@ -15,7 +16,7 @@
 
 include 'Connection.php';
   ?>
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
 <title>Bahirdar police staton</title>
@@ -29,7 +30,17 @@ include 'Connection.php';
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
 <link rel="stylesheet" href="css/jquery.gritter.css" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+<style type="text/css">
+  h3{
+    color: green;
+  }
+</style>
 
+<style type="text/css">
+  .error{
+    color: red;
+  }
+</style>
 </head>
 <body>
 
@@ -41,15 +52,15 @@ include 'Connection.php';
 
 
 <!--top-Header-menu-->
-<<div id="user-nav" class="navbar navbar-inverse">
-  <!-- <ul class="nav">
-    <!-- <li  class="" ><a title="" href="DP_profile.php"> <span class="profile"><?php  echo $_SESSION['uname']; ?></span></a>
-    </li> -->
+<div id="user-nav" class="navbar navbar-inverse">
+  <ul class="nav">
+    <li  class="" ><a title="" href="DP_profile.php">  <span class="profile"><?php  echo $_SESSION['uname']; ?></span></a>
+    </li>
     <li class=""><a href="DP_notification.php"><i class="icon icon-bell"></i> <span class="text">Notification</span></a>
     </li>
     <li class=""><a title="" href="DP_setting.php"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
     <li class=""><a title="" href="logout.php"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
-  </ul> -->
+  </ul>
 </div>
 <!--close-top-Header-menu-->
 <!--start-top-serch-->
@@ -102,7 +113,6 @@ include 'Connection.php';
         <li><a href="DP_v_report.php"><i class="icon-eye-open"></i>View Report</a></li>
       </ul>
     </li>
-    
       <?php 
       $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
       $result = mysqli_query($db, $query);
@@ -136,82 +146,75 @@ include 'Connection.php';
 </div>
 <!--sidebar-menu-->
 
+
+
 <!--main-container-part-->
 <div id="content">
 <!--breadcrumbs-->
   <div id="content-header">
-    <div id="breadcrumb"> <a href="DP_index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="DP_v_crime.php" class="current" >View Crime</a></div>
+    <div id="breadcrumb"> <a href="DP_index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="DP_r_case.php" class="current" >Register Case</a></div>
   </div>
 <!--End-breadcrumbs-->
-
 <div class="container-fluid">
-<?php
-  // if (isset($_POST['update'])){
-  //   $c_id = mysqli_real_escape_string($db, $_POST['cid']);
-  //   $_SESSION['cid'] = $c_id;
-  //   header("location: DP_u_criminal.php");
-  // }
-  if (isset($_POST['update'])){
-    $c_id = mysqli_real_escape_string($db, $_POST['cid']);
-    $_SESSION['id'] = $c_id;
-    header("location: DP_u_criminal.php");
-  }
-  ?>
-  <div class="container-fluid">
+  <hr>
+  <?php
+  echo $c_id;
+   $criminal_status = $criminal_status_err="";
+
+   if (isset($_POST['save'])){
+
+        $criminal_status = mysqli_real_escape_string($db, $_POST['criminal_status']);
+
+        //validation
+
+        if(empty($_POST['criminal_status'])){
+          $criminal_status_err = "Enter Criminal Status";
+        }
+
+        else{
+            $query = "UPDATE criminal SET status = $criminal_status' WHERE id = $c_id";
+            // $query = "UPDATE auth_role SET role_id = $role_id WHERE user_id = $user_id";
+            // $query = "UPDATE users SET fname = $fname, mname = $mname, lname = $lname, gender = $gender, age = $age, mobile = $mobile, email = $email, uname = $uname WHERE id = $e_id";
+
+            // echo "Employee updated Successfully.";
+            if(mysqli_query($db, $query)) {
+
+                echo "Criminal Status updated Successfully.";
+                
+              }
+              else {
+                echo "Criminal Status not updated Successfully";
+              }
+          
+        }
+   }
+ ?>
   <div class="row-fluid">
-      <div class="span12" >
-        <div class="widget-box">
-          <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-            <h5>View Criminal</h5>
-          </div>
-          <div class="widget-content nopadding">
-            <table class="table table-bordered data-table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>City</th>
-                  <th>Kebele</th>
-                  <th>Crime Type</th>
-                  <th>Crime Level</th>
-                  <th>Description</th>
-                  <th>File</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="gradeX">
-
-              <?php 
-
-              $query = "SELECT * FROM criminal ORDER BY id ASC";
-              $result = mysqli_query($db, $query);
-
-              while($row = mysqli_fetch_array($result))
-              {
-              ?>
-                  <td><?php echo $row['fname'];?></td>
-                  <td><?php echo $row['city'];?></td>
-                  <td><?php echo $row['kebele'];?></td>
-                  <td><?php echo $row['crime_type'];?></td>
-                  <td><?php echo $row['crime_level'];?></td>
-                  <td><?php echo $row['description'];?></td>
-                  <td><a href="uploads/<?php echo $row['file'] ?>" target = "_blank" ><?php echo $row['file'] ?></a> </td>
-                  <td><?php echo $row['status'];?></td>
-                  <td><form action="DP_v_criminal.php" method="POST" class="form-horizontal">
-                  <input type='hidden' name='cid' value='<?php echo $row['id']; ?>' />
-                  <button type="submit" name="update" id="update" class="btn btn-success">Update status</button>
-                  </form></td>
-                </tr>
-              <?php } ?>
-              </tbody>
-            </table>
-          </div>
+    <div class="span6">
+      <div class="widget-box">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>Update Criminal Status</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form action="DP_u_criminal.php" method="POST" class="form-horizontal">
+            
+            <div class="control-group">
+              <label class="control-label">Criminal Status :</label>
+              <div class="controls">
+                <input type="text" class="span11" name="criminal_status" placeholder="Criminal Status" />
+                <br>
+                 <span class="error"><?php echo $criminal_status_err; ?></span>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" name="save" id="save" class="btn btn-success">Save</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-  </div>
-    
-  </div>
+  </div>/
+</div>
 
 </div>
 

@@ -112,7 +112,15 @@ include 'Connection.php';
 <!--End-breadcrumbs-->
 
 <div class="container-fluid">
-    <div class="row-fluid">
+  <?php
+  if (isset($_POST['update'])){
+    $e_id = mysqli_real_escape_string($db, $_POST['eid']);
+    $_SESSION['eid'] = $e_id;
+    header("location: HR_u_employee.php");
+  }
+  ?>
+  <div class="container-fluid">
+  <div class="row-fluid">
       <div class="span12" >
         <div class="widget-box">
           <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
@@ -138,7 +146,7 @@ include 'Connection.php';
 
               $sess=$_SESSION['user_id'];
             //   $query = "SELECT * FROM auth_role WHERE role_id != 5;
-              $query = "SELECT fname, mname, lname, gender, email, mobile, name FROM auth_role inner join users on auth_role.user_id=users.id inner join role on auth_role.role_id=role.id WHERE auth_role.role_id != 5 AND auth_role.role_id != 7";
+              $query = "SELECT users.id, fname, mname, lname, gender, email, mobile, name FROM auth_role inner join users on auth_role.user_id=users.id inner join role on auth_role.role_id=role.id WHERE auth_role.role_id != 5 AND auth_role.role_id != 7";
               $result = mysqli_query($db, $query) or die( mysqli_error($db));
 
               while($row = mysqli_fetch_array($result))
@@ -151,6 +159,10 @@ include 'Connection.php';
                   <td><?php echo $row['email']; ?></td>
                   <td><?php echo $row['mobile']; ?></td>
                   <td><?php echo $row['name']; ?></td>
+                  <td><form action="HR_v_employee.php" method="POST" class="form-horizontal">
+                  <input type='hidden' name='eid' value='<?php echo $row['id']; ?>' />
+                  <button type="submit" name="update" id="update" class="btn btn-success">Update</button>
+                  </form></td>
                 </tr>
               <?php } ?>
               </tbody>
@@ -159,6 +171,8 @@ include 'Connection.php';
         </div>
       </div>
     </div>
+  </div>
+    
   </div>
 
 </div>

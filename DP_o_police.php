@@ -2,7 +2,7 @@
   session_start();
   if($_SESSION['uname']){
   $user_id=$_SESSION['user_id'] ; 
-    if($_SESSION['role_id']!=1 && $_SESSION['role_id']!=3){
+    if($_SESSION['role_id']!=1){
       unset($_SESSION['uname']);
       unset($_SESSION['role_id']);
       header("location: login.php");  
@@ -30,6 +30,13 @@ include 'Connection.php';
 <link rel="stylesheet" href="css/jquery.gritter.css" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 
+<style type="text/css">
+  .error{
+    color: red;
+  }
+  h3{color: green;
+    font-style: bold;}
+</style>
 </head>
 <body>
 
@@ -41,15 +48,15 @@ include 'Connection.php';
 
 
 <!--top-Header-menu-->
-<<div id="user-nav" class="navbar navbar-inverse">
-  <!-- <ul class="nav">
-    <!-- <li  class="" ><a title="" href="DP_profile.php"> <span class="profile"><?php  echo $_SESSION['uname']; ?></span></a>
-    </li> -->
+<div id="user-nav" class="navbar navbar-inverse">
+  <ul class="nav">
+    <li  class="" ><a title="" href="DP_profile.php">  <span class="profile"><?php  echo $_SESSION['uname']; ?></span></a>
+    </li>
     <li class=""><a href="DP_notification.php"><i class="icon icon-bell"></i> <span class="text">Notification</span></a>
     </li>
     <li class=""><a title="" href="DP_setting.php"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
     <li class=""><a title="" href="logout.php"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
-  </ul> -->
+  </ul>
 </div>
 <!--close-top-Header-menu-->
 <!--start-top-serch-->
@@ -60,12 +67,12 @@ include 'Connection.php';
 <!--close-top-serch-->
 <!--sidebar-menu-->
 <div id="sidebar"><a href="DP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
-  <ul>
-  
-  <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Order<b class="caret"></b></span></a> 
+<ul>
+    
+<li><a href="DP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+    <li class="active" class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Order<b class="caret"></b></span></a> 
       <ul>
-        <li><a href="DP_o_police.php"><i class="icon-plus"></i>Order Police</a></li>
+        <li class="active"><a href="DP_o_police.php"><i class="icon-plus"></i>Order Police</a></li>
         <li><a href="DP_v_order.php"><i class="icon-eye-open"></i>View Order</a></li>
       </ul>
     </li>
@@ -95,14 +102,13 @@ include 'Connection.php';
         <li><a href="DP_v_witness.php"><i class="icon-eye-open"></i>View Witness</a></li>
       </ul>
     </li>
-    <li class="active"><a href="DP_v_criminal.php"><i class="icon icon-home"></i> <span>View Criminal</span></a> </li>
+    <li><a href="DP_v_criminal.php"><i class="icon icon-home"></i> <span>View Criminal</span></a> </li>
     <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-user-md"></i> <span>Report<b class="caret"></b></span></a>
       <ul>
       <li><a href="DP_g_report.php"><i class="icon-plus"></i>Generate Report</a></li>
         <li><a href="DP_v_report.php"><i class="icon-eye-open"></i>View Report</a></li>
       </ul>
     </li>
-    
       <?php 
       $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
       $result = mysqli_query($db, $query);
@@ -136,82 +142,120 @@ include 'Connection.php';
 </div>
 <!--sidebar-menu-->
 
+
 <!--main-container-part-->
 <div id="content">
 <!--breadcrumbs-->
   <div id="content-header">
-    <div id="breadcrumb"> <a href="DP_index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="DP_v_crime.php" class="current" >View Crime</a></div>
-  </div>
-<!--End-breadcrumbs-->
-
-<div class="container-fluid">
-<?php
-  // if (isset($_POST['update'])){
-  //   $c_id = mysqli_real_escape_string($db, $_POST['cid']);
-  //   $_SESSION['cid'] = $c_id;
-  //   header("location: DP_u_criminal.php");
-  // }
-  if (isset($_POST['update'])){
-    $c_id = mysqli_real_escape_string($db, $_POST['cid']);
-    $_SESSION['id'] = $c_id;
-    header("location: DP_u_criminal.php");
-  }
-  ?>
-  <div class="container-fluid">
-  <div class="row-fluid">
-      <div class="span12" >
-        <div class="widget-box">
-          <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-            <h5>View Criminal</h5>
-          </div>
-          <div class="widget-content nopadding">
-            <table class="table table-bordered data-table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>City</th>
-                  <th>Kebele</th>
-                  <th>Crime Type</th>
-                  <th>Crime Level</th>
-                  <th>Description</th>
-                  <th>File</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="gradeX">
-
-              <?php 
-
-              $query = "SELECT * FROM criminal ORDER BY id ASC";
-              $result = mysqli_query($db, $query);
-
-              while($row = mysqli_fetch_array($result))
-              {
-              ?>
-                  <td><?php echo $row['fname'];?></td>
-                  <td><?php echo $row['city'];?></td>
-                  <td><?php echo $row['kebele'];?></td>
-                  <td><?php echo $row['crime_type'];?></td>
-                  <td><?php echo $row['crime_level'];?></td>
-                  <td><?php echo $row['description'];?></td>
-                  <td><a href="uploads/<?php echo $row['file'] ?>" target = "_blank" ><?php echo $row['file'] ?></a> </td>
-                  <td><?php echo $row['status'];?></td>
-                  <td><form action="DP_v_criminal.php" method="POST" class="form-horizontal">
-                  <input type='hidden' name='cid' value='<?php echo $row['id']; ?>' />
-                  <button type="submit" name="update" id="update" class="btn btn-success">Update status</button>
-                  </form></td>
-                </tr>
-              <?php } ?>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+    <div id="breadcrumb"> <a href="DP_index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="DP_assign.php" class="current" >Assign Police</a>
     </div>
   </div>
-    
+
+
+<!--End-breadcrumbs-->
+  <div class="container-fluid">
+  <hr>
+  <?php
+    $user_id = $place = $stime ="";
+    $user_id_err = $place_id_err = $stime_err = "";
+
+    if(isset($_POST['assign'])){
+
+        $user_id = mysqli_real_escape_string($db, $_POST['user_id']);
+        $place = mysqli_real_escape_string($db, $_POST['place']);
+        $stime = mysqli_real_escape_string($db, $_POST['stime']);
+        $description = mysqli_real_escape_string($db, $_POST['description']);
+        $session=$_SESSION['user_id'];
+
+        //validation
+
+        if(empty($_POST['user_id'])){
+          $user_id_err = "First select police!";
+        }
+
+        else if(empty($_POST['place'])){
+          $place_id_err = "Enter order place!";
+        }
+
+        else if(empty($_POST['stime'])){
+
+          $stime_err = "Enter order date";
+
+        }
+
+
+        else{
+          $query = "INSERT INTO police_order (place, date_time, description, police_id) VALUES('$place', '$stime', '$description', '$user_id')"; 
+           $query_result = mysqli_query($db, $query);
+           if($query_result) {
+            echo "<h3>Order Success!</h3> ";
+        }
+        else {
+          echo "<h3>Order Not Success!</h3> ";
+        }
+        }
+           }
+ ?>
+  <div class="row-fluid">
+    <div class="span6">
+      <div class="widget-box">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>Assign Police</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form action="DP_o_police.php" method="post" class="form-horizontal">
+            <div class="control-group">
+              <label class="control-label">Police :</label>
+              <div class="controls">
+                <select name="user_id" id="user_id " class="span11">
+                  <option value="" disabled selected>--Select Police--</option>
+                  <?php 
+                    $query = "SELECT users.id,fname,mname,lname FROM users inner join auth_role on users.id=user_id where role_id=3 order by fname";
+                   $result = mysqli_query($db, $query);
+                    while($row = mysqli_fetch_array($result)){
+                      ?>
+                        <option value="<?php echo $row['id'];  ?>"><?php echo $row['fname'] . " ". $row['mname']. " ". $row['lname']. "(".$row['id'].")"; ?></option>
+                      <?php
+                    }
+                  ?>
+                  
+                </select>
+                <br>
+                 <span class="error"><?php echo $user_id_err; ?></span>
+              </div>
+            </div>
+            <div class="control-group ">
+              <label class="control-label">Place :</label>
+              <div class="controls">
+              <input type="text" class="span11" name="place" placeholder="Place of order" />
+                <br>
+                <span class="error"><?php echo $place_id_err; ?></span>
+              </div>
+            </div>
+            <div class="control-group ">
+              <label class="control-label">Order Date :</label>
+              <div class="controls">
+                <input type="date" class="span11" name="stime" placeholder="Starting date" />
+                <br>
+                <span class="error"><?php echo $stime_err; ?></span>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Description</label>
+              <div class="controls">
+                <textarea class="span11" name="description" placeholder="Description"></textarea>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" name="assign" id="assign" class="btn btn-success">Assign</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
   </div>
+</div>
 
 </div>
 

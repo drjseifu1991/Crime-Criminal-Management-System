@@ -30,6 +30,18 @@ include 'Connection.php';
 <link rel="stylesheet" href="css/jquery.gritter.css" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 
+<style>
+      .widget-content  {
+        overflow-y: auto;
+        height: 540px;
+      }
+      
+      table {
+        border-collapse: collapse;
+        width: 10%;
+      }
+    
+    </style>
 </head>
 <body>
 
@@ -41,15 +53,15 @@ include 'Connection.php';
 
 
 <!--top-Header-menu-->
-<<div id="user-nav" class="navbar navbar-inverse">
-  <!-- <ul class="nav">
-    <!-- <li  class="" ><a title="" href="DP_profile.php"> <span class="profile"><?php  echo $_SESSION['uname']; ?></span></a>
-    </li> -->
+<div id="user-nav" class="navbar navbar-inverse">
+  <ul class="nav">
+    <li  class="" ><a title="" href="DP_profile.php">  <span class="profile"><?php  echo $_SESSION['uname']; ?></span></a>
+    </li>
     <li class=""><a href="DP_notification.php"><i class="icon icon-bell"></i> <span class="text">Notification</span></a>
     </li>
     <li class=""><a title="" href="DP_setting.php"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
     <li class=""><a title="" href="logout.php"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
-  </ul> -->
+  </ul>
 </div>
 <!--close-top-Header-menu-->
 <!--start-top-serch-->
@@ -63,10 +75,10 @@ include 'Connection.php';
   <ul>
   
   <li><a href="DP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Order<b class="caret"></b></span></a> 
+    <li class="active" class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Order<b class="caret"></b></span></a> 
       <ul>
         <li><a href="DP_o_police.php"><i class="icon-plus"></i>Order Police</a></li>
-        <li><a href="DP_v_order.php"><i class="icon-eye-open"></i>View Order</a></li>
+        <li class="active" ><a href="DP_v_order.php"><i class="icon-eye-open"></i>View Order</a></li>
       </ul>
     </li>
 
@@ -95,14 +107,13 @@ include 'Connection.php';
         <li><a href="DP_v_witness.php"><i class="icon-eye-open"></i>View Witness</a></li>
       </ul>
     </li>
-    <li class="active"><a href="DP_v_criminal.php"><i class="icon icon-home"></i> <span>View Criminal</span></a> </li>
+    <li><a href="DP_v_criminal.php"><i class="icon icon-home"></i> <span>View Criminal</span></a> </li>
     <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-user-md"></i> <span>Report<b class="caret"></b></span></a>
       <ul>
       <li><a href="DP_g_report.php"><i class="icon-plus"></i>Generate Report</a></li>
         <li><a href="DP_v_report.php"><i class="icon-eye-open"></i>View Report</a></li>
       </ul>
     </li>
-    
       <?php 
       $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
       $result = mysqli_query($db, $query);
@@ -140,42 +151,26 @@ include 'Connection.php';
 <div id="content">
 <!--breadcrumbs-->
   <div id="content-header">
-    <div id="breadcrumb"> <a href="DP_index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="DP_v_crime.php" class="current" >View Crime</a></div>
+    <div id="breadcrumb"> <a href="DP_index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="DP_v_accused.php" class="current" >View Accused</a></div>
   </div>
 <!--End-breadcrumbs-->
 
 <div class="container-fluid">
-<?php
-  // if (isset($_POST['update'])){
-  //   $c_id = mysqli_real_escape_string($db, $_POST['cid']);
-  //   $_SESSION['cid'] = $c_id;
-  //   header("location: DP_u_criminal.php");
-  // }
-  if (isset($_POST['update'])){
-    $c_id = mysqli_real_escape_string($db, $_POST['cid']);
-    $_SESSION['id'] = $c_id;
-    header("location: DP_u_criminal.php");
-  }
-  ?>
-  <div class="container-fluid">
-  <div class="row-fluid">
+    <div class="row-fluid">
       <div class="span12" >
         <div class="widget-box">
           <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-            <h5>View Criminal</h5>
+            <h5>View Order</h5>
           </div>
           <div class="widget-content nopadding">
             <table class="table table-bordered data-table">
               <thead>
                 <tr>
                   <th>Name</th>
-                  <th>City</th>
-                  <th>Kebele</th>
-                  <th>Crime Type</th>
-                  <th>Crime Level</th>
+                  <th>Date</th>
+                  <th>place</th>
                   <th>Description</th>
-                  <th>File</th>
-                  <th>Status</th>
+                
                 </tr>
               </thead>
               <tbody>
@@ -183,24 +178,16 @@ include 'Connection.php';
 
               <?php 
 
-              $query = "SELECT * FROM criminal ORDER BY id ASC";
+              $query = "SELECT fname, mname, date_time, place, police_order.description FROM police_order inner join users on police_order.police_id = users.id ORDER BY police_order.date_time ASC";
               $result = mysqli_query($db, $query);
 
               while($row = mysqli_fetch_array($result))
               {
               ?>
-                  <td><?php echo $row['fname'];?></td>
-                  <td><?php echo $row['city'];?></td>
-                  <td><?php echo $row['kebele'];?></td>
-                  <td><?php echo $row['crime_type'];?></td>
-                  <td><?php echo $row['crime_level'];?></td>
-                  <td><?php echo $row['description'];?></td>
-                  <td><a href="uploads/<?php echo $row['file'] ?>" target = "_blank" ><?php echo $row['file'] ?></a> </td>
-                  <td><?php echo $row['status'];?></td>
-                  <td><form action="DP_v_criminal.php" method="POST" class="form-horizontal">
-                  <input type='hidden' name='cid' value='<?php echo $row['id']; ?>' />
-                  <button type="submit" name="update" id="update" class="btn btn-success">Update status</button>
-                  </form></td>
+                  <td><?php echo $row['fname']." ".$row['mname'] ?></td>
+                  <td><?php echo $row['date_time'] ?></td>
+                  <td><?php echo $row['place'] ?></td>
+                  <td><?php echo $row['description'] ?></td>
                 </tr>
               <?php } ?>
               </tbody>
@@ -210,8 +197,7 @@ include 'Connection.php';
       </div>
     </div>
   </div>
-    
-  </div>
+
 
 </div>
 
