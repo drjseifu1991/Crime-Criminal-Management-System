@@ -125,12 +125,27 @@ include 'Connection.php';
 <div class="container-fluid">
   <hr>
   <?php 
-  echo $a_id;
     $vehicle_owner = $vehicle_owner_err = $driver_licence = $driver_licence_err = $date_time = $date_time_err ="";
     $vehicle_board = $vehicle_board_err = $crime_type = $crime_type_err = $crime_level = $crime_level_err = $punishment_type = $punishment_type_err = $description = $description_err = "";
 
+    if(isset($_GET['id'])){
+      $id = $_GET['id'];
+      $update = true;
+      $record = mysqli_query($db, "SELECT * FROM accident WHERE id=$id");
+      $n = mysqli_fetch_array($record);
+      $vehicle_owner = $n['funame_vihecle_owner'];
+      $driver_licence = $n['driver_licence'];
+      $date_time = $n['accident_date'];
+      $vehicle_board = $n['vehicle_board_no'];
+      $crime_type = $n['crime_type'];
+      $crime_level = $n['crime_level']; 
+      $punishment_type = $n['punishment_type'];
+      $description = $n['description'];
+    }
+
     if(isset($_POST['save'])){
       $vehicle_owner = mysqli_real_escape_string($db, $_POST['vehicle_owner']);
+      $id = mysqli_real_escape_string($db, $_POST['id']);
       $driver_licence = mysqli_real_escape_string($db, $_POST['driver_licence']);
       $date_time = mysqli_real_escape_string($db, $_POST['date_time']);
       $vehicle_board = mysqli_real_escape_string($db, $_POST['vehicle_board']);
@@ -172,18 +187,20 @@ include 'Connection.php';
       }
 
       else{
-        $query = "UPDATE accident SET funame_vihecle_owner = 'nan sam' WHERE id = $a_id";
+        // $query = "UPDATE accident SET funame_vihecle_owner = 'nan sam' WHERE id = $a_id";
+        $query = "UPDATE accident SET funame_vihecle_owner= '$vehicle_owner', driver_licence = '$driver_licence', vehicle_board_no = '$vehicle_board', crime_level = '$crime_level', accident_date = '$date_time', crime_type = '$crime_type', punishment_type = '$punishment_type', description = '$description' WHERE id = '$id' ";
+        
             // $query = "UPDATE auth_role SET role_id = $role_id WHERE user_id = $user_id";
             // $query = "UPDATE users SET fname = $fname, mname = $mname, lname = $lname, gender = $gender, age = $age, mobile = $mobile, email = $email, uname = $uname WHERE id = $e_id";
 
             // echo "Employee updated Successfully.";
             if(mysqli_query($db, $query)) {
 
-                echo "Accident updated Successfully.";
+                echo "<h1>Accident updated Successfully</h1>";
                 
               }
               else {
-                echo "Accident not updated Successfully";
+                echo "<h1>Accident not updated Successfully</h1>";
               }
         
       }
@@ -200,7 +217,8 @@ include 'Connection.php';
             <div class="control-group">
               <label class="control-label">Full name of Vehicle owner :</label>
               <div class="controls">
-                <input type="text" class="span11" name="vehicle_owner" placeholder="Vehicle Owner" />
+                <input type="text" class="span11" name="vehicle_owner" value="<?php echo $vehicle_owner; ?>" />
+                <input type="text" class="hide" name="id" value="<?php echo $id; ?>"/>
                 <br>
                  <span class="error"><?php echo $vehicle_owner_err; ?></span>
               </div>
@@ -208,7 +226,7 @@ include 'Connection.php';
             <div class="control-group">
               <label class="control-label">Driver Licence Number :</label>
               <div class="controls">
-                <input type="text" class="span11" name="driver_licence" placeholder="Driver Licence Number" />
+                <input type="text" class="span11" name="driver_licence" value="<?php echo $driver_licence; ?>" />
                 <br>
                  <span class="error"><?php echo $driver_licence_err; ?></span>
               </div>
@@ -216,7 +234,7 @@ include 'Connection.php';
             <div class="control-group">
               <label class="control-label">Accident committed date and time :</label>
               <div class="controls">
-                <input type="date" class="span11" name="date_time" placeholder="Date and Time" />
+                <input type="date" class="span11" name="date_time" value="<?php echo $date_time; ?>" />
                 <br>
                  <span class="error"><?php echo $date_time_err; ?></span>
               </div>
@@ -224,7 +242,7 @@ include 'Connection.php';
             <div class="control-group">
               <label class="control-label">Vehicle Board Number :</label>
               <div class="controls">
-                <input type="text" class="span11" name="vehicle_board" placeholder="Vehicle Board Number" />
+                <input type="text" class="span11" name="vehicle_board" value="<?php echo $vehicle_board; ?>" />
                 <br>
                  <span class="error"><?php echo $vehicle_board_err; ?></span>
               </div>
@@ -232,7 +250,7 @@ include 'Connection.php';
             <div class="control-group">
               <label class="control-label">Crime Type :</label>
               <div class="controls">
-                <input type="text" class="span11" name="crime_type" placeholder="Crime Type" />
+                <input type="text" class="span11" name="crime_type" value="<?php echo $crime_type; ?>" />
                 <br>
                  <span class="error"><?php echo $crime_type_err; ?></span>
               </div>
@@ -240,7 +258,7 @@ include 'Connection.php';
             <div class="control-group">
               <label class="control-label">Crime Level :</label>
               <div class="controls">
-                <input type="text" class="span11" name="crime_level" placeholder="Crime Level" />
+                <input type="text" class="span11" name="crime_level" value="<?php echo $crime_level; ?>" />
                 <br>
                  <span class="error"><?php echo $crime_level_err; ?></span>
               </div>
@@ -248,7 +266,7 @@ include 'Connection.php';
             <div class="control-group">
               <label class="control-label">Punishment Type :</label>
               <div class="controls">
-                <input type="text" class="span11" name="punishment_type" placeholder="Punishment Type" />
+                <input type="text" class="span11" name="punishment_type" value="<?php echo $punishment_type; ?>" />
                 <br>
                  <span class="error"><?php echo $punishment_type_err; ?></span>
               </div>
@@ -256,7 +274,7 @@ include 'Connection.php';
             <div class="control-group">
               <label class="control-label">Description</label>
               <div class="controls">
-                <textarea class="span11" name="description" placeholder="Description"></textarea>
+                <textarea class="span11" name="description" value="<?php echo $description; ?>"></textarea>
                 <br>
                  <span class="error"><?php echo $description_err; ?></span>
               </div>

@@ -116,7 +116,7 @@ include 'Connection.php';
   if (isset($_POST['update'])){
     $e_id = mysqli_real_escape_string($db, $_POST['eid']);
     $_SESSION['eid'] = $e_id;
-    header("location: HR_u_employee.php");
+    header("location: HR_u_employee.php?id=$e_id");
   }
   ?>
   <div class="container-fluid">

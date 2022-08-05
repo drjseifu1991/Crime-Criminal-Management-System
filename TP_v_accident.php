@@ -115,7 +115,7 @@ include 'Connection.php';
   if (isset($_POST['update'])){
     $a_id = mysqli_real_escape_string($db, $_POST['aid']);
     $_SESSION['aid'] = $a_id;
-    header("location: TP_u_accident.php");
+    header("location: TP_u_accident.php?id=$a_id");
   }
   ?>
   <div class="container-fluid">

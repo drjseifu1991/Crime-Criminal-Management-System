@@ -14,7 +14,12 @@
   }
 
 include 'Connection.php';
-  ?>
+if (isset($_POST['update'])){
+  $c_id = mysqli_real_escape_string($db, $_POST['cid']);
+  $_SESSION['cid'] = $c_id;
+  header("location: DP_u_criminal.php?id=$c_id");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,14 +47,14 @@ include 'Connection.php';
 
 <!--top-Header-menu-->
 <<div id="user-nav" class="navbar navbar-inverse">
-  <!-- <ul class="nav">
-    <!-- <li  class="" ><a title="" href="DP_profile.php"> <span class="profile"><?php  echo $_SESSION['uname']; ?></span></a>
-    </li> -->
+  <ul class="nav">
+    <li  class="" ><a title="" href="DP_profile.php"> <span class="profile"></span></a>
+    </li>
     <li class=""><a href="DP_notification.php"><i class="icon icon-bell"></i> <span class="text">Notification</span></a>
     </li>
     <li class=""><a title="" href="DP_setting.php"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
     <li class=""><a title="" href="logout.php"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
-  </ul> -->
+  </ul>
 </div>
 <!--close-top-Header-menu-->
 <!--start-top-serch-->
@@ -145,7 +150,7 @@ include 'Connection.php';
 <!--End-breadcrumbs-->
 
 <div class="container-fluid">
-<?php
+<!-- <?php
   // if (isset($_POST['update'])){
   //   $c_id = mysqli_real_escape_string($db, $_POST['cid']);
   //   $_SESSION['cid'] = $c_id;
@@ -154,9 +159,9 @@ include 'Connection.php';
   if (isset($_POST['update'])){
     $c_id = mysqli_real_escape_string($db, $_POST['cid']);
     $_SESSION['id'] = $c_id;
-    header("location: DP_u_criminal.php");
+    header("location: DP_u_criminal.php?id=$c_id");
   }
-  ?>
+  ?> -->
   <div class="container-fluid">
   <div class="row-fluid">
       <div class="span12" >
@@ -220,7 +225,7 @@ include 'Connection.php';
 <!--Footer-part-->
 
 <div class="row-fluid">
-  <div id="footer" class="span12"> 2021 &copy; Bahirdar University(BiT) Computer Engineering <a href="http://www.bdu.edu.et">www.bdu.edu.et</a> </div>
+  <div id="footer" class="span12"> 2022 &copy; Bahirdar University(BiT) Computer Engineering <a href="http://www.bdu.edu.et">www.bdu.edu.et</a> </div>
 </div>
 
 <!--end-Footer-part-->

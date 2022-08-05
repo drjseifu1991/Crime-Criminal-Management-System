@@ -158,13 +158,18 @@ include 'Connection.php';
 <div class="container-fluid">
   <hr>
   <?php
-  echo $c_id;
    $criminal_status = $criminal_status_err="";
-
+   if(isset($_GET['id'])){
+    $id = $_GET['id'];
+    $update = true;
+    $record = mysqli_query($db, "SELECT * FROM criminal WHERE id=$id");
+    $n = mysqli_fetch_array($record);
+    $fname = $n['status'];
+   }
    if (isset($_POST['save'])){
 
         $criminal_status = mysqli_real_escape_string($db, $_POST['criminal_status']);
-
+        $id = mysqli_real_escape_string($db, $_POST['id']);
         //validation
 
         if(empty($_POST['criminal_status'])){
@@ -172,18 +177,18 @@ include 'Connection.php';
         }
 
         else{
-            $query = "UPDATE criminal SET status = $criminal_status' WHERE id = $c_id";
+            $query = "UPDATE criminal SET status= '$criminal_status' WHERE id = '$id' ";
             // $query = "UPDATE auth_role SET role_id = $role_id WHERE user_id = $user_id";
             // $query = "UPDATE users SET fname = $fname, mname = $mname, lname = $lname, gender = $gender, age = $age, mobile = $mobile, email = $email, uname = $uname WHERE id = $e_id";
 
             // echo "Employee updated Successfully.";
             if(mysqli_query($db, $query)) {
 
-                echo "Criminal Status updated Successfully.";
+                echo "<h1>Criminal Status updated Successfully</h1>";
                 
               }
               else {
-                echo "Criminal Status not updated Successfully";
+                echo "<h1>Criminal Status not updated Successfully</h1>";
               }
           
         }
@@ -201,7 +206,8 @@ include 'Connection.php';
             <div class="control-group">
               <label class="control-label">Criminal Status :</label>
               <div class="controls">
-                <input type="text" class="span11" name="criminal_status" placeholder="Criminal Status" />
+                <input type="text" class="span11" name="criminal_status" value="<?php echo $criminal_status; ?>" />
+                <input type="text" class="hide" name="id" value="<?php echo $id; ?>"/>
                 <br>
                  <span class="error"><?php echo $criminal_status_err; ?></span>
               </div>
@@ -223,7 +229,7 @@ include 'Connection.php';
 <!--Footer-part-->
 
 <div class="row-fluid">
-  <div id="footer" class="span12"> 2021 &copy; Bahirdar University(BiT) Computer Engineering <a href="http://www.bdu.edu.et">www.bdu.edu.et</a> </div>
+  <div id="footer" class="span12"> 2022 &copy; Bahirdar University(BiT) Computer Engineering <a href="http://www.bdu.edu.et">www.bdu.edu.et</a> </div>
 </div>
 
 <!--end-Footer-part-->

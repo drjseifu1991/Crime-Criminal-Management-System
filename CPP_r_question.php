@@ -184,7 +184,7 @@ include 'Connection.php';
 <!--Footer-part-->
 
 <div class="row-fluid">
-  <div id="footer" class="span12"> 2021 &copy; Bahirdar University(BiT) Computer Engineering <a href="http://www.bdu.edu.et">www.bdu.edu.et</a> </div>
+  <div id="footer" class="span12"> 2022 &copy; Bahirdar University(BiT) Computer Engineering <a href="http://www.bdu.edu.et">www.bdu.edu.et</a> </div>
 </div>
 
 <!--end-Footer-part-->

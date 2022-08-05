@@ -85,90 +85,101 @@ include 'Connection.php';
  
   <div class="container-fluid">
   <?php 
-       echo $e_id;
-       $fname = $mname = $lname = $gender = $age = "";
-       $mobile = $email = $uname = "";
-      
-      $fname_err = $mname_err = $lname_err = $gender_err = $age_err = "";
-      $mobile_err = $email_err = $uname_err =" ";
-       if (isset($_POST['updatee'])){
+  $fname_err = $mname_err = $lname_err = $gender_err = $age_err = "";
+  $mobile_err = $email_err = $uname_err =" ";
+  $fname = $mname = $lname = $gender = $age = "";
+  $mobile = $email = $uname = $id =" ";
+  if(isset($_GET['id'])){
+    $id = $_GET['id'];
+    $update = true;
+    $record = mysqli_query($db, "SELECT * FROM users WHERE id=$id");
+    $n = mysqli_fetch_array($record);
+    $fname = $n['fname'];
+    $mname = $n['mname'];
+    $lname = $n['lname'];
+    $gender = $n['gender'];
+    $age = $n['age'];
+    $mobile = $n['mobile']; 
+    $email = $n['email'];
+    $uname = $n['uname'];
+    echo $id;
+  }
+      if (isset($_POST['updatee'])){
+        
 
-              $fname = mysqli_real_escape_string($db, $_POST['fname']);
-              $mname = mysqli_real_escape_string($db, $_POST['mname']);
-              $lname = mysqli_real_escape_string($db, $_POST['lname']);
-              $gender = mysqli_real_escape_string($db, $_POST['gender']);
-              $age = mysqli_real_escape_string($db, $_POST['age']);
-              $mobile = mysqli_real_escape_string($db, $_POST['mobile']);
-              $email = mysqli_real_escape_string($db, $_POST['email']);
-              $uname = mysqli_real_escape_string($db, $_POST['uname']);
-
+        $fname = mysqli_real_escape_string($db, $_POST['fname']);
+        $id = mysqli_real_escape_string($db, $_POST['id']);
+        $mname = mysqli_real_escape_string($db, $_POST['mname']);
+        $lname = mysqli_real_escape_string($db, $_POST['lname']);
+        $gender = mysqli_real_escape_string($db, $_POST['gender']);
+        $age = mysqli_real_escape_string($db, $_POST['age']);
+        $mobile = mysqli_real_escape_string($db, $_POST['mobile']);
+        $email = mysqli_real_escape_string($db, $_POST['email']);
+        $uname = mysqli_real_escape_string($db, $_POST['uname']);
         if (empty ($_POST["fname"])) {  
-            $fname_err = "You didn't enter the first name.";   
-         } 
-
-        
-        
+          $fname_err = "You didn't enter the first name.";   
+       } 
+    
         else if (empty ($_POST["mname"])) {  
         $mname_err = "You didn't enter the middle name.";   
-         } 
-
-       
-   
+        } 
+    
+     
+      
         else if (empty ($_POST["lname"])) {  
         $lname_err = "You didn't enter the last name.";    
-         }    
-       
-       
-
+        }    
+      
+      
+      
         else if (empty ($_POST["gender"])) {  
         $gender_err = "You didn't select the gender.";    
-         }
-
-         else if (empty ($_POST["age"])) {  
+        }
+      
+        else if (empty ($_POST["age"])) {  
         $age_err = "You didn't enter the age.";    
-         }
- 
+        }
+      
         
-
-
-         else if (empty ($_POST["mobile"])) {  
+      
+      
+        else if (empty ($_POST["mobile"])) {  
         $mobile_err = "You didn't enter the mobile number.";   
-         } 
-
-       
+        } 
+      
+      
         else if (strlen ($mobile) != 10) {  
           $mobile_err = "Mobile number must contain 10 digits.";  
         }
         
         else if (empty ($_POST["email"])) {  
         $email_err = "You didn't enter the email.";    
-         }
-  
-           // check that the e-mail address is well-formed 
+        }
+      
+          // check that the e-mail address is well-formed 
         else if(!preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^",$email)){
           $email_err = "Invalid email!";
         } 
-
-         else if (empty ($_POST["uname"])) {  
+        
+        else if (empty ($_POST["uname"])) {  
         $uname_err = "You didn't enter the username.";    
-         }  
+        }  
         else {
-            $query = "UPDATE users SET mname = 'nan sam' WHERE id = $e_id";
+            // $query = "UPDATE users SET mname = 'nan sam' WHERE id = $e_id";
+            $query = "UPDATE users SET fname= '$fname', mname = '$mname', lname = '$lname', gender = '$gender', age = '$age', mobile = '$mobile', email = '$email', uname = '$uname' WHERE id = '$id' ";
             // $query = "UPDATE auth_role SET role_id = $role_id WHERE user_id = $user_id";
             // $query = "UPDATE users SET fname = $fname, mname = $mname, lname = $lname, gender = $gender, age = $age, mobile = $mobile, email = $email, uname = $uname WHERE id = $e_id";
-
+      
             // echo "Employee updated Successfully.";
             if(mysqli_query($db, $query)) {
-
-                echo "Employee updated Successfully.";
-                
+                echo "<h1>Employee updated Successfully</h1>";
               }
               else {
-                echo "Employee not updated Successfully";
+                echo "<h1>Employee not updated Successfully</h1>";
               }
         }   
-     }        
-      ?>
+      }  
+?>
         
 
     
@@ -189,7 +200,8 @@ include 'Connection.php';
                 <div class="control-group ">
                 <label class="control-label">First Name :</label>
                 <div class="controls">
-                    <input type="text" class="span11" name="fname" placeholder="First Name"/>
+                    <input type="text" class="span11" name="fname" value="<?php echo $fname; ?>"/>
+                    <input type="text" class="hide" name="id" value="<?php echo $id; ?>"/>
                     <br>
                     <span class="error"><?php echo $fname_err; ?></span>
                 </div>
@@ -198,7 +210,7 @@ include 'Connection.php';
                 <div class="control-group ">
                 <label class="control-label">Middle Name :</label>
                 <div class="controls">
-                    <input type="text" class="span11" name="mname" placeholder="Middle Name"  />
+                    <input type="text" class="span11" name="mname" value="<?php echo $mname; ?>"  />
                     <br>
                     <span class="error"><?php echo $mname_err; ?></span>
                 </div>
@@ -207,7 +219,7 @@ include 'Connection.php';
                 <div class="control-group ">
                 <label class="control-label">Last Name :</label>
                 <div class="controls">
-                    <input type="text" class="span11" name="lname" placeholder="Last Name" />
+                    <input type="text" class="span11" name="lname" value="<?php echo $lname; ?>" />
                     <br>
                     <span class="error"><?php echo $lname_err; ?></span>
                 </div>
@@ -226,7 +238,7 @@ include 'Connection.php';
                 <div class="control-group ">
                 <label class="control-label">Age :</label>
                 <div class="controls">
-                    <input type="text" class="span11" name="age" placeholder="Age"  />
+                    <input type="text" class="span11" name="age" value="<?php echo $age; ?>"  />
                     <br>
                     <span class="error"><?php echo $age_err; ?></span>
                 </div>
@@ -235,7 +247,7 @@ include 'Connection.php';
                 <div class="control-group ">
                 <label class="control-label">Mobile :</label>
                 <div class="controls">
-                    <input type="text" class="span11" name="mobile" placeholder="Mobile"  />
+                    <input type="text" class="span11" name="mobile" value="<?php echo $mobile; ?>"  />
                     <br>
                     <span class="error"><?php echo $mobile_err; ?></span>
                 </div>
@@ -244,7 +256,7 @@ include 'Connection.php';
                 <div class="control-group">
                 <label class="control-label">Email :</label>
                 <div class="controls">
-                    <input type="text" class="span11" name="email" placeholder="Email" />
+                    <input type="text" class="span11" name="email" value="<?php echo $email; ?>" />
                     <br>
                     <span class="error"><?php echo $email_err; ?></span>
                 </div>
@@ -253,7 +265,7 @@ include 'Connection.php';
                 <div class="control-group">
                 <label class="control-label">Username :</label>
                 <div class="controls">
-                    <input type="text" class="span11" name="uname" placeholder="Username"/>
+                    <input type="text" class="span11" name="uname" value="<?php echo $uname; ?>"/>
                     <br>
                     <span class="error"><?php echo $uname_err; ?></span>
                 </div>
