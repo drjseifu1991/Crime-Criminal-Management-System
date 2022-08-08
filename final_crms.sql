@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 24, 2022 at 04:58 PM
+-- Generation Time: Aug 07, 2022 at 07:43 AM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -30,27 +30,56 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `accident`;
 CREATE TABLE IF NOT EXISTS `accident` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `accident_type` varchar(100) NOT NULL,
-  `car_id` varchar(100) NOT NULL,
-  `car_type` varchar(100) NOT NULL,
-  `place` varchar(100) NOT NULL,
+  `funame_vihecle_owner` varchar(100) NOT NULL,
+  `driver_licence` varchar(100) NOT NULL,
+  `vehicle_board_no` varchar(100) NOT NULL,
+  `crime_level` varchar(100) NOT NULL,
   `accident_date` datetime NOT NULL,
-  `description` varchar(1000) NOT NULL,
+  `crime_type` varchar(1000) NOT NULL,
   `session` int(11) NOT NULL,
+  `punishment_type` varchar(100) NOT NULL,
+  `description` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `accident_ibfk_1` (`session`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `accident`
 --
 
-INSERT INTO `accident` (`id`, `accident_type`, `car_id`, `car_type`, `place`, `accident_date`, `description`, `session`) VALUES
-(1, 'fdrt', 'rjkkg', 'fgjijkfd', 'fcvb', '2022-07-07 00:00:00', 'ttrert', 11),
-(2, 'dbnxvc', 'sdfg', 'esfdgfd', 'sdfgf', '2022-07-14 00:00:00', 'wfghhfds', 11),
-(3, 'ddk', 'dsdkjd', 'djjdk', 'djjd', '2022-07-15 00:00:00', 'djjdk', 11),
-(4, 'fdrt', 'rjkkg', 'fgjijkfd', 'tfilkjed', '2022-07-08 00:00:00', 'sdfg', 1),
-(5, 'High', 'Bdu1010976', 'Minibas', 'Bahir Dar', '2022-07-05 00:00:00', 'Car Accident', 1);
+INSERT INTO `accident` (`id`, `funame_vihecle_owner`, `driver_licence`, `vehicle_board_no`, `crime_level`, `accident_date`, `crime_type`, `session`, `punishment_type`, `description`) VALUES
+(1, 'fdrt', 'rjkkg', 'fgjijkfd', 'fcvb', '2022-07-07 00:00:00', 'ttrert', 11, '', ''),
+(2, 'dbnxvc', 'sdfg', 'esfdgfd', 'sdfgf', '2022-07-14 00:00:00', 'wfghhfds', 11, '', ''),
+(3, 'ddk', 'dsdkjd', 'djjdk', 'djjd', '2022-07-15 00:00:00', 'djjdk', 11, '', ''),
+(4, 'Abeba Kebedenn', 'AA 2384489', '03 84847', 'High', '2022-08-25 00:00:00', 'Accident', 1, 'High', 'kdsjksd'),
+(5, 'High', 'Bdu1010976', 'Minibas', 'Bahir Dar', '2022-07-05 00:00:00', 'Car Accident', 1, '', ''),
+(6, 'Dereje', 'Dereje', 'Dereje', 'Dereje', '2022-07-01 00:00:00', 'Dereje', 1, 'Dereje', 'Dereje'),
+(7, 'nan sam', '90944475', '984', 'High', '2022-08-19 00:00:00', 'High', 12, 'High', 'edjekdjdk'),
+(8, 'Hanna', '900', '87', 'low', '2022-08-19 00:00:00', 'low', 12, 'low', 'good');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `accusation`
+--
+
+DROP TABLE IF EXISTS `accusation`;
+CREATE TABLE IF NOT EXISTS `accusation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `crime_type` varchar(100) NOT NULL,
+  `crime_level` varchar(100) NOT NULL,
+  `description` text NOT NULL,
+  `user_id` int(15) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `accusation`
+--
+
+INSERT INTO `accusation` (`id`, `crime_type`, `crime_level`, `description`, `user_id`) VALUES
+(1, 'High', 'High', 'I don know', 1);
 
 -- --------------------------------------------------------
 
@@ -160,16 +189,21 @@ CREATE TABLE IF NOT EXISTS `auth_role` (
   PRIMARY KEY (`id`),
   KEY `auth_role_role` (`role_id`),
   KEY `auth_role_users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `auth_role`
 --
 
 INSERT INTO `auth_role` (`id`, `user_id`, `role_id`, `description`) VALUES
-(1, 1, 4, NULL),
+(1, 1, 7, NULL),
 (3, 10, 3, NULL),
-(4, 11, 5, NULL);
+(4, 11, 8, NULL),
+(7, 12, 1, NULL),
+(8, 13, 6, NULL),
+(10, 14, 2, NULL),
+(11, 16, 5, NULL),
+(12, 17, 4, NULL);
 
 -- --------------------------------------------------------
 
@@ -181,12 +215,43 @@ DROP TABLE IF EXISTS `comment`;
 CREATE TABLE IF NOT EXISTS `comment` (
   `id` int(15) NOT NULL AUTO_INCREMENT,
   `user_id` int(15) NOT NULL,
-  `comment` varchar(2000) NOT NULL,
+  `comment` text NOT NULL,
   `datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `description` varchar(2000) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `comment_users` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `comment`
+--
+
+INSERT INTO `comment` (`id`, `user_id`, `comment`, `datetime`) VALUES
+(1, 1, 'Hello', '2022-07-30 21:32:57');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `complain`
+--
+
+DROP TABLE IF EXISTS `complain`;
+CREATE TABLE IF NOT EXISTS `complain` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `casee` text NOT NULL,
+  `date_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `description` text NOT NULL,
+  `user_id` int(15) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `complain`
+--
+
+INSERT INTO `complain` (`id`, `casee`, `date_time`, `description`, `user_id`) VALUES
+(1, 'I don know', '2022-07-30 21:48:05', 'I don know', 1),
+(2, 'hello', '2022-07-31 15:53:11', 'hello', 1);
 
 -- --------------------------------------------------------
 
@@ -226,6 +291,36 @@ INSERT INTO `crime` (`id`, `accuser_id`, `accused_id`, `witness_1`, `controller`
 (2, 2, 1, 1, 1, 'fedwefrg', 'fdwert', '2022-07-28 00:00:00', '', 'fddfgfds', 1, 1),
 (3, 1, 1, 1, 1, 'simple', 'high', '2022-07-27 00:00:00', 'cartoon-summer-background-landscape-steppe-mountains-125428790.jpg', 'dfghjnkml', 1, 1),
 (4, 2, 2, 2, 10, 'simple', 'high', '2022-07-25 00:00:00', 'download.pdf', 'Car accident', 2, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `criminal`
+--
+
+DROP TABLE IF EXISTS `criminal`;
+CREATE TABLE IF NOT EXISTS `criminal` (
+  `id` int(15) NOT NULL AUTO_INCREMENT,
+  `fname` varchar(100) NOT NULL,
+  `lname` varchar(100) NOT NULL,
+  `city` varchar(100) NOT NULL,
+  `kebele` varchar(100) NOT NULL,
+  `crime_type` varchar(100) NOT NULL,
+  `crime_level` varchar(100) NOT NULL,
+  `description` text NOT NULL,
+  `file` varchar(200) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `status` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `criminal`
+--
+
+INSERT INTO `criminal` (`id`, `fname`, `lname`, `city`, `kebele`, `crime_type`, `crime_level`, `description`, `file`, `user_id`, `status`) VALUES
+(1, 'Dereje', 'Dereje', 'Sendafa', '02', 'High', 'High', 'I don know', '', 1, 'Arrested');
 
 -- --------------------------------------------------------
 
@@ -272,6 +367,37 @@ CREATE TABLE IF NOT EXISTS `kebele` (
 
 INSERT INTO `kebele` (`id`, `woreda_id`, `name`, `description`) VALUES
 (1, 1, 'Mehale Meda', 'Mehale Meda');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `missing_criminal`
+--
+
+DROP TABLE IF EXISTS `missing_criminal`;
+CREATE TABLE IF NOT EXISTS `missing_criminal` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fname` varchar(30) NOT NULL,
+  `lname` varchar(30) NOT NULL,
+  `photo` varchar(300) NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `kebele` varchar(50) NOT NULL,
+  `date` date NOT NULL,
+  `description` text NOT NULL,
+  `user_id` int(15) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `missing_criminal`
+--
+
+INSERT INTO `missing_criminal` (`id`, `fname`, `lname`, `photo`, `city`, `kebele`, `date`, `description`, `user_id`) VALUES
+(2, 'Dereje', 'Dereje', '', 'Sendafa', 'gfgdfdf', '2022-07-21', 'asdfghj', 1),
+(3, 'Dereje', 'Dereje', '', 'Sendafa', 'Arba Arat', '2022-08-09', 'dkxm', 12),
+(4, 'Dereje', 'Dereje', '', 'Sendafa', 'Arba Arat', '2022-08-24', 'fgvb', 12),
+(5, 'Dereje', 'Dereje', 'betlehemAlemu1.jpg', 'Sendafa', 'Sebdaaf', '2022-08-24', 'fghbjnkm', 12);
 
 -- --------------------------------------------------------
 
@@ -423,30 +549,59 @@ INSERT INTO `place_history` (`id`, `up_id`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `police_order`
+--
+
+DROP TABLE IF EXISTS `police_order`;
+CREATE TABLE IF NOT EXISTS `police_order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `place` varchar(300) NOT NULL,
+  `date_time` date NOT NULL,
+  `description` text NOT NULL,
+  `police_id` int(15) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `police_id` (`police_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `police_order`
+--
+
+INSERT INTO `police_order` (`id`, `place`, `date_time`, `description`, `police_id`) VALUES
+(1, 'Bahir Dar', '2022-08-20', 'I don know', 10),
+(2, 'tfilkjed', '2022-08-12', 'ldkjxcm', 10);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `progress_case`
 --
 
 DROP TABLE IF EXISTS `progress_case`;
 CREATE TABLE IF NOT EXISTS `progress_case` (
   `id` int(15) NOT NULL AUTO_INCREMENT,
-  `crime_id` int(15) NOT NULL,
+  `accused_id` int(15) NOT NULL,
   `datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `appo_date` datetime NOT NULL,
   `status` varchar(100) DEFAULT NULL,
   `description` varchar(2000) DEFAULT NULL,
+  `crime_type` varchar(100) NOT NULL,
+  `crime_level` varchar(100) DEFAULT NULL,
+  `accuser_id` int(11) DEFAULT NULL,
+  `witness_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `crime_id` (`crime_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+  KEY `crime_id` (`accused_id`),
+  KEY `accuser_id` (`accuser_id`),
+  KEY `witness_id` (`witness_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `progress_case`
 --
 
-INSERT INTO `progress_case` (`id`, `crime_id`, `datetime`, `appo_date`, `status`, `description`) VALUES
-(1, 3, '2022-07-12 15:13:44', '2022-07-29 00:00:00', NULL, 'agdfgf'),
-(2, 2, '2022-07-13 20:16:06', '2022-07-07 00:00:00', NULL, 'wertyui'),
-(3, 1, '2022-07-22 19:59:09', '2022-07-12 00:00:00', NULL, 'Bahir Dar'),
-(4, 2, '2022-07-22 19:59:35', '2022-07-14 00:00:00', NULL, 'Bahir Dar');
+INSERT INTO `progress_case` (`id`, `accused_id`, `datetime`, `appo_date`, `status`, `description`, `crime_type`, `crime_level`, `accuser_id`, `witness_id`) VALUES
+(1, 2, '2022-08-02 22:08:05', '2022-08-23 00:00:00', NULL, 'jdsmnx', 'High', NULL, NULL, NULL),
+(2, 1, '2022-08-02 22:11:42', '2022-08-04 00:00:00', NULL, 'hgn', 'High', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -474,6 +629,35 @@ INSERT INTO `region` (`id`, `name`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `report`
+--
+
+DROP TABLE IF EXISTS `report`;
+CREATE TABLE IF NOT EXISTS `report` (
+  `id` int(15) NOT NULL AUTO_INCREMENT,
+  `r_case` varchar(200) NOT NULL,
+  `r_desc` text NOT NULL,
+  `r_date_time` date DEFAULT NULL,
+  `r_type` varchar(100) NOT NULL,
+  `r_level` varchar(100) NOT NULL,
+  `file_r` varchar(200) DEFAULT NULL,
+  `user_id` int(15) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `report`
+--
+
+INSERT INTO `report` (`id`, `r_case`, `r_desc`, `r_date_time`, `r_type`, `r_level`, `file_r`, `user_id`) VALUES
+(1, 'Accident Happeen', 'dfgfhgf', '2022-08-11', 'accident', 'low', 'betlehemAlemu1.jpg', 12),
+(2, 'Accident Happeen', 'rfdokld', '2022-08-11', 'crime', 'low', 'betlehemAlemu3.jpg', 1),
+(3, 'Accident Happeen', 'edskdk', '2022-08-18', 'crime', 'high', 'betlehemAlemu3.jpg', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `role`
 --
 
@@ -484,7 +668,7 @@ CREATE TABLE IF NOT EXISTS `role` (
   `datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `description` varchar(2000) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `role`
@@ -495,7 +679,10 @@ INSERT INTO `role` (`id`, `name`, `datetime`, `description`) VALUES
 (2, 'Traffic Police Officer', '2021-01-07 22:39:32', NULL),
 (3, 'Preventive Police', '2021-01-07 22:39:58', NULL),
 (4, 'Traffic Police', '2021-01-07 22:40:33', NULL),
-(5, 'Customer', '2021-01-07 22:41:01', NULL);
+(5, 'Customer', '2021-01-07 22:41:01', NULL),
+(6, 'Head Police', '2022-07-25 18:25:51', NULL),
+(7, 'Admin', '2022-08-01 07:21:50', NULL),
+(8, 'HR', '2022-08-01 07:22:16', NULL);
 
 -- --------------------------------------------------------
 
@@ -510,8 +697,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `mname` varchar(50) NOT NULL,
   `lname` varchar(50) NOT NULL,
   `gender` enum('male','female','other','') NOT NULL,
-  `age` int(15) NOT NULL,
-  `job` varchar(50) NOT NULL,
+  `age` varchar(15) NOT NULL,
+  `job` varchar(50) DEFAULT NULL,
   `mobile` varchar(10) NOT NULL,
   `email` varchar(50) NOT NULL,
   `uname` varchar(50) NOT NULL,
@@ -519,16 +706,21 @@ CREATE TABLE IF NOT EXISTS `users` (
   `photo` varchar(1000) DEFAULT NULL,
   `description` varchar(2000) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `fname`, `mname`, `lname`, `gender`, `age`, `job`, `mobile`, `email`, `uname`, `password`, `photo`, `description`) VALUES
-(1, 'Dereje', 'Seifu', 'Aserat', 'male', 23, 'Student', '0966016473', 'Derejeseifu3030@gmail.com', 'drjseifu', '81dc9bdb52d04dc20036dbd8313ed055', NULL, NULL),
-(10, 'Hanna', 'Seifu', 'Aserat', 'female', 11, 'Student', '0966016476', 'drjseifu1991@gmail.com', 'hana', '81dc9bdb52d04dc20036dbd8313ed055', NULL, NULL),
-(11, 'Aserat', 'Seifu', 'Abebe', 'male', 23, 'Student', '0957463746', 'teddyabere9@gmail.com', 'aserat', '81dc9bdb52d04dc20036dbd8313ed055', NULL, NULL);
+(1, 'Abeba', 'Alemu', 'kebede', 'male', '23', 'Student', '0957676745', 'abebe@gmail.com', 'abebe', '81dc9bdb52d04dc20036dbd8313ed055', NULL, NULL),
+(10, 'Abebech', 'Kebede', 'Alemu', 'female', '28', 'Student', '0985457657', 'abebech@gmail.com', 'abebech', '81dc9bdb52d04dc20036dbd8313ed055', NULL, NULL),
+(11, 'Kebede', 'Abebe', 'Alemu', 'male', '25', 'Student', '0957463746', 'kebede@gmail.com', 'kebede', '81dc9bdb52d04dc20036dbd8313ed055', NULL, NULL),
+(12, 'Alemu', 'kebede', 'Abebe', 'male', '27', NULL, '0974787455', 'alemu@gmail.com', 'alemu', '81dc9bdb52d04dc20036dbd8313ed055', NULL, NULL),
+(13, 'Girma', 'Abeba', 'Kebde', 'male', '30', NULL, '0975774444', 'girma@gmail.com', 'girma', '81dc9bdb52d04dc20036dbd8313ed055', NULL, NULL),
+(14, 'Fikadu', 'Girma', 'Kebede', 'male', '35', NULL, '0987763666', 'fikadu@gmail.com', 'fikadu', '81dc9bdb52d04dc20036dbd8313ed055', NULL, NULL),
+(16, 'Yoosef', 'Fikadu', 'Abebe', 'male', '29', NULL, '0975465444', 'yoosef@gmail.com', 'yoosef', '81dc9bdb52d04dc20036dbd8313ed055', NULL, NULL),
+(17, 'Samuel', 'Kebede', 'Abebe', 'male', '28', NULL, '0968877777', 'samuel@gmail.com', 'samuel', '81dc9bdb52d04dc20036dbd8313ed055', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -548,7 +740,7 @@ CREATE TABLE IF NOT EXISTS `user_place` (
   PRIMARY KEY (`id`),
   KEY `user_place_placement` (`place_id`),
   KEY `user_place_users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user_place`
@@ -556,16 +748,9 @@ CREATE TABLE IF NOT EXISTS `user_place` (
 
 INSERT INTO `user_place` (`id`, `user_id`, `place_id`, `stime`, `ftime`, `rtime`, `description`) VALUES
 (1, 1, 1, '2022-07-19 21:05:23', '2022-07-28 21:05:23', '2022-07-07 21:06:24', 'Ethiopia'),
-(2, 1, 1, '2022-06-30 00:00:00', '2022-07-05 00:00:00', '2022-07-07 21:56:46', 'gddd'),
-(3, 1, 1, '2022-07-05 00:00:00', '2022-07-13 00:00:00', '2022-07-08 19:53:15', 'duygfruyfyu'),
-(4, 11, 1, '2022-07-14 00:00:00', '2022-07-15 00:00:00', '2022-07-10 16:47:45', 'asd'),
-(5, 10, 1, '2022-07-07 00:00:00', '2022-07-20 00:00:00', '2022-07-10 16:48:26', 'as'),
-(6, 10, 1, '2022-06-29 00:00:00', '2022-07-07 00:00:00', '2022-07-10 16:58:32', 'sdfghjjhgf'),
-(7, 1, 1, '2022-07-15 00:00:00', '2022-07-15 00:00:00', '2022-07-12 15:12:32', 'Dereeeeeeeeeeeeee'),
-(8, 10, 1, '2022-07-15 00:00:00', '2022-07-16 00:00:00', '2022-07-12 15:13:15', 'hgfds'),
-(9, 1, 1, '2022-07-04 00:00:00', '2022-07-23 00:00:00', '2022-07-13 20:15:47', 'sdfghj'),
-(10, 1, 1, '2022-07-10 00:00:00', '2022-07-13 00:00:00', '2022-07-22 19:58:12', 'For Job'),
-(11, 1, 1, '2022-06-30 00:00:00', '2022-07-13 00:00:00', '2022-07-22 20:10:51', 'For Job');
+(14, 1, 1, '2022-08-12 00:00:00', '2022-08-19 00:00:00', '2022-08-02 21:29:46', 'kdk'),
+(15, 10, 1, '2022-08-17 00:00:00', '2022-08-18 00:00:00', '2022-08-03 15:16:12', 'dkldklx'),
+(16, 11, 1, '2022-08-19 00:00:00', '2022-08-12 00:00:00', '2022-08-03 15:19:27', 'edjnm');
 
 -- --------------------------------------------------------
 
@@ -669,6 +854,12 @@ ALTER TABLE `accident`
   ADD CONSTRAINT `accident_ibfk_1` FOREIGN KEY (`session`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `accusation`
+--
+ALTER TABLE `accusation`
+  ADD CONSTRAINT `accusation_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `accused`
 --
 ALTER TABLE `accused`
@@ -700,6 +891,12 @@ ALTER TABLE `comment`
   ADD CONSTRAINT `comment_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE;
 
 --
+-- Constraints for table `complain`
+--
+ALTER TABLE `complain`
+  ADD CONSTRAINT `complain_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `crime`
 --
 ALTER TABLE `crime`
@@ -711,10 +908,22 @@ ALTER TABLE `crime`
   ADD CONSTRAINT `crime_users` FOREIGN KEY (`controller`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `criminal`
+--
+ALTER TABLE `criminal`
+  ADD CONSTRAINT `criminal_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `kebele`
 --
 ALTER TABLE `kebele`
   ADD CONSTRAINT `kebele_ibfk_1` FOREIGN KEY (`woreda_id`) REFERENCES `woreda` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `missing_criminal`
+--
+ALTER TABLE `missing_criminal`
+  ADD CONSTRAINT `missing_criminal_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `nomination`
@@ -729,10 +938,24 @@ ALTER TABLE `place_history`
   ADD CONSTRAINT `place_history_up` FOREIGN KEY (`up_id`) REFERENCES `user_place` (`id`) ON UPDATE CASCADE;
 
 --
+-- Constraints for table `police_order`
+--
+ALTER TABLE `police_order`
+  ADD CONSTRAINT `police_order_ibfk_1` FOREIGN KEY (`police_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `progress_case`
 --
 ALTER TABLE `progress_case`
-  ADD CONSTRAINT `progress_case_ibfk_1` FOREIGN KEY (`crime_id`) REFERENCES `crime` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `progress_case_ibfk_1` FOREIGN KEY (`accused_id`) REFERENCES `accused` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `progress_case_ibfk_2` FOREIGN KEY (`accuser_id`) REFERENCES `accuser` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `progress_case_ibfk_3` FOREIGN KEY (`witness_id`) REFERENCES `witness` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `report`
+--
+ALTER TABLE `report`
+  ADD CONSTRAINT `report_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `user_place`

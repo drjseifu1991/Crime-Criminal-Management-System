@@ -1,0 +1,60 @@
+
+.options{
+    width: 30%;
+    margin-top: 4px;
+    margin-left: 3px;
+    background: #f5f8f8;
+    border: 1px solid #B0C4DE;
+    border-radius: 4px;
+    padding: 20px;
+  }
+  .options ul li button{
+    width:60%;
+    display: grid;
+    background-color:#E9DDD4;
+    height:50px;
+  }
+  .options ul li button:hover{
+    background-color:#FADCD9;
+  }
+  .options ul li{
+    list-style: none;
+    padding: 10px;
+  }
+  .options ul li a{
+    text-transform: uppercase;
+    font-size: 100%;
+    padding: 5%;
+    text-decoration: none;
+    color: black;
+  }
+  .options ul li a:hover{
+    color: crimson;
+  }
+  body {
+    font-size: 120%;
+    background-repeat: no-repeat;
+  }
+  .header1{
+    width: 96%;
+    margin: auto;
+    margin-left: 4px;
+    margin-right: 4px;
+    color: white;
+    padding: 0px;
+  }
+  .header1 a{
+      text-align: center;
+      padding: 5px 20px;
+      text-decoration: none;
+  }
+  #activeOn{
+      color: rgb(226, 11, 226);
+  }
+  .header1 a:hover{
+      background-color: aqua;
+  }
+
+.btn a:hover{
+  color:red;
+}

@@ -1,0 +1,105 @@
+
+.header1{
+    background: #5F9EA0;
+    text-align: center;
+    padding: 20px;
+  }
+  .header1 a{
+      text-align: center;
+      padding: 5px 20px;
+      text-decoration: none;
+  }
+  #activeOn{
+      color: rgb(226, 11, 226);
+  }
+  .header1 a:hover{
+      background-color: aqua;
+  }
+
+.container{
+    width:90%;
+    padding:2px;
+    margin:auto;
+    text-align: center;
+}
+.form-group{
+    margin-bottom:4px;
+    transition:all .1s;
+    
+}
+.form-group:hover{
+    background-color: blanchedalmond;
+}
+.form-label{
+    font-size:.75em;
+    display:block;
+    opacity:0;
+    transition: all .3s;
+    transform:translateX(-50px);
+}
+.form-control{
+    background-color: transparent;
+    box-shadow:none;
+    border-radius:0;
+    border-color:#ccc;
+    border-style:none none solid none;
+    width:100%;
+    font-size:1.25em;
+    transition:all .2s;
+    height:50px;
+    color: black;
+    font-weight: 100;
+}
+.form-control::placeholder{
+    color:black;
+    font-weight: 10;
+}
+.form-control:focus{
+    box-shadow:none;
+    outline:none;
+}
+.form-group:focus-within{
+    transform:scale(1,1);
+}
+
+.form-control:invalid:focus{
+    border-color:red;
+}
+.form-control:valid:focus{
+    border-color:#060706;
+}
+
+.btn{
+    background-color: transparent;
+    border:1px solid #aaa;
+    border-radius:3px;
+    color:var(--font-color);
+    font-size:1em;
+    padding:10 50px;
+    text-transform:uppercase;
+}
+.btn:hover{
+    border-color:whitesmoke;
+    color:violet;
+}
+textarea{
+    resize:none;
+}
+
+.form{
+    width:80%;
+}
+
+.focused > .form-label{
+    opacity:1;
+    transform:translateX(0px);
+
+}
+select{
+    padding: 20px;
+    font-size: 20px;
+    background-color: transparent;
+  }
+  select option{
+    font-size: 20px;
+  }

@@ -1,0 +1,234 @@
+* {
+    margin: 0px;
+    padding: 0px;
+  }
+  body {
+    font-size: 120%;
+    background-repeat: no-repeat;
+  }
+  .header1{
+    width: 96%;
+    margin: 50px auto 0px;
+    color: white;
+    background-color: brown;
+    text-align: center;
+    border: 1px solid #B0C4DE;
+    border-bottom: none;
+    border-radius: 10px 10px 0px 0px;
+    padding: 20px;
+  }
+  .header1 a{
+      text-align: center;
+      padding: 5px 20px;
+      text-decoration: none;
+  }
+  #activeOn{
+      color: rgb(226, 11, 226);
+  }
+  .header1 a:hover{
+      background-color: aqua;
+  }
+#div2{
+    background-color:rgb(190, 187, 187);
+    /* border: broken; */
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    margin: auto;
+}
+#div2 button{
+  display:inline;
+  position: relative;
+  background-color:darkcyan;
+  height: 40px;
+  border-radius:5px;
+}
+#div2 button:hover{
+  background-color:rgb(89, 190, 89) ;
+}
+/* .btn1 a{
+    text-decoration: none;
+    padding: 20px;
+    color: black;
+    font-size:large;
+} */
+.btn a:hover{
+  color:red;
+}
+  .header {
+    width: 90%;
+    margin: 50px auto 0px;
+    color: white;
+    background: #5F9EA0;
+    text-align: center;
+    border: 1px solid #B0C4DE;
+    border-bottom: none;
+    border-radius: 10px 10px 0px 0px;
+    padding: 20px;
+  }
+  form, .content {
+    width: 30%;
+    margin: 0px auto;
+    padding: 20px;
+    border: 1px solid #B0C4DE;
+    background: white;
+    border-radius: 0px 0px 10px 10px;
+  }
+  .options{
+    width: 30%;
+    margin-top: 4px;
+    margin-left: 3px;
+    background: #f5f8f8;
+    border: 1px solid #B0C4DE;
+    border-radius: 4px;
+    padding: 20px;
+  }
+  .options ul li button{
+    background-color: rgba(95, 158, 160, 0.274);
+    height:50px;
+  }
+  .options ul li button:hover{
+    background-color: rgb(18, 30, 31);
+  }
+  .options ul li{
+    list-style: none;
+    padding: 10px;
+  }
+  .options ul li a{
+    text-transform: uppercase;
+    font-size: large;
+    padding: 10px;
+    text-decoration: none;
+    color: cornflowerblue;
+  }
+  .options ul li a:hover{
+    color: crimson;
+  }
+  .input-group {
+    margin: 10px 0px 10px 0px;
+  }
+  .input-group label {
+    display: block;
+    text-align: left;
+    margin: 3px;
+  }
+  .input-group input {
+    height: 30px;
+    width: 93%;
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid gray;
+  }
+  .btn {
+    padding: 10px;
+    font-size: 15px;
+    color: white;
+    background: #5F9EA0;
+    border: none;
+    border-radius: 5px;
+  }
+  footer{
+    width: 99%;
+    margin-top: 2px;
+    background: #517e7e;
+    border: 1px solid #345f97;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 20px;
+  } footer h4{
+    text-align: center;
+    color: rgb(221, 214, 214);
+  }
+ h2{
+     text-align: center;
+ }
+  table {
+    max-width: 60%;
+    background-color: transparent;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 10px 120px;
+  }
+  
+  .table {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .table th,
+  .table td {
+    padding: 8px;
+    line-height: 20px;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid #dddddd;
+  }
+  
+  .table th {
+    font-weight: bold;
+  }
+  
+  .table thead th {
+    vertical-align: bottom;
+  }
+  #div4{
+    margin-top: -300px;
+    margin-left: 400px;
+    border: solid rgb(37, 29, 29) 2px;
+    height: 300px;
+  }
+#div4 marquee{
+  height: 280px;
+  padding: 10px;
+  background-color: rgb(144, 152, 167);
+}
+  #div5{
+    margin-top: 340px;
+    margin-left: 10px;
+  }
+ 
+  
+ 
+ 
+  
+ 
+  
+  
+ 
+  
+
+
+  /* .container {
+    margin-right: auto;
+    margin-left: auto;
+    *zoom: 1;
+  }
+  
+  .container:before,
+  .container:after {
+    display: table;
+    line-height: 0;
+    content: "";
+  }
+  
+  .container:after {
+    clear: both;
+  }
+  
+  .container-fluid {
+    padding-right: 20px;
+    padding-left: 20px;
+    *zoom: 1;
+  }
+  
+  .container-fluid:before,
+  .container-fluid:after {
+    display: table;
+    line-height: 0;
+    content: "";
+  }
+  
+  .container-fluid:after {
+    clear: both;
+  } */

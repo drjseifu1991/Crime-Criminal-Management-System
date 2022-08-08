@@ -1,0 +1,78 @@
+body{
+    font-family: Arial;
+    font-size: 15px;
+}
+.container{
+    width: 60%;
+    margin: 0 auto;
+    overflow: auto;
+}
+a{
+    text-decoration: none;
+}
+.header1{
+    background-color: rgb(34, 151, 79);
+    width: 96%;
+    margin: 50px auto 0px;
+    color: white; 
+    text-align: center;
+    border: 1px solid #B0C4DE;
+    border-bottom: none;
+    border-radius: 10px 10px 0px 0px;
+    padding: 10px;
+}
+.header1 a{
+    color: white;
+    padding: 5px;
+}
+.header1 a:hover{
+    background-color: skyblue;
+}
+#active{
+    color: rgb(145, 11, 11);
+}
+header{
+ border-bottom: 3px #f4f4f4 solid;
+}
+footer{
+    border-top: 3px #f4f4f4 solid;
+    text-align: center;
+    padding-top: 5px;
+}
+a.start{
+    display: inline-block;
+    color: #666;
+    background-color: #f4f4f4;
+    border: 1px dotted #ccc;
+    padding: 6px 13px;
+}
+.current{
+    display: inline-block;
+    color: #666;
+    background-color: #f4f4f4;
+    border: 1px dotted #ccc;
+    padding: 6px 13px;  
+}
+label{
+    display: inline-block;
+    width: 100px;
+
+}
+input[type="text"]{
+    width: 90%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #9b6c6c;
+}
+input[type="number"]{
+    width: 50px;
+    padding: 8px;
+    margin-left: 15px;
+    border-radius: 5px;
+    border: 1px solid #9c7373;
+}
+@media only screen and (max-width:960px){
+    .container{
+        width: 80%;
+    }
+}

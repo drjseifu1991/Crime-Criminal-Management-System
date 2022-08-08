@@ -1,0 +1,32 @@
+
+body{
+    background-color: rgb(207, 204, 204);
+    background-repeat: no-repeat;
+    
+}
+#container{
+  text-align: center;
+  font-size: 10px;
+  font-family: tahoma;
+  font-weight: bold;
+}
+#user{
+    background-color: white;
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    padding: 4px;
+    text-align: center;
+    text-decoration: none;
+}
+img{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: left;
+}
+#contents{
+    width: auto;
+    height: auto;
+    display: right;
+}
