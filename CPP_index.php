@@ -116,24 +116,24 @@ include 'Connection.php';
   </div>
 <!--End-breadcrumbs-->
 <div class="container-fluid" style="margin-top: 1.5rem;">
-    <div class="dashb">
-      <div class="card text-white bg-primary mb-3" style="width: 14rem;">
-      <div class="card-body">
-        <h5 class="card-title">Total Detective Police</h5>
-        <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
-        <?php
-          $queryc = "SELECT * FROM auth_role WHERE role_id=1";
-          if($resultc = mysqli_query($db, $queryc)) {
-            $rowc = mysqli_num_rows($resultc);
-            echo $rowc;
-          }
-          else {
-            echo 0;
-          }
-          
-        ?>
-        </p>
-      </div>
+<div class="dashb">
+    <div class="card text-white bg-primary mb-3" style="width: 14rem;">
+        <div class="card-body">
+            <h5 class="card-title">Total Detective Police</h5>
+            <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
+            <?php
+            $queryc = "SELECT * FROM auth_role WHERE role_id=1";
+            if($resultc = mysqli_query($db, $queryc)) {
+                $rowc = mysqli_num_rows($resultc);
+                echo $rowc;
+            }
+            else {
+                echo 0;
+            }
+            
+            ?>
+            </p>
+        </div>
     </div>
     <div class="card text-white bg-secondary mb-3" style="width: 14rem;">
       <div class="card-body">
@@ -177,6 +177,42 @@ include 'Connection.php';
         <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
         <?php
           $queryc = "SELECT * FROM auth_role WHERE role_id=4";
+          if($resultc = mysqli_query($db, $queryc)) {
+            $rowc = mysqli_num_rows($resultc);
+            echo $rowc;
+          }
+          else {
+            echo 0;
+          }
+          
+        ?>
+        </p>
+      </div>
+    </div>
+    <div class="card text-white bg-primary mb-3" style="width: 14rem;">
+        <div class="card-body">
+            <h5 class="card-title">Total Head Police</h5>
+            <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
+            <?php
+            $queryc = "SELECT * FROM auth_role WHERE role_id=6";
+            if($resultc = mysqli_query($db, $queryc)) {
+                $rowc = mysqli_num_rows($resultc);
+                echo $rowc;
+            }
+            else {
+                echo 0;
+            }
+            
+            ?>
+            </p>
+        </div>
+    </div>
+    <div class="card text-white bg-success mb-3" style="width: 14rem;">
+      <div class="card-body">
+        <h5 class="card-title">Traffic Human Resource</h5>
+        <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
+        <?php
+          $queryc = "SELECT * FROM auth_role WHERE role_id=8";
           if($resultc = mysqli_query($db, $queryc)) {
             $rowc = mysqli_num_rows($resultc);
             echo $rowc;

@@ -3,7 +3,6 @@
   if($_SESSION['uname']){
   $user_id=$_SESSION['user_id'] ; 
     if($_SESSION['role_id']!=6){
-      unset($_SESSION['uname']);
       unset($_SESSION['role_id']);
       header("location: login.php");  
 
@@ -29,7 +28,15 @@ include 'Connection.php';
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
 <link rel="stylesheet" href="css/jquery.gritter.css" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
-
+<style type="text/css">
+  .error{
+    color: red;
+  }
+  h3{
+    color: green;
+    font-style: bold;
+  }
+</style>
 </head>
 <body>
 
@@ -43,11 +50,11 @@ include 'Connection.php';
 <!--top-Header-menu-->
 <div id="user-nav" class="navbar navbar-inverse">
   <ul class="nav">
-    <li  class="" ><a title="" href="DP_profile.php">  <span class="profile"><?php  echo $_SESSION['uname']; ?></span></a>
+    <li  class="" ><a title="" href="TP_profile.php"><span class="profile"><?php  echo $_SESSION['uname']; ?></span></a>
     </li>
-    <li class=""><a href="DP_notification.php"><i class="icon icon-bell"></i> <span class="text">Notification</span></a>
+    <li class=""><a href="TP_notification.php"><i class="icon icon-bell"></i> <span class="text">Notification</span></a>
     </li>
-    <li class=""><a title="" href="DP_setting.php"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
+    <li class=""><a title="" href="TP_setting.php"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
     <li class=""><a title="" href="logout.php"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
   </ul>
 </div>
@@ -59,9 +66,9 @@ include 'Connection.php';
 </div>
 <!--close-top-serch-->
 <!--sidebar-menu-->
-<div id="sidebar"><a href="PH_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
-  <ul>
-  <li><a href="PH_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+<div id="sidebar"><a href="TP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
+<ul>
+<li><a href="PH_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
     <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Assign<b class="caret"></b></span></a> 
       <ul>
         <li><a href="PH_assign.php"><i class="icon-plus"></i>Assign Police</a></li>
@@ -73,7 +80,7 @@ include 'Connection.php';
     <li><a href="PH_v_nomination.php"><i class="icon icon-home"></i> <span>View Nomination</span></a> </li>
     <li><a href="PH_r_MCriminal.php"><i class="icon icon-home"></i> <span>Post Missing Criminal</span></a> </li>
     <li><a href="PH_t_recovery.php"><i class="icon icon-home"></i> <span>Take Recovery</span></a> </li>
-    <li class="active"><a href="PH_v_r_accident.php"><i class="icon icon-home"></i> <span>View Traffic Accident Report</span></a> </li>
+    <li><a href="PH_v_r_accident.php"><i class="icon icon-home"></i> <span>View Traffic Accident Report</span></a> </li>
     <li><a href="PH_v_r_crime.php"><i class="icon icon-home"></i> <span>View Criminal Report</span></a> </li>
     <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Presecuter<b class="caret"></b></span></a> 
       <ul>
@@ -81,10 +88,10 @@ include 'Connection.php';
         <li><a href="PH_r_p_report.php"><i class="icon-eye-open"></i>Send Report</a></li>
       </ul>
     </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Insurance<b class="caret"></b></span></a> 
+    <li class="active" class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Insurance<b class="caret"></b></span></a> 
       <ul>
         <li><a href="PH_v_i_question.php"><i class="icon-plus"></i>View Question</a></li>
-        <li><a href="PH_r_i_report.php"><i class="icon-eye-open"></i>Send Report</a></li>
+        <li class="active"><a href="PH_r_i_report.php"><i class="icon-eye-open"></i>Send Report</a></li>
       </ul>
     </li>
       <?php 
@@ -94,7 +101,12 @@ include 'Connection.php';
       echo '<ul>';
         while($row = mysqli_fetch_array($result)){
         $r_id=$row['role_id'];
-        if ($r_id==2) 
+        if ($r_id==1) 
+        {
+      echo '<li><a href="DP_index.php"><i class="icon-signin"></i>Detective Police</a></li>';
+        }
+
+        else if ($r_id==2)
         {
       echo '<li><a href="TPO_index.php"><i class="icon-signin"></i>Traffic Officer</a></li>';
         }
@@ -102,10 +114,7 @@ include 'Connection.php';
         {
       echo '<li><a href="CPP_index.php"><i class="icon-signin"></i>Preventive Police</a></li>';
         }
-        else if ($r_id==4)
-        {
-      echo '<li><a href="TP_index.php"><i class="icon-signin"></i>Traffic Police</a></li>';
-        }
+        
         else if ($r_id==5) 
         {
       echo '<li><a href="C_index.php"><i class="icon-signin"></i>Customer</a></li>';
@@ -124,56 +133,116 @@ include 'Connection.php';
 <div id="content">
 <!--breadcrumbs-->
   <div id="content-header">
-    <div id="breadcrumb"> <a href="DP_index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="DP_v_crime.php" class="current" >View Crime</a></div>
+    <div id="breadcrumb"> <a href="TPO_index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="TPO_r_accident.php" class="current" >Register Accident</a></div>
   </div>
-<!--End-breadcrumbs-->
-
 <div class="container-fluid">
-    <div class="row-fluid">
-      <div class="span12" >
-        <div class="widget-box">
-          <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-            <h5>View Report</h5>
-          </div>
-          <div class="widget-content nopadding">
-            <table class="table table-bordered data-table">
-              <thead>
-                <tr>
-                  <th>Case</th>
-                  <th>Date</th>
-                  <th>Description</th>
-                  <th>File</th>
-                  <th>Reported by</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="gradeX">
+  <hr>
+  <?php 
+    $vehicle_owner = $vehicle_type = $vehicle_board_no = $description = $description_err = $vehicle_owner_err = $vehicle_type_err = $vehicle_board_no_err = "";
 
-              <?php 
+    if(isset($_POST['save'])){
+      $vehicle_owner = mysqli_real_escape_string($db, $_POST['vehicle_owner']);
+      $vehicle_type = mysqli_real_escape_string($db, $_POST['vehicle_type']);
+      $vehicle_board_no = mysqli_real_escape_string($db, $_POST['vehicle_board_no']);
+      $description = mysqli_real_escape_string($db, $_POST['description']);
+      $directory = "uploads/";
+        $file = $directory.basename($_FILES['files']['name']);
+        if(move_uploaded_file($_FILES['files']['tmp_name'], $file)){
+          $file = basename($_FILES['files']['name']);
+        }
+        else{
+          $file = "";
+        }
 
-              $query = "SELECT r_case, r_date_time, r_desc, file_r , fname, mname FROM report inner join users on report.user_id = users.id WHERE r_type = 'crime' AND r_level = 'high'";
-              $result = mysqli_query($db, $query);
+      if(empty($_POST['vehicle_owner'])){
+          $vehicle_owner_err = "Enter vehicle owner";
+      }
 
-              while($row = mysqli_fetch_array($result))
-              {
-              ?>
-                  <td><?php echo $row['r_case'];?></td>
-                  <td><?php echo $row['r_date_time'];?></td>
-                  <td><?php echo $row['r_desc'];?></td>
-                  <td><a href="uploads/<?php echo $row['file_r'] ?>" target = "_blank" ><?php echo $row['file_r'] ?></a> </td>
-                  <td><?php echo $row['fname']." ".$row['mname'];?></td>
-                </tr>
-              <?php } ?>
-              </tbody>
-            </table>
-          </div>
+      else if(empty($_POST['vehicle_type'])){
+          $vehicle_type_err = "Enter vehicle type.";
+
+      }
+      else if(empty($_POST['vehicle_board_no'])){
+        $vehicle_board_no_err = "Enter vehicle board no";
+
+    }
+      else if(empty($_POST['description'])){
+          $description_err = "Enter description.";
+
+      }
+
+      else{
+        $user_id=$_SESSION['user_id'];
+        $query = "INSERT INTO insurance_report (vehicle_owner, vehicle_type, vehicle_board_no, description, file, user) VALUES ('$vehicle_owner', '$vehicle_type', '$vehicle_board_no', '$description', '$file', '$user_id')";
+        // $query = "INSERT INTO criminal (fname, lname, city, kebele, crime_type, crime_level, description, file, user_id) VALUES ('$fname', '$lname', '$city', '$kebele', '$crime_type', '$crime_level', '$description', '$files', '$user_id')";
+        if(mysqli_query($db, $query)) {
+          echo "<h3>Report Sent Sucessful</h3>";
+        }
+        else {
+          echo "<h3>Report Doesn't Sent Successful!</h3>";
+        } 
+        
+      }
+    }
+  ?>
+  <div class="row-fluid">
+    <div class="span6">
+      <div class="widget-box">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>Send Report to Presecuter</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form action="PH_r_i_report.php" method="POST" enctype="multipart/form-data" class="form-horizontal">
+          <div class="control-group">
+              <label class="control-label">Vehicle Owner :</label>
+              <div class="controls">
+                <input type="text" class="span11" name="vehicle_owner" placeholder="Vehicle Owner" />
+                <br>
+                 <span class="error"><?php echo $vehicle_owner_err; ?></span>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Vehicle Type :</label>
+              <div class="controls">
+                <input type="text" class="span11" name="vehicle_type" placeholder="Vehicle Type" />
+                <br>
+                 <span class="error"><?php echo $vehicle_type_err; ?></span>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Vehicle Board Number :</label>
+              <div class="controls">
+                <input type="text" class="span11" name="vehicle_board_no" placeholder="Vehicle Board Number" />
+                <br>
+                 <span class="error"><?php echo $vehicle_board_no_err; ?></span>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Description</label>
+              <div class="controls">
+                <textarea class="span11" name="description" placeholder="Description"></textarea>
+                <br>
+                 <span class="error"><?php echo $description_err; ?></span>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Attach File</label>
+              <div class="controls">
+                <input type="file" name="files" />
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" name="save" class="btn btn-success">Send</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-  </div>
-
+</div>
 </div>
 
+
+</div>
 <!--end-main-container-part-->
 
 <!--Footer-part-->

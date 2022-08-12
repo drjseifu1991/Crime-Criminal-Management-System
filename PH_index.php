@@ -79,9 +79,18 @@ include 'Connection.php';
     <li><a href="PH_t_recovery.php"><i class="icon icon-home"></i> <span>Take Recovery</span></a> </li>
     <li><a href="PH_v_r_accident.php"><i class="icon icon-home"></i> <span>View Traffic Accident Report</span></a> </li>
     <li><a href="PH_v_r_crime.php"><i class="icon icon-home"></i> <span>View Criminal Report</span></a> </li>
-
-    
-   
+    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Presecuter<b class="caret"></b></span></a> 
+      <ul>
+        <li><a href="PH_v_p_question.php"><i class="icon-plus"></i>View Question</a></li>
+        <li><a href="PH_r_p_report.php"><i class="icon-eye-open"></i>Send Report</a></li>
+      </ul>
+    </li>
+    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Insurance<b class="caret"></b></span></a> 
+      <ul>
+        <li><a href="PH_v_i_question.php"><i class="icon-plus"></i>View Question</a></li>
+        <li><a href="PH_r_i_report.php"><i class="icon-eye-open"></i>Send Report</a></li>
+      </ul>
+    </li>
       <?php 
       $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
       $result = mysqli_query($db, $query);
@@ -122,24 +131,24 @@ include 'Connection.php';
   </div>
 <!--End-breadcrumbs-->
 <div class="container-fluid" style="margin-top: 1.5rem;">
-    <div class="dashb">
-      <div class="card text-white bg-primary mb-3" style="width: 14rem;">
-      <div class="card-body">
-        <h5 class="card-title">Total Detective Police</h5>
-        <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
-        <?php
-          $queryc = "SELECT * FROM auth_role WHERE role_id=1";
-          if($resultc = mysqli_query($db, $queryc)) {
-            $rowc = mysqli_num_rows($resultc);
-            echo $rowc;
-          }
-          else {
-            echo 0;
-          }
-          
-        ?>
-        </p>
-      </div>
+<div class="dashb">
+    <div class="card text-white bg-primary mb-3" style="width: 14rem;">
+        <div class="card-body">
+            <h5 class="card-title">Total Detective Police</h5>
+            <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
+            <?php
+            $queryc = "SELECT * FROM auth_role WHERE role_id=1";
+            if($resultc = mysqli_query($db, $queryc)) {
+                $rowc = mysqli_num_rows($resultc);
+                echo $rowc;
+            }
+            else {
+                echo 0;
+            }
+            
+            ?>
+            </p>
+        </div>
     </div>
     <div class="card text-white bg-secondary mb-3" style="width: 14rem;">
       <div class="card-body">
@@ -183,6 +192,42 @@ include 'Connection.php';
         <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
         <?php
           $queryc = "SELECT * FROM auth_role WHERE role_id=4";
+          if($resultc = mysqli_query($db, $queryc)) {
+            $rowc = mysqli_num_rows($resultc);
+            echo $rowc;
+          }
+          else {
+            echo 0;
+          }
+          
+        ?>
+        </p>
+      </div>
+    </div>
+    <div class="card text-white bg-primary mb-3" style="width: 14rem;">
+        <div class="card-body">
+            <h5 class="card-title">Total Head Police</h5>
+            <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
+            <?php
+            $queryc = "SELECT * FROM auth_role WHERE role_id=6";
+            if($resultc = mysqli_query($db, $queryc)) {
+                $rowc = mysqli_num_rows($resultc);
+                echo $rowc;
+            }
+            else {
+                echo 0;
+            }
+            
+            ?>
+            </p>
+        </div>
+    </div>
+    <div class="card text-white bg-success mb-3" style="width: 14rem;">
+      <div class="card-body">
+        <h5 class="card-title">Traffic Human Resource</h5>
+        <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
+        <?php
+          $queryc = "SELECT * FROM auth_role WHERE role_id=8";
           if($resultc = mysqli_query($db, $queryc)) {
             $rowc = mysqli_num_rows($resultc);
             echo $rowc;

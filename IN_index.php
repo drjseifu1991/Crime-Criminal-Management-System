@@ -2,14 +2,13 @@
   session_start();
   if($_SESSION['uname']){
   $user_id=$_SESSION['user_id'] ; 
-    if($_SESSION['role_id']!=2 && $_SESSION['role_id']!=4){
+    if($_SESSION['role_id']!=9){
       unset($_SESSION['role_id']);
       header("location: login.php");  
-
     }
   }
   else{  
-    header("location: login.php");  
+   header("location: login.php");  
   }
 
 include 'Connection.php';
@@ -44,11 +43,10 @@ include 'Connection.php';
 <!--top-Header-menu-->
 <div id="user-nav" class="navbar navbar-inverse">
   <ul class="nav">
-    <li  class="" ><a title="" href="TP_profile.php"><span class="profile"><?php  echo $_SESSION['uname']; ?></span></a>
+    <li  class="" ><a title="" href="C_profile.php"><span class="profile"><?php  echo $_SESSION['uname']; ?></span></a>
     </li>
-    <li class=""><a href="TP_notification.php"><i class="icon icon-bell"></i> <span class="text">Notification</span></a>
+    <li><a href="C_notification.php"><i class="icon icon-bell"></i> <span class="text">Notification</span></a>
     </li>
-    <li class=""><a title="" href="TP_setting.php"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
     <li class=""><a title="" href="logout.php"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
   </ul>
 </div>
@@ -60,51 +58,22 @@ include 'Connection.php';
 </div>
 <!--close-top-serch-->
 <!--sidebar-menu-->
-<div id="sidebar"><a href="TP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
+<div id="sidebar"><a href="Admin.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
-    <li class="active"><a href="TP_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    <li><a href="TP_placement.php"><i class="icon icon-map-marker"></i> <span>View Placement</span></a></li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-exclamation-sign"></i> <span>Accident<b class="caret"></b></span></a> 
+  <li class="active"><a href="IN_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Question<b class="caret"></b></span></a> 
       <ul>
-        <li><a href="TP_r_accident.php"><i class="icon-plus"></i>Register Accident</a></li>
-        <li><a href="TP_v_accident.php"><i class="icon-eye-open"></i>View Accident</a></li>
+        <li><a href="IN_r_question.php"><i class="icon-plus"></i>Ask Question</a></li>
+        <li><a href="IN_v_question.php"><i class="icon-eye-open"></i>View Question</a></li>
       </ul>
     </li>
-  
-    <li><a href="TP_v_nomination.php"><i class="icon icon-eye-open"></i>View Nomination</a></li>
-    <li><a href="TP_g_report.php"><i class="icon icon-eye-open"></i>Generate Accident Report</a></li>
-      <?php 
-      $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
-      $result = mysqli_query($db, $query);
-
-      echo '<ul>';
-        while($row = mysqli_fetch_array($result)){
-        $r_id=$row['role_id'];
-        if ($r_id==1) 
-        {
-      echo '<li><a href="DP_index.php"><i class="icon-signin"></i>Detective Police</a></li>';
-        }
-
-        else if ($r_id==2)
-        {
-      echo '<li><a href="TPO_index.php"><i class="icon-signin"></i>Traffic Officer</a></li>';
-        }
-        else if ($r_id==3) 
-        {
-      echo '<li><a href="CPP_index.php"><i class="icon-signin"></i>Preventive Police</a></li>';
-        }
-        
-        else if ($r_id==5) 
-        {
-      echo '<li><a href="C_index.php"><i class="icon-signin"></i>Customer</a></li>';
-        }
-        }
-      echo '</ul>';
-     ?>
+    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Insurance Members<b class="caret"></b></span></a> 
+      <ul>
+        <li><a href="IN_r_member.php"><i class="icon-plus"></i>Add Member</a></li>
+        <li><a href="IN_v_member.php"><i class="icon-eye-open"></i>View Member</a></li>
+      </ul>
     </li>
-
-
-  
+    <li><a href="IN_v_report.php"><i class="icon icon-home"></i> <span>View Report</span></a> </li>
   </ul>
 </div>
 <!--sidebar-menu-->
@@ -113,11 +82,12 @@ include 'Connection.php';
 <div id="content">
 <!--breadcrumbs-->
   <div id="content-header">
-    <div id="breadcrumb"> <a href="TP_index.php" class="current"><i class="icon-home"></i> Home</a></div>
+    <div id="breadcrumb"> <a href="DP_index.php" class="current"><i class="icon-home"></i> Home</a></div>
   </div>
-<!--End-breadcrumbs-->
-<div class="container-fluid" style="margin-top: 1.5rem;">
-<div class="dashb">
+  <!--End-breadcrumbs-->
+ 
+  <div class="container-fluid" style="margin-top: 1.5rem;">
+    <div class="dashb">
     <div class="card text-white bg-primary mb-3" style="width: 14rem;">
         <div class="card-body">
             <h5 class="card-title">Total Detective Police</h5>
@@ -231,40 +201,39 @@ include 'Connection.php';
       <div class="span12" >
         <div class="widget-box">
           <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-            <h5>View Accident</h5>
+            <h5>View Report</h5>
           </div>
           <div class="widget-content nopadding">
             <table class="table table-bordered data-table">
               <thead>
                 <tr>
-                  <th>Vihecle Owner</th>
-                  <th>Driver Licence Number</th>
-                  <th>Vihecle Board Number</th>
-                  <th>Accident Date</th>
-                  <th>Crime Type</th>
-                  <th>Crime Level</th>
-                  <th>Punishment Type</th>
+                  <th>Vehicle Owner</th>
+                  <th>Vehicle Type</th>
+                  <th>Vehicle Board Number</th>
                   <th>Description</th>
+                  <th>File</th>
+                  <th>Reported By</th>
                 </tr>
               </thead>
               <tbody>
                 <tr class="gradeX">
 
               <?php 
-              $query = "SELECT * FROM accident where session=$user_id ORDER BY id ";
-              $result = mysqli_query($db, $query);
+
+              $sess=$_SESSION['user_id'];
+            //   $query = "SELECT * FROM auth_role WHERE role_id != 5;
+              $query = "SELECT vehicle_owner, vehicle_type, vehicle_board_no, insurance_report.description, file, fname, mname FROM insurance_report inner join users on insurance_report.user=users.id";
+              $result = mysqli_query($db, $query) or die( mysqli_error($db));
 
               while($row = mysqli_fetch_array($result))
               {
-              ?>
-                  <td><?php echo $row['funame_vihecle_owner'] ?></td>
-                  <td><?php echo $row['driver_licence'] ?></td>
-                  <td><?php echo $row['vehicle_board_no'] ?></td>
-                  <td><?php echo $row['accident_date'] ?></td>
-                  <td><?php echo $row['crime_type'] ?></td>
-                  <td><?php echo $row['crime_level'] ?></td>
-                  <td><?php echo $row['punishment_type']?></td>
-                  <td><?php echo $row['description']?></td>
+                ?>
+                  <td><?php echo $row['vehicle_owner']; ?></td>
+                  <td><?php echo $row['vehicle_type']; ?></td>
+                  <td><?php echo $row['vehicle_board_no']; ?></td>
+                  <td><?php echo $row['description']; ?></td>
+                  <td><a href="uploads/<?php echo $row['file'] ?>" target = "_blank" ><?php echo $row['file'] ?></a> </td>
+                  <td><?php echo $row['fname']. " " . $row['mname']; ?></td>
                 </tr>
               <?php } ?>
               </tbody>
@@ -274,6 +243,7 @@ include 'Connection.php';
       </div>
     </div>
   </div>
+
 </div>
 
 <!--end-main-container-part-->
@@ -281,7 +251,7 @@ include 'Connection.php';
 <!--Footer-part-->
 
 <div class="row-fluid">
-  <div id="footer" class="span12"> 2021 &copy; Bahirdar University(BiT) Computer Engineering <a href="http://www.bdu.edu.et">www.bdu.edu.et</a> </div>
+  <div id="footer" class="span12"> 2022 &copy; Bahirdar University(BiT) Computer Engineering <a href="http://www.bdu.edu.et">www.bdu.edu.et</a> </div>
 </div>
 
 <!--end-Footer-part-->

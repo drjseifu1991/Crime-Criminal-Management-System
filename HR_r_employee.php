@@ -266,20 +266,15 @@ include 'Connection.php';
           $query = "INSERT INTO auth_role (user_id, role_id) VALUES ('$id', '$role_id')";
           mysqli_query($db, $query);
 
-          $_SESSION['message'] = "You are registered successfully. Now you can login to the system.";
+          echo "You are registered successfully. Now you can login to the system.";
           
         }
         else {
-          $_SESSION['message'] = "Sorrrrrrrrr. Now you can login to the system.";
+          echo "Sorrrrrrrrr. Now you can login to the system.";
         }
         
      }        
-      ?>
-        
-
-    
-
-
+  ?>
     <div class="container-fluid">
     <div class="container-fluid">
     <div class="row-fluid">

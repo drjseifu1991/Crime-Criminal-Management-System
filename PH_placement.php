@@ -77,6 +77,18 @@ include 'Connection.php';
     <li><a href="PH_t_recovery.php"><i class="icon icon-home"></i> <span>Take Recovery</span></a> </li>
     <li><a href="PH_v_r_accident.php"><i class="icon icon-home"></i> <span>View Traffic Accident Report</span></a> </li>
     <li><a href="PH_v_r_crime.php"><i class="icon icon-home"></i> <span>View Criminal Report</span></a> </li>
+    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Presecuter<b class="caret"></b></span></a> 
+      <ul>
+        <li><a href="PH_v_p_question.php"><i class="icon-plus"></i>View Question</a></li>
+        <li><a href="PH_r_p_report.php"><i class="icon-eye-open"></i>Send Report</a></li>
+      </ul>
+    </li>
+    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Insurance<b class="caret"></b></span></a> 
+      <ul>
+        <li><a href="PH_v_i_question.php"><i class="icon-plus"></i>View Question</a></li>
+        <li><a href="PH_r_i_report.php"><i class="icon-eye-open"></i>Send Report</a></li>
+      </ul>
+    </li>
      <?php 
       $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
       $result = mysqli_query($db, $query);

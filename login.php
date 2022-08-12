@@ -70,6 +70,7 @@ if(isset($_POST['login'])){
             $_SESSION['message'] = "LOGIN SUCCESSFUL!";
             header("location: TP_index.php");
         }
+
         // check if role is 5
         $query = "SELECT * FROM auth_role where user_id='$id' AND role_id=5";
         $result = mysqli_query($db, $query);
@@ -82,6 +83,7 @@ if(isset($_POST['login'])){
             $_SESSION['message'] = "LOGIN SUCCESSFUL!";
             header("location: C_index.php");
         }
+        
         // check if role is 6
         $query = "SELECT * FROM auth_role where user_id='$id' AND role_id=6";
         $result = mysqli_query($db, $query);
@@ -116,6 +118,32 @@ if(isset($_POST['login'])){
             $_SESSION['message'] = "LOGIN SUCCESSFUL!";
             header("location: HR_index.php");
         }
+
+        // check if role is 9
+        $query = "SELECT * FROM auth_role where user_id='$id' AND role_id=9";
+        $result = mysqli_query($db, $query);
+        if(mysqli_num_rows($result) > 0){
+            $_SESSION['uname'] = $uname;
+            $_SESSION['role_id'] = 9;
+            $_SESSION['user_id'] = $id;
+            // $_SESSION['eid'] = 10;
+            $_SESSION['message'] = "LOGIN SUCCESSFUL!";
+            header("location: IN_index.php");
+        }
+
+        // check if role is 10
+        $query = "SELECT * FROM auth_role where user_id='$id' AND role_id=10";
+        $result = mysqli_query($db, $query);
+        if(mysqli_num_rows($result) > 0){
+            $_SESSION['uname'] = $uname;
+            $_SESSION['role_id'] = 10;
+            $_SESSION['user_id'] = $id;
+            // $_SESSION['eid'] = 10;
+            $_SESSION['message'] = "LOGIN SUCCESSFUL!";
+            header("location: PR_index.php");
+        }
+        
+        
         
     }
     else {  

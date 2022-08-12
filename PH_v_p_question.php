@@ -6,7 +6,6 @@
       unset($_SESSION['uname']);
       unset($_SESSION['role_id']);
       header("location: login.php");  
-
     }
   }
   else{  
@@ -21,15 +20,17 @@ include 'Connection.php';
 <title>Bahirdar police staton</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/4/bootstrap.min.css" />
 <link rel="stylesheet" href="css/bootstrap.min.css" />
+
 <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
 <link rel="stylesheet" href="css/fullcalendar.css" />
 <link rel="stylesheet" href="css/matrix-style.css" />
 <link rel="stylesheet" href="css/matrix-media.css" />
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
 <link rel="stylesheet" href="css/jquery.gritter.css" />
+<link rel="stylesheet" href="css/select2.css" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
-
 </head>
 <body>
 
@@ -43,7 +44,8 @@ include 'Connection.php';
 <!--top-Header-menu-->
 <div id="user-nav" class="navbar navbar-inverse">
   <ul class="nav">
-    <li  class="" ><a title="" href="DP_profile.php">  <span class="profile"><?php  echo $_SESSION['uname']; ?></span></a>
+    
+    <li  class="" ><a title="" href="DP_profile.php"><span class="profile"><?php  echo $_SESSION['uname']; ?></span></a>
     </li>
     <li class=""><a href="DP_notification.php"><i class="icon icon-bell"></i> <span class="text">Notification</span></a>
     </li>
@@ -59,9 +61,11 @@ include 'Connection.php';
 </div>
 <!--close-top-serch-->
 <!--sidebar-menu-->
-<div id="sidebar"><a href="PH_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
+<div id="sidebar"><a href="DP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
-  <li><a href="PH_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+    
+
+    <li><a href="PH_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
     <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Assign<b class="caret"></b></span></a> 
       <ul>
         <li><a href="PH_assign.php"><i class="icon-plus"></i>Assign Police</a></li>
@@ -73,11 +77,11 @@ include 'Connection.php';
     <li><a href="PH_v_nomination.php"><i class="icon icon-home"></i> <span>View Nomination</span></a> </li>
     <li><a href="PH_r_MCriminal.php"><i class="icon icon-home"></i> <span>Post Missing Criminal</span></a> </li>
     <li><a href="PH_t_recovery.php"><i class="icon icon-home"></i> <span>Take Recovery</span></a> </li>
-    <li class="active"><a href="PH_v_r_accident.php"><i class="icon icon-home"></i> <span>View Traffic Accident Report</span></a> </li>
+    <li><a href="PH_v_r_accident.php"><i class="icon icon-home"></i> <span>View Traffic Accident Report</span></a> </li>
     <li><a href="PH_v_r_crime.php"><i class="icon icon-home"></i> <span>View Criminal Report</span></a> </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Presecuter<b class="caret"></b></span></a> 
+    <li class="active" class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Presecuter<b class="caret"></b></span></a> 
       <ul>
-        <li><a href="PH_v_p_question.php"><i class="icon-plus"></i>View Question</a></li>
+        <li class="active"><a href="PH_v_p_question.php"><i class="icon-plus"></i>View Question</a></li>
         <li><a href="PH_r_p_report.php"><i class="icon-eye-open"></i>Send Report</a></li>
       </ul>
     </li>
@@ -114,7 +118,6 @@ include 'Connection.php';
       echo '</ul>';
      ?>
     </li>
-
   
   </ul>
 </div>
@@ -124,26 +127,24 @@ include 'Connection.php';
 <div id="content">
 <!--breadcrumbs-->
   <div id="content-header">
-    <div id="breadcrumb"> <a href="DP_index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="DP_v_crime.php" class="current" >View Crime</a></div>
+    <div id="breadcrumb"> <a href="DP_index.php" class="current"><i class="icon-home"></i> Home</a></div>
   </div>
 <!--End-breadcrumbs-->
-
-<div class="container-fluid">
+<div class="container-fluid" style="margin-top: 1.5rem;">
     <div class="row-fluid">
-      <div class="span12" >
+    <div class="span12" >
         <div class="widget-box">
           <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-            <h5>View Report</h5>
+            <h5>View Presecuter Question</h5>
           </div>
           <div class="widget-content nopadding">
             <table class="table table-bordered data-table">
               <thead>
                 <tr>
-                  <th>Case</th>
-                  <th>Date</th>
+                  <th>Title</th>
                   <th>Description</th>
-                  <th>File</th>
-                  <th>Reported by</th>
+                  <th>Date</th>
+                  <th>Asked BY</th>
                 </tr>
               </thead>
               <tbody>
@@ -151,17 +152,18 @@ include 'Connection.php';
 
               <?php 
 
-              $query = "SELECT r_case, r_date_time, r_desc, file_r , fname, mname FROM report inner join users on report.user_id = users.id WHERE r_type = 'crime' AND r_level = 'high'";
-              $result = mysqli_query($db, $query);
+              $sess=$_SESSION['user_id'];
+            //   $query = "SELECT * FROM auth_role WHERE role_id != 5;
+              $query = "SELECT question.title, question.description, question.date_time, users.fname, users.mname FROM question inner join users on question.user = users.id WHERE role='Presecuter'";
+              $result = mysqli_query($db, $query) or die( mysqli_error($db));
 
               while($row = mysqli_fetch_array($result))
               {
-              ?>
-                  <td><?php echo $row['r_case'];?></td>
-                  <td><?php echo $row['r_date_time'];?></td>
-                  <td><?php echo $row['r_desc'];?></td>
-                  <td><a href="uploads/<?php echo $row['file_r'] ?>" target = "_blank" ><?php echo $row['file_r'] ?></a> </td>
-                  <td><?php echo $row['fname']." ".$row['mname'];?></td>
+                ?>
+                  <td><?php echo $row['title']; ?></td>
+                  <td><?php echo $row['description']; ?></td>
+                  <td><?php echo $row['date_time']; ?></td>
+                  <td><?php echo $row['fname'].' '.$row['mname']; ?></td>
                 </tr>
               <?php } ?>
               </tbody>
@@ -169,9 +171,8 @@ include 'Connection.php';
           </div>
         </div>
       </div>
-    </div>
   </div>
-
+              </div>
 </div>
 
 <!--end-main-container-part-->
