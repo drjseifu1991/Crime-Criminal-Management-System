@@ -102,6 +102,8 @@ include 'Connection.php';
       </ul>
     </li>
     <li><a href="DP_v_criminal.php"><i class="icon icon-home"></i> <span>View Criminal</span></a> </li>
+    <li><a href="DP_v_complain.php"><i class="icon icon-home"></i> <span>View Complain</span></a> </li>
+    <li><a href="DP_v_accusation.php"><i class="icon icon-home"></i> <span>View Accusation</span></a> </li>
     <li class="active" class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-user-md"></i> <span>Report<b class="caret"></b></span></a>
       <ul>
       <li class="active"><a href="DP_g_report.php"><i class="icon-plus"></i>Generate Report</a></li>

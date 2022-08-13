@@ -60,14 +60,9 @@ include 'Connection.php';
 <!--close-top-serch-->
 <!--sidebar-menu-->
 <div id="sidebar"><a href="Admin.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
-  <ul>
+<ul>
   <li class="active"><a href="Admin.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Account<b class="caret"></b></span></a> 
-      <ul>
-        <li><a href="A_r_account.php"><i class="icon-plus"></i>Create Account</a></li>
-        <li><a href="A_v_account.php"><i class="icon-eye-open"></i>View Account</a></li>
-      </ul>
-    </li>
+  <li><a href="A_v_account.php"><i class="icon icon-home"></i> <span>View Account</span></a> </li>
     <li><a href="A_v_employee.php"><i class="icon icon-home"></i> <span>View Employee</span></a> </li>
   </ul>
 </div>
@@ -82,24 +77,24 @@ include 'Connection.php';
   <!--End-breadcrumbs-->
  
   <div class="container-fluid" style="margin-top: 1.5rem;">
-    <div class="dashb">
-      <div class="card text-white bg-primary mb-3" style="width: 14rem;">
-      <div class="card-body">
-        <h5 class="card-title">Total Detective Police</h5>
-        <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
-        <?php
-          $queryc = "SELECT * FROM auth_role WHERE role_id=1";
-          if($resultc = mysqli_query($db, $queryc)) {
-            $rowc = mysqli_num_rows($resultc);
-            echo $rowc;
-          }
-          else {
-            echo 0;
-          }
-          
-        ?>
-        </p>
-      </div>
+  <div class="dashb">
+    <div class="card text-white bg-primary mb-3" style="width: 14rem;">
+        <div class="card-body">
+            <h5 class="card-title">Total Detective Police</h5>
+            <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
+            <?php
+            $queryc = "SELECT * FROM auth_role WHERE role_id=1";
+            if($resultc = mysqli_query($db, $queryc)) {
+                $rowc = mysqli_num_rows($resultc);
+                echo $rowc;
+            }
+            else {
+                echo 0;
+            }
+            
+            ?>
+            </p>
+        </div>
     </div>
     <div class="card text-white bg-secondary mb-3" style="width: 14rem;">
       <div class="card-body">
@@ -155,7 +150,44 @@ include 'Connection.php';
         </p>
       </div>
     </div>
+    <div class="card text-white bg-primary mb-3" style="width: 14rem;">
+        <div class="card-body">
+            <h5 class="card-title">Total Head Police</h5>
+            <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
+            <?php
+            $queryc = "SELECT * FROM auth_role WHERE role_id=6";
+            if($resultc = mysqli_query($db, $queryc)) {
+                $rowc = mysqli_num_rows($resultc);
+                echo $rowc;
+            }
+            else {
+                echo 0;
+            }
+            
+            ?>
+            </p>
+        </div>
     </div>
+    <div class="card text-white bg-success mb-3" style="width: 14rem;">
+      <div class="card-body">
+        <h5 class="card-title">Traffic Human Resource</h5>
+        <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
+        <?php
+          $queryc = "SELECT * FROM auth_role WHERE role_id=8";
+          if($resultc = mysqli_query($db, $queryc)) {
+            $rowc = mysqli_num_rows($resultc);
+            echo $rowc;
+          }
+          else {
+            echo 0;
+          }
+          
+        ?>
+        </p>
+      </div>
+    </div>
+    </div>
+  </div>
     <div class="row-fluid">
       <div class="span12" >
         <div class="widget-box">
@@ -204,7 +236,6 @@ include 'Connection.php';
       </div>
     </div>
   </div>
-
 </div>
 
 <!--end-main-container-part-->

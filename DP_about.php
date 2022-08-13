@@ -133,6 +133,9 @@ include 'Connection.php';
         <li><a href="DP_v_notice.php"><i class="icon-eye-open"></i>View Notice</a></li>
       </ul>
     </li>
+    <li><a href="DP_v_criminal.php"><i class="icon icon-home"></i> <span>View Criminal</span></a> </li>
+    <li><a href="DP_v_complain.php"><i class="icon icon-home"></i> <span>View Complain</span></a> </li>
+    <li><a href="DP_v_accusation.php"><i class="icon icon-home"></i> <span>View Accusation</span></a> </li>
     <li><a href="DP_phone.php"><i class="icon icon-phone-sign"></i> <span>Phone Number</span></a></li>
       <?php 
       $query = "SELECT role_id FROM auth_role where user_id='$user_id'";

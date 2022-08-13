@@ -62,15 +62,11 @@ include 'Connection.php';
 <!--close-top-serch-->
 <!--sidebar-menu-->
 <div id="sidebar"><a href="DP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
-  <ul>
+<ul>
   <li><a href="Admin.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    <li class="active" class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Account<b class="caret"></b></span></a> 
-      <ul>
-        <li><a href="A_r_account.php"><i class="icon-plus"></i>Create Account</a></li>
-        <li class="active"><a href="A_v_account.php"><i class="icon-eye-open"></i>View Account</a></li>
-      </ul>
-    </li>
+  <li class="active"><a href="A_v_account.php"><i class="icon icon-home"></i> <span>View Account</span></a> </li>
     <li><a href="A_v_employee.php"><i class="icon icon-home"></i> <span>View Employee</span></a> </li>
+  </ul>
      <?php 
       $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
       $result = mysqli_query($db, $query);
@@ -113,6 +109,13 @@ include 'Connection.php';
 <!--End-breadcrumbs-->
 
 <div class="container-fluid">
+<?php
+  if (isset($_POST['update'])){
+    $ac_id = mysqli_real_escape_string($db, $_POST['acid']);
+    $_SESSION['acid'] = $ac_id;
+    header("location: A_u_account.php?id=$ac_id");
+  }
+  ?>
     <div class="row-fluid">
       <div class="span12" >
         <div class="widget-box">
@@ -139,7 +142,7 @@ include 'Connection.php';
 
               $sess=$_SESSION['user_id'];
             //   $query = "SELECT * FROM auth_role WHERE role_id != 5;
-              $query = "SELECT fname, mname, lname, gender, email, mobile, name FROM auth_role inner join users on auth_role.user_id=users.id inner join role on auth_role.role_id=role.id WHERE auth_role.role_id != 5";
+              $query = "SELECT auth_role.id, fname, mname, lname, gender, email, mobile, name FROM auth_role inner join users on auth_role.user_id=users.id inner join role on auth_role.role_id=role.id WHERE auth_role.role_id != 5";
               $result = mysqli_query($db, $query) or die( mysqli_error($db));
 
               while($row = mysqli_fetch_array($result))
@@ -152,6 +155,10 @@ include 'Connection.php';
                   <td><?php echo $row['email']; ?></td>
                   <td><?php echo $row['mobile']; ?></td>
                   <td><?php echo $row['name']; ?></td>
+                  <td><form action="A_v_account.php" method="POST" class="form-horizontal">
+                  <input type='hidden' name='acid' value='<?php echo $row['id']; ?>' />
+                  <button type="submit" name="update" id="update" class="btn btn-success">Update</button>
+                  </form></td>
                 </tr>
               <?php } ?>
               </tbody>

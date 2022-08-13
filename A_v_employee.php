@@ -62,15 +62,11 @@ include 'Connection.php';
 <!--close-top-serch-->
 <!--sidebar-menu-->
 <div id="sidebar"><a href="DP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
-  <ul>
+<ul>
   <li><a href="Admin.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Account<b class="caret"></b></span></a> 
-      <ul>
-        <li><a href="A_r_account.php"><i class="icon-plus"></i>Create Account</a></li>
-        <li><a href="A_v_account.php"><i class="icon-eye-open"></i>View Account</a></li>
-      </ul>
-    </li>
+  <li><a href="A_v_account.php"><i class="icon icon-home"></i> <span>View Account</span></a> </li>
     <li class="active"><a href="A_v_employee.php"><i class="icon icon-home"></i> <span>View Employee</span></a> </li>
+  </ul>
      <?php 
       $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
       $result = mysqli_query($db, $query);

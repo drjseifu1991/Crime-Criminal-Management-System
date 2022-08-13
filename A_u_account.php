@@ -2,6 +2,7 @@
   session_start();
   if($_SESSION['uname']){
   $user_id=$_SESSION['user_id'] ; 
+  $ac_id = $_SESSION['acid']; 
     if($_SESSION['role_id']!=7){
       unset($_SESSION['role_id']);
       header("location: login.php");  
@@ -62,12 +63,7 @@ include 'Connection.php';
 <div id="sidebar"><a href="Admin.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
   <li><a href="Admin.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    <li class="active" class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Account<b class="caret"></b></span></a> 
-      <ul>
-        <li class="active"><a href="A_r_account.php"><i class="icon-plus"></i>Create Account</a></li>
-        <li><a href="A_v_account.php"><i class="icon-eye-open"></i>View Account</a></li>
-      </ul>
-    </li>
+  <li class="active"><a href="A_v_account.php"><i class="icon icon-home"></i> <span>View Account</span></a> </li>
     <li><a href="A_v_employee.php"><i class="icon icon-home"></i> <span>View Employee</span></a> </li>
   </ul>
 </div>
@@ -83,13 +79,17 @@ include 'Connection.php';
  
   <div class="container-fluid">
   <?php 
+
+  if(isset($_GET['id'])){
+    $id = $_GET['id'];
+    echo $id;
+  }
             if (isset($_POST['assign'])){
 
-                $user_id = mysqli_real_escape_string($db, $_POST['user_id']);
                 $role_id = mysqli_real_escape_string($db, $_POST['role_id']);
 
                         // $query = "INSERT INTO auth_role (user_id, role_id) VALUES ('$user_id', '$role_id')";
-                        $query = "UPDATE auth_role SET role_id = $role_id WHERE user_id = $user_id";
+                        $query = "UPDATE auth_role SET role_id = '$role_id' WHERE id = '$ac_id'";
                         if(mysqli_query($db, $query)) {
                           echo "User Assigned Successfully!";
                         } 
@@ -115,26 +115,7 @@ include 'Connection.php';
           <h5>Assign Role</h5>
         </div>
         <div class="widget-content nopadding">
-          <form action="A_r_account.php" method="POST" class="form-horizontal">
-            <div class="control-group">
-              <label class="control-label">User :</label>
-              <div class="controls">
-                <!--<input type="text" class="span11" name="user_id" placeholder="User ID" /> -->
-                <select name="user_id" id="user_id " class="span11">
-                  <option>Select user</option>
-                  <?php 
-                    $query = "SELECT * FROM users order by fname";
-                    $result = mysqli_query($db, $query);
-                    while($row = mysqli_fetch_array($result)){
-                      ?>
-                        <option value="<?php echo $row['id'];  ?>"><?php echo $row['fname']. ' '. $row['mname']. ' '. $row['lname']; ?></option>
-                      <?php
-                    }
-                  ?>
-                  
-                </select>
-              </div>
-            </div>
+          <form action="A_u_account.php" method="POST" class="form-horizontal">
             
             <div class="control-group">
               <label class="control-label">Role :</label>

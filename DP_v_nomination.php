@@ -108,6 +108,8 @@ include 'Connection.php';
       </ul>
     </li>
     <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-pencil"></i> <span>Post</span><b class="caret"></b></span></a>
+    <li><a href="DP_v_complain.php"><i class="icon icon-home"></i> <span>View Complain</span></a> </li>
+    <li><a href="DP_v_accusation.php"><i class="icon icon-home"></i> <span>View Accusation</span></a> </li>
     <ul>
         <li><a href="DP_notice.php"><i class="icon-plus"></i>Post Notice</a></li>
         <li><a href="DP_v_notice.php"><i class="icon-eye-open"></i>View Notice</a></li>

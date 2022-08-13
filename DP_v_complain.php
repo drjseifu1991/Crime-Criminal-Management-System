@@ -14,8 +14,12 @@
   }
 
 include 'Connection.php';
-  ?>
- 
+if (isset($_POST['update'])){
+  $c_id = mysqli_real_escape_string($db, $_POST['cid']);
+  $_SESSION['cid'] = $c_id;
+  header("location: DP_u_criminal.php?id=$c_id");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,18 +34,6 @@ include 'Connection.php';
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
 <link rel="stylesheet" href="css/jquery.gritter.css" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
- <style>
-      .widget-content  {
-        overflow-y: auto;
-        height: 540px;
-      }
-      
-      table {
-        border-collapse: collapse;
-        width: 10%;
-      }
-    
-    </style>
 
 </head>
 <body>
@@ -54,7 +46,7 @@ include 'Connection.php';
 
 
 <!--top-Header-menu-->
-<div id="user-nav" class="navbar navbar-inverse">
+<<div id="user-nav" class="navbar navbar-inverse">
   <ul class="nav">
     <li  class="" ><a title="" href="DP_profile.php">  <span class="profile"><?php  echo $_SESSION['uname']; ?></span></a>
     </li>
@@ -90,10 +82,10 @@ include 'Connection.php';
       </ul>
 
     </li>
-    <li class="active" class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-user-md"></i> <span> Accuser<b class="caret"></b></span></a>
+    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-user-md"></i> <span> Accuser<b class="caret"></b></span></a>
       <ul>
         <li><a href="DP_r_accuser.php"><i class="icon-plus"></i>Register Accuser</a></li>
-        <li class="active"><a href="DP_v_accuser.php"><i class="icon-eye-open"></i>View Accuser</a></li>
+        <li><a href="DP_v_accuser.php"><i class="icon-eye-open"></i>View Accuser</a></li>
       </ul>
     </li>
     <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-user-md"></i> <span>Accused<b class="caret"></b></span> </a>
@@ -109,7 +101,7 @@ include 'Connection.php';
       </ul>
     </li>
     <li><a href="DP_v_criminal.php"><i class="icon icon-home"></i> <span>View Criminal</span></a> </li>
-    <li><a href="DP_v_complain.php"><i class="icon icon-home"></i> <span>View Complain</span></a> </li>
+    <li class="active"><a href="DP_v_complain.php"><i class="icon icon-home"></i> <span>View Complain</span></a> </li>
     <li><a href="DP_v_accusation.php"><i class="icon icon-home"></i> <span>View Accusation</span></a> </li>
     <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-user-md"></i> <span>Report<b class="caret"></b></span></a>
       <ul>
@@ -155,39 +147,38 @@ include 'Connection.php';
 <div id="content">
 <!--breadcrumbs-->
   <div id="content-header">
-    <div id="breadcrumb"> <a href="DP_index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="DP_v_accuser.php" class="current" >View Accuser</a></div>
+    <div id="breadcrumb"> <a href="DP_index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="DP_v_crime.php" class="current" >View Crime</a></div>
   </div>
 <!--End-breadcrumbs-->
 
 <div class="container-fluid">
-    <div class="row-fluid">
+<!-- <?php
+  // if (isset($_POST['update'])){
+  //   $c_id = mysqli_real_escape_string($db, $_POST['cid']);
+  //   $_SESSION['cid'] = $c_id;
+  //   header("location: DP_u_criminal.php");
+  // }
+  if (isset($_POST['update'])){
+    $c_id = mysqli_real_escape_string($db, $_POST['cid']);
+    $_SESSION['id'] = $c_id;
+    header("location: DP_u_criminal.php?id=$c_id");
+  }
+  ?> -->
+  <div class="container-fluid">
+  <div class="row-fluid">
       <div class="span12" >
         <div class="widget-box">
           <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-            <h5>View Accuser</h5>
+            <h5>View Complain</h5>
           </div>
           <div class="widget-content nopadding">
             <table class="table table-bordered data-table">
               <thead>
                 <tr>
-                  <th>First Name</th>
-                  <th>Middle Name</th>
-                  <th>Last Name</th>
-                  <th>Gender</th>
-                  <th>Age</th>
-                  <th>Mobile</th>
-                  <th>Nationality</th>
-                  <th>Region</th>
-                  <th>Zone</th>
-                  <th>Woreda</th>
-                  <th>Kebele</th>
-                  <th>ELevel</th>
-                  <th>MStatus</th>
-                  <th>Religion</th>
-                  <th>Job</th>
-                  <th>Crime</th>
+                  <th>Case</th>
                   <th>Description</th>
-        
+                  <th>Date</th>
+                  <th>Sent By</th>
                 </tr>
               </thead>
               <tbody>
@@ -195,30 +186,17 @@ include 'Connection.php';
 
               <?php 
 
-              $query = "SELECT * FROM accuser ORDER BY id ASC";
-              $result = mysqli_query($db, $query);
+              $query = "SELECT * FROM complain inner join users on complain.user_id = users.id";
+              $result = mysqli_query($db, $query) or die;
 
               while($row = mysqli_fetch_array($result))
               {
               ?>
-                  <td><?php echo $row['fname'] ?></td>
-                  <td><?php echo $row['mname'] ?></td>
-                  <td><?php echo $row['lname'] ?></td>
-                  <td><?php echo $row['gender'] ?></td>
-                  <td><?php echo $row['age'] ?></td>
-                  <td><?php echo $row['mobile'] ?></td>
-                  <td><?php echo $row['nationality'] ?></td>
-                  <td><?php echo $row['region'] ?></td>
-                  <td><?php echo $row['zone'] ?></td>
-                  <td><?php echo $row['woreda'] ?></td>
-                  <td><?php echo $row['kebele'] ?></td>
-                  <td><?php echo $row['elevel'] ?></td>
-                  <td><?php echo $row['mstatus'] ?></td>
-                  <td><?php echo $row['religion'] ?></td>
-                  <td><?php echo $row['job'] ?></td>
-                  <td><?php echo $row['crime'] ?></td>
-                  <td><?php echo $row['description'] ?></td>
-                  
+                  <td><?php echo $row['casee'];?></td>
+                  <td><?php echo $row['description'];?></td>
+                  <td><?php echo $row['date_time'];?></td>
+                  <td><?php echo $row['fname'].' '.$row['mname'];?></td>
+                  </form></td>
                 </tr>
               <?php } ?>
               </tbody>
@@ -228,7 +206,8 @@ include 'Connection.php';
       </div>
     </div>
   </div>
-
+    
+  </div>
 
 </div>
 

@@ -47,8 +47,8 @@ if (isset($_POST['update'])){
 
 <!--top-Header-menu-->
 <<div id="user-nav" class="navbar navbar-inverse">
-  <ul class="nav">
-    <li  class="" ><a title="" href="DP_profile.php"> <span class="profile"></span></a>
+<ul class="nav">
+    <li  class="" ><a title="" href="DP_profile.php">  <span class="profile"><?php  echo $_SESSION['uname']; ?></span></a>
     </li>
     <li class=""><a href="DP_notification.php"><i class="icon icon-bell"></i> <span class="text">Notification</span></a>
     </li>
@@ -101,6 +101,8 @@ if (isset($_POST['update'])){
       </ul>
     </li>
     <li class="active"><a href="DP_v_criminal.php"><i class="icon icon-home"></i> <span>View Criminal</span></a> </li>
+    <li><a href="DP_v_complain.php"><i class="icon icon-home"></i> <span>View Complain</span></a> </li>
+    <li><a href="DP_v_accusation.php"><i class="icon icon-home"></i> <span>View Accusation</span></a> </li>
     <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-user-md"></i> <span>Report<b class="caret"></b></span></a>
       <ul>
       <li><a href="DP_g_report.php"><i class="icon-plus"></i>Generate Report</a></li>
