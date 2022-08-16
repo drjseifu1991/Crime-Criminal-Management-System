@@ -16,7 +16,7 @@
             </div>
         </header>
         <main class="main">
-            <img src="./img/hero_img.jpg" alt="">
+            <img src="./images/police.svg" alt="">
         </main>
         <footer class="footer">
             <img src="./img/facebook.png" alt="">

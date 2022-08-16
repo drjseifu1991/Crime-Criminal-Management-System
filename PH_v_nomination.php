@@ -53,10 +53,10 @@ include 'Connection.php';
 </div>
 <!--close-top-Header-menu-->
 <!--start-top-serch-->
-<div id="search">
+<!-- <div id="search">
   <input type="text" placeholder="Search here..."/>
   <button type="submit" class="tip-bottom" title="Search"><i class="icon-search icon-white"></i></button>
-</div>
+</div> -->
 <!--close-top-serch-->
 <!--sidebar-menu-->
 <div id="sidebar"><a href="PH_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>

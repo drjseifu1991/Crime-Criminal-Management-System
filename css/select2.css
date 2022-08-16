@@ -486,5 +486,5 @@ disabled look for already selected choices in the results dropdown
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-top: 1rem;
+  margin: 1rem;
 }

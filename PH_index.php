@@ -55,10 +55,10 @@ include 'Connection.php';
 </div>
 <!--close-top-Header-menu-->
 <!--start-top-serch-->
-<div id="search">
+<!-- <div id="search">
   <input type="text" placeholder="Search here..."/>
   <button type="submit" class="tip-bottom" title="Search"><i class="icon-search icon-white"></i></button>
-</div>
+</div> -->
 <!--close-top-serch-->
 <!--sidebar-menu-->
 <div id="sidebar"><a href="DP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
@@ -132,7 +132,7 @@ include 'Connection.php';
 <!--End-breadcrumbs-->
 <div class="container-fluid" style="margin-top: 1.5rem;">
 <div class="dashb">
-    <div class="card text-white bg-primary mb-3" style="width: 14rem;">
+    <div class="card text-white bg-primary mr-3 mb-3" style="width: 14rem;">
         <div class="card-body">
             <h5 class="card-title">Total Detective Police</h5>
             <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
@@ -150,7 +150,7 @@ include 'Connection.php';
             </p>
         </div>
     </div>
-    <div class="card text-white bg-secondary mb-3" style="width: 14rem;">
+    <div class="card text-white bg-secondary mr-3 mb-3" style="width: 14rem;">
       <div class="card-body">
         <h5 class="card-title">Preventive Police</h5>
         <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
@@ -168,7 +168,7 @@ include 'Connection.php';
         </p>
       </div>
     </div>
-    <div class="card text-white bg-success mb-3" style="width: 14rem;">
+    <div class="card text-white bg-success mr-3 mb-3" style="width: 14rem;">
       <div class="card-body">
         <h5 class="card-title">Traffic Police Officer</h5>
         <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
@@ -186,7 +186,7 @@ include 'Connection.php';
         </p>
       </div>
     </div>
-    <div class="card text-white bg-danger mb-3" style="width: 14rem;">
+    <div class="card text-white bg-danger mr-3 mb-3" style="width: 14rem;">
       <div class="card-body">
         <h5 class="card-title">Traffic Police</h5>
         <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
@@ -204,7 +204,7 @@ include 'Connection.php';
         </p>
       </div>
     </div>
-    <div class="card text-white bg-primary mb-3" style="width: 14rem;">
+    <div class="card text-white bg-primary mr-3 mb-3" style="width: 14rem;">
         <div class="card-body">
             <h5 class="card-title">Total Head Police</h5>
             <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
@@ -222,7 +222,7 @@ include 'Connection.php';
             </p>
         </div>
     </div>
-    <div class="card text-white bg-success mb-3" style="width: 14rem;">
+    <div class="card text-white bg-success mr-3 mb-3" style="width: 14rem;">
       <div class="card-body">
         <h5 class="card-title">Traffic Human Resource</h5>
         <p class="card-text"style="font-size:1.5rem; font-weight: bold;"> 
@@ -240,7 +240,7 @@ include 'Connection.php';
         </p>
       </div>
     </div>
-    </div>
+  </div>
     <div class="row-fluid">
     <div class="span12" >
         <div class="widget-box">

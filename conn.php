@@ -10,11 +10,11 @@ class Database extends PDO {
     public function __construct(){ 
         $this->dbtype = 'mysql'; 
         $this->host = 'localhost'; 
-        $this->user = 'root'; 
-        $this->pass = ''; 
-        $this->database = 'final_crms'; 
+        $this->user = 'id19419113_crms'; 
+        $this->pass = 'Ami82@r8RKEeMI*Y'; 
+        $this->database = 'id19419113_final_crms'; 
         $dns = $this->dbtype.':dbname='.$this->database.";host=".$this->host; 
-        parent::__construct( $dns, $this->user, $this->pass ); 
+        parent::__construct( $dns, $this->user, $this->pass );
     }     
 }
 $database = new Database();
