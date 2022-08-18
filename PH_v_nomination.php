@@ -1,7 +1,8 @@
 <?php  
   session_start();
   if($_SESSION['uname']){
-  $user_id=$_SESSION['user_id'] ; 
+  $user_id=$_SESSION['user_id'] ;
+  $date_timee = ""; 
     if($_SESSION['role_id']!=6){
       unset($_SESSION['uname']);
       unset($_SESSION['role_id']);
@@ -9,11 +10,19 @@
 
     }
   }
-  else{  
-    header("location: login.php");  
+  else{
+    header("location: login.php");
   }
 
 include 'Connection.php';
+
+  // if(isset($_GET['id'])){
+  //   $date_timee = $_GET['date_time'];
+  // }
+  if (isset($_POST['search'])){
+    $date_time = mysqli_real_escape_string($db, $_POST['date_time']);
+    header("location: PH_v_nomination_search.php?date_time=$date_time");
+  }
   ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,10 +62,12 @@ include 'Connection.php';
 </div>
 <!--close-top-Header-menu-->
 <!--start-top-serch-->
-<!-- <div id="search">
-  <input type="text" placeholder="Search here..."/>
-  <button type="submit" class="tip-bottom" title="Search"><i class="icon-search icon-white"></i></button>
-</div> -->
+<div id="search">
+  <form action="PH_v_nomination_search.php" method="post" class="form-horizontal">
+  <input type="datetime-local" name="date_time" placeholder="Search here..."/>
+  <button type="submit" class="tip-bottom" name="search" title="Search"><i class="icon-search icon-white"></i></button>
+  </form>
+</div>
 <!--close-top-serch-->
 <!--sidebar-menu-->
 <div id="sidebar"><a href="PH_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
@@ -71,7 +82,6 @@ include 'Connection.php';
     <li><a href="PH_v_comment.php"><i class="icon icon-home"></i> <span>View Comment</span></a> </li>
     <li class="active"><a href="PH_v_nomination.php"><i class="icon icon-home"></i> <span>View Nomination</span></a> </li>
     <li><a href="PH_r_MCriminal.php"><i class="icon icon-home"></i> <span>Post Missing Criminal</span></a> </li>
-    <li><a href="PH_t_recovery.php"><i class="icon icon-home"></i> <span>Take Recovery</span></a> </li>
     <li><a href="PH_v_r_accident.php"><i class="icon icon-home"></i> <span>View Traffic Accident Report</span></a> </li>
     <li><a href="PH_v_r_crime.php"><i class="icon icon-home"></i> <span>View Criminal Report</span></a> </li>
     <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Presecuter<b class="caret"></b></span></a> 

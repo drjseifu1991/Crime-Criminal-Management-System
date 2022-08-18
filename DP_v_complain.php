@@ -186,7 +186,7 @@ if (isset($_POST['update'])){
 
               <?php 
 
-              $query = "SELECT * FROM complain inner join users on complain.user_id = users.id";
+              $query = "SELECT casee, complain.description, complain.date_time, users.fname, users.mname FROM complain inner join users on complain.user_id = users.id";
               $result = mysqli_query($db, $query) or die;
 
               while($row = mysqli_fetch_array($result))

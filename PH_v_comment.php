@@ -74,7 +74,6 @@ include 'Connection.php';
     <li class="active"><a href="PH_v_comment.php"><i class="icon icon-home"></i> <span>View Comment</span></a> </li>
     <li><a href="PH_v_nomination.php"><i class="icon icon-home"></i> <span>View Nomination</span></a> </li>
     <li><a href="PH_r_MCriminal.php"><i class="icon icon-home"></i> <span>Post Missing Criminal</span></a> </li>
-    <li><a href="PH_t_recovery.php"><i class="icon icon-home"></i> <span>Take Recovery</span></a> </li>
     <li><a href="PH_v_r_accident.php"><i class="icon icon-home"></i> <span>View Traffic Accident Report</span></a> </li>
     <li><a href="PH_v_r_crime.php"><i class="icon icon-home"></i> <span>View Criminal Report</span></a> </li>
     <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Presecuter<b class="caret"></b></span></a> 

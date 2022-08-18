@@ -1,7 +1,8 @@
 <?php  
   session_start();
   if($_SESSION['uname']){
-  $user_id=$_SESSION['user_id'] ; 
+  $user_id=$_SESSION['user_id'] ;
+  $date_timee = "";  
     if($_SESSION['role_id']!=3 && $_SESSION['role_id']!=1){
       unset($_SESSION['role_id']);
       header("location: login.php");  
@@ -13,6 +14,14 @@
   }
 
 include 'Connection.php';
+// if(isset($_GET['id'])){
+//   $date_timee = $_GET['date_time'];
+// }
+if (isset($_POST['search'])){
+  $date_time = mysqli_real_escape_string($db, $_POST['date_time']);
+  header("location: CPP_v_nomination_search.php?date_time=$date_time");
+}
+?>
   ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,10 +61,12 @@ include 'Connection.php';
 </div>
 <!--close-top-Header-menu-->
 <!--start-top-serch-->
-<!-- <div id="search">
-  <input type="text" placeholder="Search here..."/>
-  <button type="submit" class="tip-bottom" title="Search"><i class="icon-search icon-white"></i></button>
-</div> -->
+<div id="search">
+  <form action="CPP_v_nomination_search.php" method="post" class="form-horizontal">
+  <input type="datetime-local" name="date_time" placeholder="Search here..."/>
+  <button type="submit" class="tip-bottom" name="search" title="Search"><i class="icon-search icon-white"></i></button>
+  </form>
+</div>
 <!--close-top-serch-->
 <!--sidebar-menu-->
 <div id="sidebar"><a href="CPP_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
@@ -149,7 +160,7 @@ include 'Connection.php';
                   <td><?php echo $row['kebele'] ?></td>
                   <td><?php echo $row['village'] ?></td>
                   <td><?php echo $row['ndatetime'] ?></td>
-                  <td><?php echo $row['file'] ?></td>
+                  <td><a href="uploads/<?php echo $row['file'] ?>" target = "_blank" ><?php echo $row['file'] ?></a> </td>
                   <td><?php echo $row['description'] ?></td>
                   <td><?php echo $row['datetime'] ?></td>
                 </tr>

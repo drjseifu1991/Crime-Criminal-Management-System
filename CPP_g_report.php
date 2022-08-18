@@ -52,9 +52,7 @@ include 'Connection.php';
   <ul class="nav">
     <li  class="" ><a title="" href="TP_profile.php"><span class="profile"><?php  echo $_SESSION['uname']; ?></span></a>
     </li>
-    <li class=""><a href="TP_notification.php"><i class="icon icon-bell"></i> <span class="text">Notification</span></a>
-    </li>
-    <li class=""><a title="" href="TP_setting.php"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
+   
     <li class=""><a title="" href="logout.php"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
   </ul>
 </div>

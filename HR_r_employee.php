@@ -317,9 +317,8 @@ include 'Connection.php';
                 <div class="control-group">
                 <label class="control-label">Gender :</label>
                 <div class="controls">
-                    <input type="radio" name="gender" value="male"> Male<br>
+                    <input type="radio" name="gender" value="male" checked> Male<br>
                     <input type="radio" name="gender" value="female"> Female<br>
-                    <input type="radio" name="gender" value="other"> Other<br>
                     <span class="error"><?php echo $gender_err; ?></span>
                 </div>
                 </div>

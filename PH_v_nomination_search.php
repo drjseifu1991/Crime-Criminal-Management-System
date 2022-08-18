@@ -1,7 +1,8 @@
 <?php  
   session_start();
   if($_SESSION['uname']){
-  $user_id=$_SESSION['user_id'] ; 
+  $user_id=$_SESSION['user_id'] ;
+  $date_timee = ""; 
     if($_SESSION['role_id']!=6){
       unset($_SESSION['uname']);
       unset($_SESSION['role_id']);
@@ -9,11 +10,19 @@
 
     }
   }
-  else{  
-    header("location: login.php");  
+  else{
+    header("location: login.php");
   }
 
 include 'Connection.php';
+
+  if(isset($_GET['id'])){
+    $date_timee = $_GET['date_time'];
+  }
+  if (isset($_POST['search'])){
+    $date_time = mysqli_real_escape_string($db, $_POST['date_time']);
+    header("location: PH_v_nomination_search.php?date_time=$date_time");
+  }
   ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,8 +39,6 @@ include 'Connection.php';
 <link rel="stylesheet" href="css/jquery.gritter.css" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 
-
-
 </head>
 <body>
 
@@ -45,7 +52,7 @@ include 'Connection.php';
 <!--top-Header-menu-->
 <div id="user-nav" class="navbar navbar-inverse">
   <ul class="nav">
-    <li  class="" ><a title="" href="DP_profile.php"> <span class="profile"><?php  echo $_SESSION['uname']; ?></span></a>
+    <li  class="" ><a title="" href="DP_profile.php">  <span class="profile"><?php  echo $_SESSION['uname']; ?></span></a>
     </li>
     <li class=""><a href="DP_notification.php"><i class="icon icon-bell"></i> <span class="text">Notification</span></a>
     </li>
@@ -55,25 +62,27 @@ include 'Connection.php';
 </div>
 <!--close-top-Header-menu-->
 <!--start-top-serch-->
-<!-- <div id="search">
-  <input type="text" placeholder="Search here..."/>
-  <button type="submit" class="tip-bottom" title="Search"><i class="icon-search icon-white"></i></button>
-</div> -->
+<div id="search">
+  <form action="PH_v_nomination_search.php" method="post" class="form-horizontal">
+  <input type="datetime-local" name="date_time" placeholder="Search here..."/>
+  <button type="submit" class="tip-bottom" name="search" title="Search"><i class="icon-search icon-white"></i></button>
+  </form>
+</div>
 <!--close-top-serch-->
 <!--sidebar-menu-->
-<div id="sidebar"><a href="PH_index.php" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
-  <ul>
-  <li><a href="PH_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    <li class="active" class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Assign<b class="caret"></b></span></a> 
+<div id="sidebar"><a href="PH_index.php"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+<ul>
+    <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Assign<b class="caret"></b></span></a> 
       <ul>
         <li><a href="PH_assign.php"><i class="icon-plus"></i>Assign Police</a></li>
-        <li class="active"><a href="PH_placement.php"><i class="icon-eye-open"></i>View Placement</a></li>
+        <li><a href="PH_placement.php"><i class="icon-eye-open"></i>View Placement</a></li>
       </ul>
     </li>
     <li><a href="PH_v_employee.php"><i class="icon icon-home"></i> <span>View Employee</span></a> </li>
     <li><a href="PH_v_comment.php"><i class="icon icon-home"></i> <span>View Comment</span></a> </li>
-    <li><a href="PH_v_nomination.php"><i class="icon icon-home"></i> <span>View Nomination</span></a> </li>
+    <li class="active"><a href="PH_v_nomination.php"><i class="icon icon-home"></i> <span>View Nomination</span></a> </li>
     <li><a href="PH_r_MCriminal.php"><i class="icon icon-home"></i> <span>Post Missing Criminal</span></a> </li>
+    <li><a href="PH_t_recovery.php"><i class="icon icon-home"></i> <span>Take Recovery</span></a> </li>
     <li><a href="PH_v_r_accident.php"><i class="icon icon-home"></i> <span>View Traffic Accident Report</span></a> </li>
     <li><a href="PH_v_r_crime.php"><i class="icon icon-home"></i> <span>View Criminal Report</span></a> </li>
     <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="icon icon-map-marker"></i> <span>Presecuter<b class="caret"></b></span></a> 
@@ -88,34 +97,6 @@ include 'Connection.php';
         <li><a href="PH_r_i_report.php"><i class="icon-eye-open"></i>Send Report</a></li>
       </ul>
     </li>
-     <?php 
-      $query = "SELECT role_id FROM auth_role where user_id='$user_id'";
-      $result = mysqli_query($db, $query);
-
-      echo '<ul>';
-        while($row = mysqli_fetch_array($result)){
-        $r_id=$row['role_id'];
-        if ($r_id==2) 
-        {
-      echo '<li><a href="TPO_index.php"><i class="icon-signin"></i>Traffic Officer</a></li>';
-        }
-        else if ($r_id==3) 
-        {
-      echo '<li><a href="CPP_index.php"><i class="icon-signin"></i>Preventive Police</a></li>';
-        }
-        else if ($r_id==4)
-        {
-      echo '<li><a href="TP_index.php"><i class="icon-signin"></i>Traffic Police</a></li>';
-        }
-        else if ($r_id==5) 
-        {
-      echo '<li><a href="C_index.php"><i class="icon-signin"></i>Customer</a></li>';
-        }
-        }
-      echo '</ul>';
-     ?>
-    </li>
-
   
   </ul>
 </div>
@@ -125,31 +106,29 @@ include 'Connection.php';
 <div id="content">
 <!--breadcrumbs-->
   <div id="content-header">
-    <div id="breadcrumb"> <a href="DP_index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="DP_v_history.php" class="current" >View Placement History</a></div>
+    <div id="breadcrumb"> <a href="DP_index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="DP_v_nomination.php" class="current" >View Nomination</a></div>
   </div>
 <!--End-breadcrumbs-->
-
 <div class="container-fluid">
     <div class="row-fluid">
       <div class="span12" >
         <div class="widget-box">
           <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-            <h5>View Placement History</h5>
+            <h5>View Nomination</h5>
           </div>
           <div class="widget-content nopadding">
             <table class="table table-bordered data-table">
               <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>First Name</th>
-                  <th>Middle Name</th>
-                  <th>Last Name</th>
-                  <th>Mobile</th>
+                  <th>Reporter Name</th>
+                  <th>Nomination Type</th>
                   <th>Kebele</th>
                   <th>Place</th>
-                  <th>Starting time</th>
-                  <th>Finishing time</th>
-                  <th>Registration time</th>
+                  <th>Date</th>
+                  <th>File</th>
+                  <th>Description</th>
+                  <th>RDatetime</th>
+                  
                 </tr>
               </thead>
               <tbody>
@@ -157,23 +136,24 @@ include 'Connection.php';
 
               <?php 
 
-              $sess=$_SESSION['user_id'];
-              $query = "SELECT user_place.id, fname, mname, lname, mobile, kebele, place, stime, ftime, rtime FROM users inner join user_place on users.id=user_place.user_id inner join placement on user_place.place_id=placement.id";
-              $result = mysqli_query($db, $query) or die( mysqli_error($db));
+              $query = "SELECT * FROM nomination WHERE nomination.ndatetime = '$date_timee' ORDER BY id DESC";
+              $result = mysqli_query($db, $query);
 
               while($row = mysqli_fetch_array($result))
               {
               ?>
-                  <td><?php echo $row['id']; ?></td>
-                  <td><?php echo $row['fname']; ?></td>
-                  <td><?php echo $row['mname']; ?></td>
-                  <td><?php echo $row['lname']; ?></td>
-                  <td><?php echo $row['mobile']; ?></td>
-                  <td><?php echo $row['kebele']; ?></td>
-                  <td><?php echo $row['place']; ?></td>
-                  <td><?php echo $row['stime']; ?></td>
-                  <td><?php echo $row['ftime']; ?></td>
-                  <td><?php echo $row['rtime']; ?></td>
+                  <td><?php $accu=$row['user_id'];
+              $query = "SELECT fname,  mname FROM nomination inner join users on user_id=users.id where users.id='$accu'";
+              $result1 = mysqli_query($db, $query);              if($row1 = mysqli_fetch_array($result1))
+              {echo $row1['fname'] ." ". $row1['mname']; }?></td>
+                  <td><?php echo $row['ntype'] ?></td>
+                  <td><?php echo $row['kebele'] ?></td>
+                  <td><?php echo $row['village'] ?></td>
+                  <td><?php echo $row['ndatetime'] ?></td>
+                  <td><a href="uploads/<?php echo $row['file'] ?>" target = "_blank" ><?php echo $row['file'] ?></a> </td>
+                  <td><?php echo $row['description'] ?></td>
+                  <td><?php echo $row['datetime'] ?></td>
+                  
                 </tr>
               <?php } ?>
               </tbody>
@@ -183,6 +163,7 @@ include 'Connection.php';
       </div>
     </div>
   </div>
+
 
 </div>
 

@@ -147,7 +147,7 @@ if(isset($_POST['login'])){
         
     }
     else {  
-      $password_err = "Incorrect password!";
+      $password_err = "Incorrect user name or password!";
       $_SESSION['message'] = "You're not Logged successfully";
       }
    

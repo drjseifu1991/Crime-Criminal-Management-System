@@ -16,14 +16,17 @@
             </div>
         </header>
         <main class="main">
-            <img src="./images/police.svg" alt="">
+            <!-- <img src="./images/police.svg" alt=""> -->
+            <p>
+                Write your contact text here!
+            </p>
         </main>
-        <footer class="footer">
+        <!-- <footer class="footer">
             <img src="./img/facebook.png" alt="">
             <img src="./img/telegram.png" alt="">
             <img src="./img/instagram.png" alt="">
             <img src="./img/twitter.png" alt="">
             <img src="./img/youtube.png" alt="">
-        </footer>
+        </footer> -->
     </body>
 </html>

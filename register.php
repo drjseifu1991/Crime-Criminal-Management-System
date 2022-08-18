@@ -26,6 +26,7 @@
         //$fname_err = array();
 
         if (empty ($_POST["fname"])) {  
+
             //array_push($fname_err, "You didn't enter the first name.");
             $fname_err = "You didn't enter the first name.";
             //return;    
@@ -39,8 +40,7 @@
               // check if name only contains letters and whitespace  
         
         else if (empty ($_POST["mname"])) {  
-        $mname_err = "You didn't enter the middle name.";
-        //return;    
+        $mname_err = "You didn't enter the middle name.";   
          } 
 
         else if (!ctype_alpha(str_replace(' ', '', $mname))) {
@@ -131,69 +131,69 @@
           $cpassword_err = "Password not match!";
           //return;
         }
-
-        $user_query_1 = "SELECT * FROM users WHERE uname='$uname'";
-        $result_1 = mysqli_query($db, $user_query_1);
-        $user_1 = mysqli_fetch_assoc($result_1);
-
-        $user_query_2 = "SELECT * FROM users WHERE email='$email'";
-        $result_2 = mysqli_query($db, $user_query_2);
-        $user_2 = mysqli_fetch_assoc($result_2);
-
-        $user_query_3 = "SELECT * FROM users WHERE mobile='$mobile'";
-        $result_3 = mysqli_query($db, $user_query_3);
-        $user_3 = mysqli_fetch_assoc($result_3);
-
-        if(mysqli_num_rows($result_1) == 1){
-          $uname_err = "Username aleredy exist! please try again.";
-          //return;
-        }
-
-                                 
-        else if(mysqli_num_rows($result_2) == 1){
-          $email_err = "Email aleredy exist! please try again.";
-          //return;
-        }
-
-                  
-
-        else if(mysqli_num_rows($result_3) == 1){
-          $mobile_err = "Mobile number aleredy exist! please try again.";
-          //return;
-        }
-
-        // if($valid == True){
-        //   $password = md5($password);
-        //   $query = "INSERT INTO users (fname, mname, lname, gender, age, job, mobile, email, uname, password) VALUES ('$fname', '$mname', '$lname', '$gender', '$age', '$job', '$mobile', '$email', '$uname', '$password' )";
-        //   $query_result = mysqli_query($db, $query);
-        //   if($query_result) {
-        //     $_SESSION['message'] = "You are registered successfully.";
-        //     header('location: A_r_assign.php');
-        //   }
-        // } 
-        
-        $password = md5($password);  
-        $query = "INSERT INTO users (fname, mname, lname, gender, age, job, mobile, email, uname, password) VALUES ('$fname', '$mname', '$lname', '$gender', '$age', '$job', '$mobile', '$email', '$uname', '$password' )";
-
-     
-      
-        $query1_result = mysqli_query($db, $query);
-        if($query1_result) {
-          $query = "SELECT * FROM users where uname='$uname' ";
-          $result = mysqli_query($db, $query);
-          $user = mysqli_fetch_array($result);
-          $id= $user['id'];
-
-          $query = "INSERT INTO auth_role (user_id, role_id) VALUES ('$id', 5)";
-          mysqli_query($db, $query);
-
-          $_SESSION['message'] = "You are registered successfully. Now you can login to the system.";
-          header('location: login.php');
-        }
         else {
-          $_SESSION['message'] = "Sorrrrrrrrr. Now you can login to the system.";
-        }
+          $user_query_1 = "SELECT * FROM users WHERE uname='$uname'";
+          $result_1 = mysqli_query($db, $user_query_1);
+          $user_1 = mysqli_fetch_assoc($result_1);
+
+          $user_query_2 = "SELECT * FROM users WHERE email='$email'";
+          $result_2 = mysqli_query($db, $user_query_2);
+          $user_2 = mysqli_fetch_assoc($result_2);
+
+          $user_query_3 = "SELECT * FROM users WHERE mobile='$mobile'";
+          $result_3 = mysqli_query($db, $user_query_3);
+          $user_3 = mysqli_fetch_assoc($result_3);
+
+          if(mysqli_num_rows($result_1) == 1){
+            $uname_err = "Username aleredy exist! please try again.";
+            //return;
+          }
+
+                                  
+          else if(mysqli_num_rows($result_2) == 1){
+            $email_err = "Email aleredy exist! please try again.";
+            //return;
+          }
+
+                    
+
+          else if(mysqli_num_rows($result_3) == 1){
+            $mobile_err = "Mobile number aleredy exist! please try again.";
+            //return;
+          }
+
+          // if($valid == True){
+          //   $password = md5($password);
+          //   $query = "INSERT INTO users (fname, mname, lname, gender, age, job, mobile, email, uname, password) VALUES ('$fname', '$mname', '$lname', '$gender', '$age', '$job', '$mobile', '$email', '$uname', '$password' )";
+          //   $query_result = mysqli_query($db, $query);
+          //   if($query_result) {
+          //     $_SESSION['message'] = "You are registered successfully.";
+          //     header('location: A_r_assign.php');
+          //   }
+          // } 
+          
+          $password = md5($password);  
+          $query = "INSERT INTO users (fname, mname, lname, gender, age, job, mobile, email, uname, password) VALUES ('$fname', '$mname', '$lname', '$gender', '$age', '$job', '$mobile', '$email', '$uname', '$password' )";
+
+      
         
+          $query1_result = mysqli_query($db, $query);
+          if($query1_result) {
+            $query = "SELECT * FROM users where uname='$uname' ";
+            $result = mysqli_query($db, $query);
+            $user = mysqli_fetch_array($result);
+            $id= $user['id'];
+
+            $query = "INSERT INTO auth_role (user_id, role_id) VALUES ('$id', 5)";
+            mysqli_query($db, $query);
+
+            $_SESSION['message'] = "You are registered successfully. Now you can login to the system.";
+            header('location: login.php');
+          }
+          else {
+            $_SESSION['message'] = "Sorrrrrrrrr. you are not login to the system.";
+          }
+        }
      }        
       ?>
 
@@ -267,9 +267,8 @@
             <div class="control-group">
               <label class="control-label">Gender :</label>
               <div class="controls">
-                <input type="radio" name="gender" value="male"> Male<br>
+                <input type="radio" name="gender" value="male" checked> Male<br>
                 <input type="radio" name="gender" value="female"> Female<br>
-                <input type="radio" name="gender" value="other"> Other<br>
                 <span class="error"><?php echo $gender_err; ?></span>
               </div>
             </div>
